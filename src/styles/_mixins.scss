@@ -23,6 +23,10 @@ $flex-map: (
   center: center,
 );
 
+@function flex-value($key) {
+  @return map-get($flex-map, $key);
+}
+
 @mixin flexbox($jc: center, $ai: center) {
   display: flex;
   justify-content: flex-value($jc);

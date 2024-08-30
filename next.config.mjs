@@ -3,6 +3,9 @@ import withPWA from "next-pwa";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  sassOptions: {
+    additionalData: '@import "@/styles/main.scss";',
+  },
   // 다른 Next.js 설정들
 };
 
