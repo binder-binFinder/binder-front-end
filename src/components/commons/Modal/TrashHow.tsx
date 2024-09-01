@@ -15,7 +15,7 @@ interface IModalProps {
 }
 
 export default function Modal({ modalState, modalClose }: IModalProps) {
-  const [modalHow, setModalHow] = useState<string>("심사 중");
+  const [modalHow, setModalHow] = useState<string>("거절");
   // 거절, 승인 ,심사 중
   const date = new Date();
   const name = "oo";
@@ -89,3 +89,7 @@ export default function Modal({ modalState, modalClose }: IModalProps) {
     </Portal>
   );
 }
+
+Modal.defaultProps = {
+  modalState: "거절",
+};
