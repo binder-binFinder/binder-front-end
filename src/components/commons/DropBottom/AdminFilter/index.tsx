@@ -23,7 +23,7 @@ export default function AdminFilter() {
     <DropWrap
       title="처리 상태"
       btn="적용"
-      closeBtn={undefined}
+      closeBtn={() => {}}
       submitState={submit}
     >
       <div className={cn("wrap")}>

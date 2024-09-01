@@ -33,7 +33,7 @@ export default function DropReason() {
     <DropWrap
       title="거절 사유 입력"
       btn="등록"
-      closeBtn={undefined}
+      closeBtn={() => {}}
       btnFunction={handleSubmit(onSubmit)}
       submitState={submit}
     >

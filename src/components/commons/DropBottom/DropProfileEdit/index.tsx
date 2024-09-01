@@ -42,7 +42,7 @@ export default function DropProfileEdit() {
     <DropWrap
       title="프로필 수정"
       btn="적용"
-      closeBtn={undefined}
+      closeBtn={() => {}}
       btnFunction={handleSubmit(onSubmit)}
       submitState={submit}
     >
