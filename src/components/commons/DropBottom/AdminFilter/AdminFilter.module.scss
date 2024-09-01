@@ -1,0 +1,37 @@
+@import "@/styles/main.scss";
+
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+.btn {
+  flex: 1;
+  // width: 11.4rem;
+  height: 4.4rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  border: 1px solid #c4c4c4;
+  color: #c4c4c4;
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.btnOn {
+  flex: 1;
+  // width: 11.4rem;
+  height: 4.4rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  border: 1px solid #515f58;
+  color: #515f58;
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
