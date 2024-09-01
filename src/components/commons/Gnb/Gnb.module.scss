@@ -1,0 +1,34 @@
+@import "@/styles/main.scss";
+
+.gnbWrap {
+  width: 100%;
+  height: 7.6rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: pink;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem 3.5rem;
+  background: #fff;
+  box-shadow: 0px 0px 10px 0px #b8c4c0;
+}
+
+.gnbMenuImg {
+  width: 2.4rem;
+  height: 2.4rem;
+  position: relative;
+}
+.gnb,
+.gnbOn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.gnbOn {
+  color: #0bb76d;
+}
