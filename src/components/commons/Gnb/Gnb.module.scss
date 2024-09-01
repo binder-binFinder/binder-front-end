@@ -2,16 +2,17 @@
 
 .gnbWrap {
   width: 100%;
+  max-width: 39rem;
   height: 7.6rem;
   position: fixed;
   bottom: 0;
-  left: 0;
-  background-color: pink;
+  left: 50%;
   display: flex;
   justify-content: space-between;
   padding: 1.6rem 3.5rem;
   background: #fff;
   box-shadow: 0px 0px 10px 0px #b8c4c0;
+  transform: translateX(-50%);
 }
 
 .gnbMenuImg {

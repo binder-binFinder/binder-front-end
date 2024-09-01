@@ -8,9 +8,9 @@ const cn = classNames.bind(styles);
 interface DropProps {
   children: React.ReactElement;
   title: string;
-  closeBtn: any;
+  closeBtn: () => void;
   btn: string;
-  btnFunction?: any;
+  btnFunction?: () => void;
   submitState: boolean;
 }
 

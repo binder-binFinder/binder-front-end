@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div style={{ width: "390px", margin: "0 auto" }}>
         <Component {...pageProps} />
         <ReactQueryDevtools initialIsOpen={false} />
+        <Gnb />
       </div>
     </QueryClientProvider>
   );
