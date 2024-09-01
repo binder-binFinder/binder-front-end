@@ -1,0 +1,49 @@
+@import "@/styles/main.scss";
+
+.dropWrap {
+  width: 100%;
+  border-radius: 1.4rem 1.4rem 0 0;
+  padding: 2rem 1.7rem;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
+}
+
+.dropTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #06130d;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.dropClose {
+  width: 3.5rem;
+  height: 3.5rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.dropChildren {
+  width: 100%;
+  padding: 2.2rem 0;
+}
+.dropBtnOn,
+.dropBtn {
+  width: 100%;
+  min-width: 35.6rem;
+  height: 4.4rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dropBtn {
+  background: #94ccb4;
+}
+.dropBtnOn {
+  background: #0bb76d;
+  cursor: pointer;
+}

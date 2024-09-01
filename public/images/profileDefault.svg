@@ -1,0 +1,14 @@
+<svg width="86" height="87" viewBox="0 0 86 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 33440">
+<circle id="Ellipse 19" cx="43" cy="43" r="43" fill="#D5F1E5"/>
+<path id="Vector" d="M43 41C50.1797 41 56 35.1797 56 28C56 20.8203 50.1797 15 43 15C35.8203 15 30 20.8203 30 28C30 35.1797 35.8203 41 43 41Z" fill="#B2DBC9"/>
+<g id="Mask group">
+<mask id="mask0_2002_1873" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="13" y="44" width="61" height="43">
+<path id="Union" fill-rule="evenodd" clip-rule="evenodd" d="M13 73V72H13.0178C13.5721 56.4463 27.0068 44 43.5 44C59.9932 44 73.4279 56.4463 73.9822 72H74V73V87H13V73Z" fill="#91BAA9"/>
+</mask>
+<g mask="url(#mask0_2002_1873)">
+<circle id="Ellipse 20" cx="43" cy="43" r="43" fill="#B2DBC9"/>
+</g>
+</g>
+</g>
+</svg>
