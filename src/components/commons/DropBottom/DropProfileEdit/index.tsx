@@ -108,7 +108,7 @@ export default function DropProfileEdit() {
             {...register("nickname", {
               minLength: 2,
             })}
-            maxLength={20}
+            maxLength={10}
             placeholder="한글, 영어, 숫자만 사용가능 (2자 이상)"
           />
         </div>
