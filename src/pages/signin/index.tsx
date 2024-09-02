@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMembersMe } from "@/lib/apis/getMembersMe";
 import { useAtom } from "jotai";
-import { userAtom } from "@/lib/atoms/useratom";
+import { userAtom } from "@/lib/atoms/userAtom";
 
 const cn = classNames.bind(styles);
 
