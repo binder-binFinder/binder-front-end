@@ -13,19 +13,11 @@ describe("로그인 화면", () => {
 
     //소셜 로그인 창으로 이동한다.
 
-    //cy.url().should("include", "accounts.google.com");
-    // cy.visit("https://api.bin-finder.net/oauth2/authorization/google");
+    cy.url().should("include", "accounts.google.com");
+    cy.visit("https://api.bin-finder.net/oauth2/authorization/google");
 
-    // cy.intercept("POST", "/auth/callback", {
-    //   statusCode: 200,
-    //   body: {
-    //     success: true,
-    //     token: "accessToken1111",
-    //   },
-    // }).as("loginRequest");
-
-    // cy.getCookie("accessToken").should("exist");
-    // cy.getCookie("accessToken").should("have.property", "value", "accessToken1111");
+    cy.getCookie("accessToken").should("exist");
+    cy.getCookie("accessToken").should("have.property", "value", "accessToken1111");
 
     // then - 로그인에 성공 후 [???] 페이지로 이동한다.
   });
