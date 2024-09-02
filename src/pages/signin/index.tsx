@@ -12,17 +12,14 @@ const cn = classNames.bind(styles);
 export default function Signin() {
   const [user, setUser] = useAtom(userAtom);
 
-  const { data: userData, isLoading, isError } = useQuery({ queryKey: ["user"], queryFn: () => getMembersMe() });
+  // const { data: userData, isLoading, isError } = useQuery({ queryKey: ["user"], queryFn: () => getMembersMe() });
 
-  useEffect(() => {
-    if (userData && !user) {
-      setUser(userData);
-      console.log(userData);
-    }
-  }, [userData, user, setUser]);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading user data</div>;
+  // useEffect(() => {
+  //   if (userData && !user) {
+  //     setUser(userData);
+  //     console.log(userData);
+  //   }
+  // }, [userData, user, setUser]);
 
   //.env 에 담아서 url 변수로 지정하기 -- 나중에
   const handleClickKakaoSignIn = () => {
