@@ -1,12 +1,12 @@
 import Image from "next/image";
 import styles from "./Card.module.scss";
 import classNames from "classnames/bind";
-import { CardProps } from "../CardList";
+import { CardProps, Status } from "../CardList";
 import { useState } from "react";
 
 const cn = classNames.bind(styles);
 
-const STATUSTEXT = {
+const STATUSTEXT: Record<Status, string>  = {
   approve: "승인",
   reject: "거절",
   judge: "검토 중",
@@ -16,6 +16,8 @@ export default function Card({ ...item }: CardProps) {
   //데이터 받아올 때 다시 처리해야 할 듯...?
   const [isLike, setIsLike] = useState(item.likes?.mylike);
   const [likeCounter, setLikeCounter] = useState(item.likes?.count);
+  const statusText = STATUSTEXT[item.status as Status];
+
 
   const completed = item.isAdmin && item.status !== "judge";
 
@@ -52,7 +54,7 @@ export default function Card({ ...item }: CardProps) {
       <div className={cn("card-text-box")}>
         <div className={cn("card-title-box")}>
           <h4 className={cn("card-title")}>{item.name}</h4>
-          {isAdminjudging() && <span className={cn("card-tag", item.status)}>{STATUSTEXT[item.status]}</span>}
+          {isAdminjudging() && <span className={cn("card-tag", item.status)}>{statusText}</span>}
         </div>
         <p className={cn("card-address")}>{item.address}</p>
         <div className={cn("card-likes", { mylike: isLike, admin: item.isAdmin })}>

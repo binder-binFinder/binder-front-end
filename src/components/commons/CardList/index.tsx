@@ -4,30 +4,21 @@ import classNames from "classnames/bind";
 
 const cn = classNames.bind(styles);
 
+
+export type Status =  "reject" | "approve" | "judge" ;
 export interface CardProps {
   name: string;
   address: string;
   createdAt: string;
   isAdmin: boolean;
   admin?: string;
-  status: "reject" | "approve" | "judge";
+  status:Status |string;
   likes?: {
     count: number;
     mylike: boolean;
   };
   id: number;
-}
 
-export default function CardList() {
-  return (
-    <ul className={cn("card-list")}>
-      {mook.map((item) => (
-        <li key={item.id}>
-          <Card {...item} />
-        </li>
-      ))}
-    </ul>
-  );
 }
 
 const mook = [
@@ -61,3 +52,17 @@ const mook = [
     id: 3,
   },
 ];
+
+
+export default function CardList() {
+  return (
+    <ul className={cn("card-list")}>
+      {mook.map((item) => (
+        <li key={item.id}>
+          <Card {...item}  />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
