@@ -9,15 +9,9 @@
   "start_url": "/",
   "icons": [
     {
-<<<<<<< HEAD
-      "src": "/images/logo.jpg",
-      "sizes": "72x72 96x96 128x128 144x144 152x152 192x192 384x384 512x512",
-      "type": "image/jpg",
-=======
       "src": "/images/logo.png",
       "sizes": "100x100",
       "type": "image/png",
->>>>>>> 0ed2afd86699b9b95c4df3e884a1b74a82a171a1
       "purpose": "maskable any"
     }
   ]

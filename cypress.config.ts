@@ -8,5 +8,7 @@ export default defineConfig({
   // },
   e2e: {
     baseUrl: "http://localhost:3000",
+    //소셜 로그인 테스트 때문에 추가
+    experimentalModifyObstructiveThirdPartyCode: true,
   },
 });
