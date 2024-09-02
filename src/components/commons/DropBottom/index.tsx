@@ -23,21 +23,23 @@ export default function DropWrap({
   submitState = false,
 }: DropProps) {
   return (
-    <div className={cn("dropWrap")}>
-      <div className={cn("dropTitle")}>
-        <div>{title}</div>
-        <div className={cn("dropClose")} onClick={closeBtn}>
-          <Image src={close} fill alt="닫기" sizes="35px" />
+    <div className={cn("drop")}>
+      <div className={cn("dropWrap")}>
+        <div className={cn("dropTitle")}>
+          <div>{title}</div>
+          <div className={cn("dropClose")} onClick={closeBtn}>
+            <Image src={close} fill alt="닫기" sizes="35px" />
+          </div>
         </div>
-      </div>
 
-      <div className={cn("dropChildren")}>{children}</div>
+        <div className={cn("dropChildren")}>{children}</div>
 
-      <div
-        onClick={submitState ? btnFunction : () => {}}
-        className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
-      >
-        {btn}
+        <div
+          onClick={submitState ? btnFunction : () => {}}
+          className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
+        >
+          {btn}
+        </div>
       </div>
     </div>
   );

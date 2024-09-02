@@ -16,8 +16,14 @@ interface IFormInput {
 
 export default function DropProfileEdit() {
   const [submit, setSubmit] = useState<boolean>(false);
+  const [submitNick, setSubmitNick] = useState<boolean>(false);
 
-  const { register, handleSubmit, control } = useForm<IFormInput>();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
   };
@@ -33,9 +39,11 @@ export default function DropProfileEdit() {
     name: "nickname",
     defaultValue: "",
   });
-
   useEffect(() => {
-    setSubmit(profileImg.length > 0 || nickname !== "");
+    setSubmit(
+      profileImg.length > 0 || (nickname !== "" && nickname.length > 1)
+    );
+    setSubmitNick(nickname.length > 1);
   }, [profileImg, nickname]);
 
   return (
@@ -47,16 +55,16 @@ export default function DropProfileEdit() {
       submitState={submit}
     >
       <form onSubmit={handleSubmit(onSubmit)} className={cn("profiltEditWrap")}>
-        <div className={cn("imgEditWrap")}>
+        <label htmlFor="profileImg" className={cn("imgEditWrap")}>
           <div className={cn("profileImg")}>
             <Image src={defaultImg} alt="프로필 이미지" fill />
           </div>
-          <label htmlFor="profileImg" className={cn("profileEdit")}>
+          <div className={cn("profileEdit")}>
             <div className={cn("profileEditimg")}>
               <Image src={profileEdit} alt="프로필 편집 이미지" fill />
             </div>
-          </label>
-        </div>
+          </div>
+        </label>
         <input
           className={cn("profile")}
           id="profileImg"
@@ -66,15 +74,42 @@ export default function DropProfileEdit() {
         />
 
         <div className={cn("nicknameWrap")}>
-          <label htmlFor="nickname" className={cn("nickname")}>
-            닉네임
-          </label>
+          <div className={cn("nicknameTitle")}>
+            <label
+              htmlFor="nickname"
+              className={
+                errors.nickname
+                  ? cn("nicknameRed")
+                  : submitNick
+                    ? cn("nicknameGreen")
+                    : cn("nickname")
+              }
+            >
+              닉네임
+            </label>
+            {errors.nickname ? (
+              <div className={cn("nicknameNotiRed")}>
+                최소 글자 수는 2자 이상입니다
+              </div>
+            ) : (
+              <div className={cn("nicknameNoti")}>{nickname.length} / 20자</div>
+            )}
+          </div>
           <input
-            className={cn("nicknameInput")}
+            className={
+              errors.nickname
+                ? cn("nicknameInputRed")
+                : submitNick
+                  ? cn("nicknameInputGreen")
+                  : cn("nicknameInput")
+            }
             id="nickname"
             type="text"
-            {...register("nickname")}
-            placeholder="한글, 영어, 숫자만 사용가능"
+            {...register("nickname", {
+              minLength: 2,
+            })}
+            maxLength={20}
+            placeholder="한글, 영어, 숫자만 사용가능 (2자 이상)"
           />
         </div>
       </form>

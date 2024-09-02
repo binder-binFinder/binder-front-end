@@ -1,10 +1,23 @@
 @import "@/styles/main.scss";
 
+.drop {
+  width: 39rem;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  z-index: 999;
+  overflow: hidden;
+}
+
 .dropWrap {
   width: 100%;
   border-radius: 1.4rem 1.4rem 0 0;
   padding: 2rem 1.7rem;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
 }
 
 .dropTitle {
