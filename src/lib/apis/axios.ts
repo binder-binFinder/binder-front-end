@@ -1,8 +1,9 @@
 import axios, { AxiosInstance } from "axios";
 import { cookies } from "next/headers";
+import { API_BASE_URL } from "../constants/urls";
 
 export const instance: AxiosInstance = axios.create({
-  baseURL: "https://api.bin-finder.net/",
+  baseURL: API_BASE_URL,
   withCredentials: true,
 });
 
