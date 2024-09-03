@@ -10,7 +10,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   status?: "basic" | "alert" | "primary";
 }
 
-export default function Button({ children, onClick, status = "basic", type = "button", ...rest }: Props) {
+export default function Button({ children, onClick, status = "basic", type = "button",disabled, ...rest }: Props) {
   const { isToggle, handleToggleClick } = useToggle();
 
   const handleOnClick: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -21,7 +21,7 @@ export default function Button({ children, onClick, status = "basic", type = "bu
   };
 
   return (
-    <button className={cn("button", status, { selected: isToggle })} onClick={handleOnClick} type={type} {...rest}>
+    <button className={cn("button", status, { selected: isToggle })} disabled={disabled} onClick={handleOnClick} type={type} {...rest}>
       {children}
     </button>
   );

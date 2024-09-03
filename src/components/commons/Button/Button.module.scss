@@ -28,10 +28,16 @@
   &.alert {
     background-color: #ff3232;
     color: #fff;
+    &:disabled {
+      background-color: #e9aead;
+    }
   }
 
   &.primary {
     background-color: $primary-green;
     color: #fff;
+    &:disabled {
+      background-color: #94ccb4;
+    }
   }
 }

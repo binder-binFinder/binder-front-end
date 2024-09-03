@@ -1,4 +1,4 @@
-import Button from "@/components/commons/Button.tsx";
+import Button from "@/components/commons/Button";
 import Link from "next/link";
 
 export default function Home() {
@@ -10,6 +10,12 @@ export default function Home() {
       <Button>재활용 쓰레기통</Button>
       <Button status="primary">등록</Button>
       <Button status="alert">등록</Button>
+      <Button disabled={true} status="primary">
+        등록
+      </Button>
+      <Button disabled={true} status="alert">
+        등록
+      </Button>
     </>
   );
 }
