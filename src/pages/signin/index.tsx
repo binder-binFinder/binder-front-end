@@ -8,6 +8,7 @@ import Image from "next/image";
 const cn = classNames.bind(styles);
 
 export default function Signin() {
+
   const handleClickKakaoSignIn = () => {
     window.location.href = SOCIAL_LOGIN_URL + "/kakao";
   };
