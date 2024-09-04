@@ -2,20 +2,16 @@ import Image from "next/image";
 import styles from "./Card.module.scss";
 import classNames from "classnames/bind";
 import { CardProps, Status } from "../CardList";
-import { useState } from "react";
 
 const cn = classNames.bind(styles);
 
 const STATUSTEXT: Record<Status, string> = {
-  approve: "승인",
-  reject: "거절",
-  judge: "검토 중",
+  APPROVED: "승인",
+  REJECTED: "거절",
+  PENDING: "검토 중",
 };
 
 export default function Card({ ...item }: CardProps) {
-  //데이터 받아올 때 다시 처리해야 할 듯...?
-  const [isLike, setIsLike] = useState(item.likes?.mylike);
-  const [likeCounter, setLikeCounter] = useState(item.likes?.count);
   const statusText = STATUSTEXT[item.status as Status];
 
   const completed = item.isAdmin && item.status !== "judge";
@@ -24,36 +20,36 @@ export default function Card({ ...item }: CardProps) {
     return !item.isAdmin || item.status !== "judge";
   };
   const binState = () => {
-    switch (item.binState) {
-      case "normal":
+    switch (item.type) {
+      case "GENERAL":
         return "일반 쓰레기통";
-      case "recycle":
+      case "RECYCLE":
         return "분리수거함";
       case "drink":
         return "음료 쓰레기통";
       case "cigarette":
         return "담배꽁초 수거함";
       default:
-        return "normal";
+        return "일반 쓰레기통";
     }
   };
-  const handleLikeUpdate = () => {
-    setLikeCounter((prevCount) =>
-      typeof prevCount === "number"
-        ? isLike
-          ? prevCount - 1
-          : prevCount + 1
-        : prevCount
-    );
-  };
+  // const handleLikeUpdate = () => {
+  //   setLikeCounter((prevCount) =>
+  //     typeof prevCount === "number"
+  //       ? isLike
+  //         ? prevCount - 1
+  //         : prevCount + 1
+  //       : prevCount
+  //   );
+  // };
 
   const handleClick = (id: number) => {
     if (item.isAdmin) {
       //페이지 이동시키기
       return console.log(id);
     } else {
-      setIsLike((prev) => !prev);
-      handleLikeUpdate();
+      // setIsLike((prev) => !prev);
+      // handleLikeUpdate();
     }
   };
 
@@ -73,8 +69,8 @@ export default function Card({ ...item }: CardProps) {
       />
       <div className={cn("card-text-box")}>
         <div className={cn("card-title-box")}>
-          <h4 className={cn("card-title")}>{item.name}</h4>
-          <p className={cn("card-createdAt")}>{item.createdAt}</p>
+          <h4 className={cn("card-title")}>{item.title}</h4>
+          <p className={cn("card-createdAt")}>{item.createdAt.slice(0, 10)}</p>
         </div>
         <p className={cn("card-address")}>{item.address}</p>
         <div className={cn("card-bottom")}>
@@ -87,7 +83,7 @@ export default function Card({ ...item }: CardProps) {
           </div>
           <div
             className={cn("card-likes", {
-              mylike: isLike,
+              mylike: item.bookmarkCount > 0,
               admin: item.isAdmin,
             })}
           >
@@ -102,7 +98,7 @@ export default function Card({ ...item }: CardProps) {
                   height={15}
                   objectFit="fit"
                 />
-                <p>{likeCounter}</p>
+                <p>{item.bookmarkCount}</p>
               </>
             )}
           </div>

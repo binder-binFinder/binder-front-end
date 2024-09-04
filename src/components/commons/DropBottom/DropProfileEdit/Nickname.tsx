@@ -37,7 +37,7 @@ export default function Nickname({
         ) : (
           <div className={cn("nicknameNoti")}>
             {nickname.length === 0 ? prevNickname.length : nickname.length} /
-            10자
+            16자
           </div>
         )}
       </div>

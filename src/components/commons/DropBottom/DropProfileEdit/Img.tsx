@@ -14,6 +14,7 @@ export default function Img({
   imgData,
   setImgData,
   profileImg,
+  memberImg,
 }: any) {
   const { mutate: imgPost } = useMutation({
     mutationFn: (data: any) => postImg(data),
@@ -35,15 +36,12 @@ export default function Img({
       handleImgPost();
     }
   }, [profileImg]);
+  const img = imgData ? imgData : memberImg ? memberImg : defaultImg;
   return (
     <>
       <label htmlFor="profileImg" className={cn("imgEditWrap")}>
         <div className={cn("profileImg")}>
-          <Image
-            src={imgData ? imgData : defaultImg}
-            alt="프로필 이미지"
-            fill
-          />
+          <Image src={img} alt="프로필 이미지" fill />
         </div>
         <div className={cn("profileEdit")}>
           <div className={cn("profileEditimg")}>

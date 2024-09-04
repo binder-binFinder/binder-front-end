@@ -27,7 +27,7 @@ export default function DropWrap({
   const ref = useRef(null);
 
   useOnClickOutside(ref, closeBtn);
-  return (
+  return title !== "탈퇴하기" ? (
     <div className={cn("drop")}>
       <div className={cn("dropWrap")} ref={ref}>
         <div className={cn("dropTitle")}>
@@ -44,6 +44,31 @@ export default function DropWrap({
           className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
         >
           {btn}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className={cn("drop")}>
+      <div className={cn("dropWrap")} ref={ref}>
+        <div className={cn("dropTitle")}>
+          <div>{title}</div>
+          <div className={cn("dropClose")} onClick={closeBtn}>
+            <Image src={close} fill alt="닫기" sizes="35px" />
+          </div>
+        </div>
+
+        <div className={cn("dropChildren")}>{children}</div>
+
+        <div className={cn("cancle")}>
+          <div onClick={closeBtn} className={cn("dropBtn")}>
+            취소하기
+          </div>
+          <div
+            onClick={submitState ? btnFunction : () => {}}
+            className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
+          >
+            {btn}
+          </div>
         </div>
       </div>
     </div>

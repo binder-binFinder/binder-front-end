@@ -20,6 +20,11 @@
   height: 8.6rem;
   position: relative;
   display: block;
+  border-radius: 99rem;
+  overflow: hidden;
+  & img {
+    object-fit: cover;
+  }
 }
 .profileEdit {
   width: 3rem;

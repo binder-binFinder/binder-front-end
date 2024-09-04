@@ -60,3 +60,24 @@
   background: #0bb76d;
   cursor: pointer;
 }
+.cancle {
+  display: flex;
+  gap: 0.8rem;
+  & > .dropBtn,
+  .dropBtnOn {
+    min-width: 17.4rem;
+  }
+  & > .dropBtn {
+    border-radius: 10px;
+    border: 1px solid #e9aead;
+    background: #fff;
+    color: #3b4943;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 20px;
+    cursor: pointer;
+  }
+  & > .dropBtnOn {
+    background-color: #e9aead;
+  }
+}
