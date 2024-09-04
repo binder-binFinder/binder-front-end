@@ -1,0 +1,25 @@
+.nav-title {
+  color: #06130d;
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.019rem;
+
+  &-wrapper {
+    @include flexbox(between);
+    width: 100%;
+    max-width: 39rem;
+    position: fixed;
+    top: 0;
+    padding: 3rem 2.4rem 3rem 2rem;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.prev-btn {
+  transition: transform 150ms;
+}
+
+.prev-btn:hover {
+  transform: translateX(-4px);
+}
