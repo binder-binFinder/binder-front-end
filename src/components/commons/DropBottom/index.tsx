@@ -60,7 +60,7 @@ export default function DropWrap({
         <div className={cn("dropChildren")}>{children}</div>
 
         <div className={cn("cancle")}>
-          <div onClick={closeBtn} className={cn("dropBtn")}>
+          <div onClick={closeBtn} className={cn("dropBtnCancel")}>
             취소하기
           </div>
           <div

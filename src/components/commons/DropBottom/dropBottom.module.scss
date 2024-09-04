@@ -64,10 +64,14 @@
   display: flex;
   gap: 0.8rem;
   & > .dropBtn,
+  .dropBtnCancel,
   .dropBtnOn {
     min-width: 17.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  & > .dropBtn {
+  & > .dropBtnCancel {
     border-radius: 10px;
     border: 1px solid #e9aead;
     background: #fff;
@@ -77,7 +81,10 @@
     line-height: 20px;
     cursor: pointer;
   }
-  & > .dropBtnOn {
+  & > .dropBtn {
     background-color: #e9aead;
+  }
+  & > .dropBtnOn {
+    background-color: #ff3232;
   }
 }

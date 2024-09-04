@@ -4,8 +4,8 @@ import SettingItem from "./SettingItem";
 import { useMutation } from "@tanstack/react-query";
 import { postLogout } from "@/lib/apis/auth";
 import { useRouter } from "next/router";
-import DropCancle from "@/components/commons/DropBottom/DropCancle";
 import { useState } from "react";
+import DropCancel from "@/components/commons/DropBottom/DropCancel";
 
 const cn = classNames.bind(styles);
 export default function MyPageSetting() {
@@ -29,7 +29,7 @@ export default function MyPageSetting() {
         <SettingItem name={"로그아웃"} handleFn={logout} />
         <SettingItem name={"탈퇴하기"} handleFn={handleDrop} />
       </div>
-      {drop && <DropCancle handleDrop={handleDrop} />}
+      {drop && <DropCancel handleDrop={handleDrop} />}
     </div>
   );
 }

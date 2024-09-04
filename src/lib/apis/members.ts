@@ -14,14 +14,14 @@ export const getMembers = async (cookies: string | undefined) => {
   }
 };
 
-// export const deleteMembers = async (data: { input: string }) => {
-//   try {
-//     const res = await instance.delete("/members/me", data);
-//     return res;
-//   } catch (e) {
-//     console.error(e);
-//   }
-// };
+export const deleteMembers = async (data: string) => {
+  try {
+    const res = await instance.delete(`/members/me?input=${data}`);
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export const patchMembers = async (data: {
   nickname: string;
