@@ -17,19 +17,21 @@ interface ProfileProps {
     email: string;
     nickname: string;
     role: string;
-    image_url: string;
+    imageUrl: string;
+    bookmarkCount: number;
   };
 }
 
 export default function MyPageProfile({ memberData }: ProfileProps) {
   const [profileEdit, setProfileEdit] = useState<boolean>(false);
+  const [nick, setNick] = useState<string>(memberData.nickname);
+  const [img, setImg] = useState<string>(memberData.imageUrl);
 
   const handleProfileEdit = () => {
     setProfileEdit((prev) => !prev);
   };
 
-  const profileImg =
-    memberData.image_url !== null ? memberData.image_url : defaultImg;
+  const profileImg = img !== null ? img : defaultImg;
 
   return (
     <>
@@ -45,18 +47,24 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
           </div>
         </div>
 
-        <div className={cn("profileName")}>{memberData.nickname}</div>
+        <div className={cn("profileName")}>{nick.slice(0, 16)}</div>
 
         <div className={cn("profileStar")}>
           <div className={cn("profileStarImg")}>
             <Image src={star} alt="별점" fill sizes="15px" />
           </div>
-          21
+          {memberData.bookmarkCount}
         </div>
       </div>
 
       {profileEdit && (
-        <DropProfileEdit closeBtn={handleProfileEdit} memberData={memberData} />
+        <DropProfileEdit
+          closeBtn={handleProfileEdit}
+          memberData={memberData}
+          setNick={setNick}
+          nick={nick}
+          setImg={setImg}
+        />
       )}
     </>
   );

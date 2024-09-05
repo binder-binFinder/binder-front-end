@@ -1,0 +1,46 @@
+@import "@/styles/main.scss";
+
+.cancelText,
+.cancelTexteRed,
+.cancelTextGreen {
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.cancelText {
+  color: #4d4d4d;
+}
+.cancelTextRed {
+  color: #ff3232;
+}
+.cancelTextGreen {
+  color: #0bb76d;
+}
+.cancelTextInput,
+.cancelTextInputRed,
+.cancelTextInputGreen {
+  width: 100%;
+  height: 4.4rem;
+  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  padding: 1rem 1.4rem;
+  font-size: 1.6rem;
+}
+.cancelTextInputRed {
+  border-color: #ff3232;
+}
+.cancelTextInputGreen {
+  border-color: #0bb76d;
+}
+.inputWrap {
+  position: relative;
+}
+.inputX {
+  width: 1.7rem;
+  height: 1.7rem;
+  position: absolute;
+  right: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

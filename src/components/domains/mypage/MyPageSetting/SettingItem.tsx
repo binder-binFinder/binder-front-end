@@ -3,6 +3,7 @@ import styles from "./MyPageToggle.module.scss";
 import accountDelete from "@/../public/images/accountDelete.svg";
 import logout from "@/../public/images/logout.svg";
 import arrowRight from "@/../public/images/arrowRight.svg";
+import share from "@/../public/images/share.svg";
 import Image from "next/image";
 
 const cn = classNames.bind(styles);
@@ -18,7 +19,13 @@ export default function SettingItem({ name, handleFn }: SettingItemProps) {
       <div className={cn("settingTitle")}>
         <div className={cn("settingLogout")}>
           <Image
-            src={name === "로그아웃" ? logout : accountDelete}
+            src={
+              name === "로그아웃" || name === "소셜 로그인"
+                ? logout
+                : name === "공유하기"
+                  ? share
+                  : accountDelete
+            }
             alt="로그아웃"
             fill
             sizes="15px"

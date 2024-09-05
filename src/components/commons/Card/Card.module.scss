@@ -49,15 +49,15 @@
   letter-spacing: -0.014rem;
   margin-right: 0.5rem;
 
-  &.judge {
+  &.PENDING {
     background: #e9e9e9;
     color: #bdbdbd;
   }
-  &.approve {
+  &.APPROVED {
     background: #9bb7ad;
     color: #e1f4ed;
   }
-  &.reject {
+  &.REJECTED {
     color: #f9e7e7;
     background: #c1aaaa;
   }

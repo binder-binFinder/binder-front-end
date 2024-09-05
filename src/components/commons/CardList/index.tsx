@@ -1,78 +1,40 @@
+import { useQuery } from "@tanstack/react-query";
 import Card from "../Card";
 import styles from "./CardList.module.scss";
 import classNames from "classnames/bind";
+import { getMembersTimeline } from "@/lib/apis/members";
 
 const cn = classNames.bind(styles);
 
-export type Status = "reject" | "approve" | "judge";
+export type Status = "REJECTED" | "APPROVED" | "PENDING";
 export interface CardProps {
-  name: string;
-  address: string;
-  createdAt: string;
-  isAdmin: boolean;
-  admin?: string;
-  status: Status | string;
-  likes?: {
-    count: number;
-    mylike: boolean;
-  };
   id: number;
-  binState: string;
+  title: string;
+  address: string;
+  type: string;
+  status: string;
+  createdAt: string;
+  bookmarkCount: number;
+  isAdmin?: boolean;
+  admin: boolean;
 }
 
-const mook = [
-  {
-    name: "용산공원정문",
-    address: "서울특별시 용산구 1-1",
-    createdAt: "2024. 09. 01",
-    isAdmin: false,
-    status: "reject",
-    likes: { count: 3, mylike: false },
-    id: 1,
-    binState: "normal",
-  },
-
-  {
-    name: "용산공원정222",
-    address: "서울특별시 용산구 1-1333333",
-    createdAt: "2024. 09. 01",
-    isAdmin: true,
-    admin: "박지원",
-    status: "approve",
-    // likes: { count: 3, mylike: true },
-    id: 2,
-    binState: "recycle",
-  },
-  {
-    name: "자유공원정문",
-    address: "서울특별시 용산구 1-1333333",
-    createdAt: "2024. 09. 01",
-    isAdmin: true,
-    admin: "박지원",
-    status: "judge",
-    id: 3,
-    binState: "drink",
-  },
-  {
-    name: "dsfdsf",
-    address: "서울특별fds시 용산구 1-1333333",
-    createdAt: "2024. 09. 01",
-    isAdmin: true,
-    admin: "박지투",
-    status: "approve",
-    id: 3,
-    binState: "cigarette",
-  },
-];
-
 export default function CardList() {
+  const { data: cardLists } = useQuery({
+    queryKey: ["cardList"],
+    queryFn: getMembersTimeline,
+  });
   return (
     <ul className={cn("card-list")}>
-      {mook.map((item) => (
-        <li key={item.id}>
-          <Card {...item} />
-        </li>
-      ))}
+      {cardLists === null ? (
+        <span>로그인 후 이용 가능합니다.</span>
+      ) : (
+        cardLists?.map((item: any) => (
+          <li key={item.id}>
+            <Card admin={false} {...item} />
+          </li>
+        ))
+      )}
     </ul>
   );
 }
