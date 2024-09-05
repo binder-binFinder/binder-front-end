@@ -8,20 +8,21 @@ const cn = classNames.bind(style);
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   status?: "basic" | "alert" | "primary";
+  selected?: boolean;
 }
 
-export default function Button({ children, onClick, status = "basic", type = "button",disabled, ...rest }: Props) {
-  const { isToggle, handleToggleClick } = useToggle();
-
-  const handleOnClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    handleToggleClick();
-    if (onClick) {
-      onClick(event);
-    }
-  };
-
+export default function Button({
+  children,
+  onClick,
+  selected,
+  status = "basic",
+  type = "button",
+  disabled,
+  id,
+  ...rest
+}: Props) {
   return (
-    <button className={cn("button", status, { selected: isToggle })} disabled={disabled} onClick={handleOnClick} type={type} {...rest}>
+    <button className={cn("button", status, { selected })} disabled={disabled} onClick={onClick} type={type} {...rest}>
       {children}
     </button>
   );

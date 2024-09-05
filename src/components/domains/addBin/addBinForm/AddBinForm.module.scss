@@ -1,0 +1,82 @@
+.addbin {
+  &-form {
+    @include column-flexbox(start, start);
+    gap: 2rem;
+
+    font-size: 1.6rem;
+    width: 100%;
+    max-width: 39rem;
+    padding: 2rem;
+    margin: 10rem 0;
+
+    > div {
+      @include column-flexbox(start, start);
+      gap: 1.2rem;
+      width: 100%;
+    }
+  }
+
+  &-selector {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    > button {
+      width: 48.2%;
+    }
+  }
+
+  &-label {
+    font-weight: 500;
+    letter-spacing: -0.016rem;
+    width: 100%;
+    cursor: pointer;
+
+    color: #4d4d4d;
+  }
+  &-input {
+    padding: 1.4rem;
+    width: 100%;
+    border-radius: 1rem;
+    letter-spacing: -0.024rem;
+    color: #a5a5a5;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+
+    &::placeholder {
+      color: #a5a5a5;
+    }
+
+    & .error {
+    }
+  }
+
+  &-img-box {
+    @include column-flexbox();
+    width: 100%;
+    margin-top: 1.2rem;
+    height: 14.3rem;
+    text-align: center;
+    gap: 1.2rem;
+    border-radius: 1rem;
+    background-color: #f2f2f2;
+
+    &-text {
+      font-size: 1.4rem;
+      letter-spacing: -0.021rem;
+      color: #a5a5a5;
+    }
+  }
+}
+
+.img-input {
+  position: relative;
+  bottom: 10rem;
+  left: 3rem;
+  z-index: -1;
+}
+
+.choose {
+  font-size: 1.3rem;
+  margin-left: 0.3rem;
+  letter-spacing: -0.013rem;
+  color: #a5a5a5;
+}
