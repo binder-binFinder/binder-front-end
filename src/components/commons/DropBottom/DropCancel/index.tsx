@@ -5,6 +5,8 @@ import classNames from "classnames/bind";
 import styles from "./DropCancel.module.scss";
 import { useMutation } from "@tanstack/react-query";
 import { deleteMembers } from "@/lib/apis/members";
+import inputX from "@/../public/images/inputX.svg";
+import Image from "next/image";
 
 const cn = classNames.bind(styles);
 
@@ -17,10 +19,10 @@ interface IFormInput {
 
 export default function DropCancel({ handleDrop }: DropCancelProps) {
   const [cancelStats, setCancelState] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
   const [btnBool, setBtnBoolean] = useState<boolean>(false);
   const { register, handleSubmit, control } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
     cancelMember(data.cancel);
   };
 
@@ -49,6 +51,10 @@ export default function DropCancel({ handleDrop }: DropCancelProps) {
       setBtnBoolean(false);
     }
   }, [cancel]);
+
+  const handleInputX = () => {
+    setInputValue("");
+  };
   return (
     <DropWrap
       title="탈퇴하기"
@@ -66,15 +72,26 @@ export default function DropCancel({ handleDrop }: DropCancelProps) {
         >
           정말 탈퇴를 원하시면 "탈퇴하기"를 입력해 주세요.
         </div>
-        <input
-          className={cn(
-            "cancelTextInput",
-            cancelStats && `cancelTextInput${cancelStats}`
-          )}
-          type="text"
-          placeholder="탈퇴하기"
-          {...register("cancel")}
-        />
+        <div className={cn("inputWrap")}>
+          <input
+            className={cn(
+              "cancelTextInput",
+              cancelStats && `cancelTextInput${cancelStats}`
+            )}
+            type="text"
+            value={inputValue}
+            placeholder="탈퇴하기"
+            maxLength={10}
+            {...register("cancel", {
+              onChange: (e) => {
+                setInputValue(e.target.value);
+              },
+            })}
+          />
+          <div className={cn("inputX")} onClick={handleInputX}>
+            <Image src={inputX} alt="인풋 비우기" fill sizes="17px" />
+          </div>
+        </div>
       </form>
     </DropWrap>
   );

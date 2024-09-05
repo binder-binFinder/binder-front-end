@@ -32,3 +32,15 @@
 .cancelTextInputGreen {
   border-color: #0bb76d;
 }
+.inputWrap {
+  position: relative;
+}
+.inputX {
+  width: 1.7rem;
+  height: 1.7rem;
+  position: absolute;
+  right: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

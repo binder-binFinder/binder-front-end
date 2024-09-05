@@ -106,3 +106,15 @@
   margin-top: -2.5rem;
   margin-bottom: 3rem;
 }
+.inputX {
+  width: 1.7rem;
+  height: 1.7rem;
+  position: absolute;
+  right: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.inputWrap {
+  position: relative;
+}

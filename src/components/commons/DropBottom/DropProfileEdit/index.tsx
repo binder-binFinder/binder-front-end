@@ -34,6 +34,7 @@ export default function DropProfileEdit({
   const [submitNick, setSubmitNick] = useState<boolean>(false);
   const [imgData, setImgData] = useState<any>(memberData.imageUrl);
   const [prevNickname, setPrevNickname] = useState<string>(nick.slice(0, 16));
+  const [inputValue, setInputValue] = useState<string>("");
 
   const {
     register,
@@ -53,7 +54,6 @@ export default function DropProfileEdit({
       patchMembers(data),
     onSuccess: () => {
       closeBtn();
-      console.log(nickname);
       setNick(nickname === "" ? prevNickname : nickname);
       setPrevNickname(nick);
       setImg(imgData);
@@ -78,7 +78,9 @@ export default function DropProfileEdit({
     );
     setSubmitNick(nickname.length > 1);
   }, [profileImg, nickname]);
-
+  const handleInputX = () => {
+    setInputValue("");
+  };
   return (
     <DropWrap
       title="프로필 수정"
@@ -119,11 +121,16 @@ export default function DropProfileEdit({
                   value: /^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]+$/,
                   message: "특수문자는 사용할 수 없습니다.",
                 },
+                onChange: (e) => {
+                  setInputValue(e.target.value); // 입력값 업데이트 함수
+                },
               }),
             }}
             submitNick={submitNick}
             prevNickname={prevNickname}
             nickname={nickname}
+            inputValue={inputValue}
+            handleInputX={handleInputX}
           />
         </form>
       </>

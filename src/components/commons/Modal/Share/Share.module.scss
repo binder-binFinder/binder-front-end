@@ -1,0 +1,88 @@
+@import "/src/styles/main.scss";
+
+.shareBack {
+  position: fixed;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba($color: black, $alpha: 0.2);
+}
+.shareWrap {
+  width: 35.6rem;
+  height: 26.6rem;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1.4rem;
+  padding: 2.4rem 1.6rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shareTitle {
+  color: #06130d;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 37px;
+  margin-bottom: 2.3rem;
+}
+.kakaoImg {
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 99px;
+  flex-shrink: 0;
+  background-color: #fee500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  & > div {
+    width: 3.1rem;
+    height: 2.9rem;
+    position: relative;
+  }
+}
+.kakaoText {
+  color: #515f58;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 25px;
+}
+
+.shareOrigin {
+  width: 100%;
+  max-width: 32.2rem;
+  height: 4.4rem;
+  border-radius: 1rem;
+  border: 1px solid #d9d9d9;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  margin-top: 2.3rem;
+  & > input {
+    padding: 1rem 1.4rem;
+    color: #6b7772;
+    font-size: 1.6rem;
+    line-height: 25px;
+  }
+  & > div {
+    width: 7.3rem;
+    height: 4.4rem;
+    padding: 1rem;
+    color: #6b7772;
+    font-size: 1.5rem;
+    line-height: 25px;
+    border: 1px #c8d0cd;
+    background: #d1dad6;
+    position: absolute;
+    right: 0;
+    letter-spacing: -0.225px;
+    cursor: pointer;
+  }
+}
