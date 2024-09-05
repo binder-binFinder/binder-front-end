@@ -1,10 +1,10 @@
+import { useCallback, useEffect } from "react";
 import Image from "next/image";
 import defaultImg from "@/../public/images/profileDefault.svg";
 import profileEdit from "@/../public/images/profileEdit.svg";
 import classNames from "classnames/bind";
 import styles from "./DropProfileEdit.module.scss";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { postImg } from "@/lib/apis/image";
 
 const cn = classNames.bind(styles);
@@ -26,17 +26,24 @@ export default function Img({
     },
   });
 
-  const handleImgPost = async () => {
-    const formData = new FormData();
-    formData.append("file", profileImg[0]);
-    imgPost(formData);
-  };
+  // useCallback으로 handleImgPost 함수 메모이제이션
+  const handleImgPost = useCallback(async () => {
+    if (profileImg && profileImg[0]) {
+      const formData = new FormData();
+      formData.append("file", profileImg[0]);
+      imgPost(formData);
+    }
+  }, [imgPost, profileImg]);
+
+  // useEffect에 handleImgPost 및 profileImg를 의존성 배열에 추가
   useEffect(() => {
     if (profileImg !== "") {
       handleImgPost();
     }
-  }, [profileImg]);
+  }, [handleImgPost, profileImg]);
+
   const img = imgData ? imgData : memberImg ? memberImg : defaultImg;
+
   return (
     <>
       <label htmlFor="profileImg" className={cn("imgEditWrap")}>

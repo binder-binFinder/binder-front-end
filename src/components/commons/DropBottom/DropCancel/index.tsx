@@ -70,7 +70,7 @@ export default function DropCancel({ handleDrop }: DropCancelProps) {
             cancelStats && `cancelText${cancelStats}`
           )}
         >
-          정말 탈퇴를 원하시면 "탈퇴하기"를 입력해 주세요.
+          정말 탈퇴를 원하시면 {`"`}탈퇴하기{`"`}를 입력해 주세요.
         </div>
         <div className={cn("inputWrap")}>
           <input

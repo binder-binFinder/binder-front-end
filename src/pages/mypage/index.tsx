@@ -34,11 +34,12 @@ export default function MyPage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const memberData = dehydratedState.queries[0].state.data;
   const [, setLoginState] = useAtom(loginState);
+
   useEffect(() => {
     if (memberData !== null) {
       setLoginState(true);
     }
-  }, []);
+  }, [memberData, setLoginState]);
   return memberData !== null ? (
     <>
       {/* <HydrationBoundary state={dehydratedState}> */}

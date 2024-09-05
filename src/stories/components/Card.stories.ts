@@ -12,9 +12,9 @@ const meta: Meta<typeof Card> = {
     isAdmin: {
       control: "boolean",
     },
-    likes: {
-      control: "object",
-    },
+    // likes: {
+    //   control: "object",
+    // },
   },
 };
 
@@ -24,14 +24,14 @@ type Story = StoryObj<typeof Card>;
 export const Default: Story = {
   args: {
     id: 1,
-    name: "Example Name",
+    // name: "Example Name",
     address: "1234 Example St.",
     status: "judge",
     isAdmin: false,
-    likes: {
-      mylike: false,
-      count: 10,
-    },
+    // likes: {
+    //   mylike: false,
+    //   count: 10,
+    // },
     createdAt: "2023-09-01",
   },
 };
