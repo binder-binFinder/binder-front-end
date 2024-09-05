@@ -7,6 +7,15 @@ export default function Home() {
       <Button>
         <Link href={"/signin"}>signin</Link>
       </Button>
+      <Button>
+        <Link href={"/location"}>location</Link>
+      </Button>
+      <Button>
+        <Link href={"/mypage"}>mypage</Link>
+      </Button>
+      <Button>
+        <Link href={"/addbin"}>addbin</Link>
+      </Button>
     </>
   );
 }
