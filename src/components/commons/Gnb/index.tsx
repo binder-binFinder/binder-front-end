@@ -24,6 +24,7 @@ export default function Gnb() {
   return (
     <div className={cn("gnbWrap")}>
       <div className={page === "/" ? cn("gnbOn") : cn("gnb")}>
+        <div className={cn("onBar")}></div>{" "}
         <Link href={"/"} className={cn("gnbMenuImg")}>
           <Image src={page === "/" ? homeOn : home} alt="홈" fill />
         </Link>
@@ -31,6 +32,7 @@ export default function Gnb() {
       </div>
 
       <div className={page === "/search" ? cn("gnbOn") : cn("gnb")}>
+        <div className={cn("onBar")}></div>{" "}
         <Link href={"/search"} className={cn("gnbMenuImg")}>
           <Image src={page === "/search" ? searchOn : search} alt="검색" fill />
         </Link>
@@ -38,6 +40,7 @@ export default function Gnb() {
       </div>
 
       <div className={page === "/mypage" ? cn("gnbOn") : cn("gnb")}>
+        <div className={cn("onBar")}></div>
         <Link href={"/mypage"} className={cn("gnbMenuImg")}>
           <Image src={page === "/mypage" ? mypageOn : mypage} alt="마이" fill />
         </Link>
