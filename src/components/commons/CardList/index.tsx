@@ -19,18 +19,6 @@ export interface CardProps {
   admin: boolean;
 }
 
-// const mook = [
-//   {
-//     id: 0,
-//     title: "타이틀",
-//     address: "주소주소",
-//     type: "GENERAL",
-//     status: "PENDING",
-//     createdAt: "2024-09-04T12:15:24.724Z",
-//     bookmarkCount: 23,
-//   },
-// ];
-
 export default function CardList() {
   const { data: cardLists } = useQuery({
     queryKey: ["cardList"],
@@ -38,11 +26,15 @@ export default function CardList() {
   });
   return (
     <ul className={cn("card-list")}>
-      {cardLists?.map((item: any) => (
-        <li key={item.id}>
-          <Card admin={false} {...item} />
-        </li>
-      ))}
+      {cardLists === null ? (
+        <span>로그인 후 이용 가능합니다.</span>
+      ) : (
+        cardLists?.map((item: any) => (
+          <li key={item.id}>
+            <Card admin={false} {...item} />
+          </li>
+        ))
+      )}
     </ul>
   );
 }

@@ -11,9 +11,10 @@ const cn = classNames.bind(styles);
 
 interface IModalProps {
   modalClose: () => void;
+  setShare: any;
 }
 
-export default function Share({ modalClose }: IModalProps) {
+export default function Share({ modalClose, setShare }: IModalProps) {
   const router = useRouter();
 
   const copyURL = () => {
@@ -24,6 +25,8 @@ export default function Share({ modalClose }: IModalProps) {
     t.select();
     document.execCommand("copy");
     document.body.removeChild(t);
+    modalClose();
+    setShare(true);
   };
 
   useEffect(() => {

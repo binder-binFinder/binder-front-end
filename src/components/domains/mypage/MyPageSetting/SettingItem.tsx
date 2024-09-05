@@ -20,7 +20,7 @@ export default function SettingItem({ name, handleFn }: SettingItemProps) {
         <div className={cn("settingLogout")}>
           <Image
             src={
-              name === "로그아웃"
+              name === "로그아웃" || name === "소셜 로그인"
                 ? logout
                 : name === "공유하기"
                   ? share

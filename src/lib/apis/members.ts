@@ -10,7 +10,7 @@ export const getMembers = async (cookies: string | undefined) => {
     return res.data;
   } catch (e) {
     console.error(e);
-    window.location.href = "/";
+    return null;
   }
 };
 
@@ -43,5 +43,6 @@ export const getMembersTimeline = async () => {
     return res.data;
   } catch (e) {
     console.error(e);
+    return null;
   }
 };

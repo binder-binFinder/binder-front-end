@@ -95,3 +95,37 @@
   top: 1.1rem;
   cursor: pointer;
 }
+.shareNoti {
+  width: 35.6rem;
+  height: 4.4rem;
+  border-radius: 1rem;
+  background: rgba(11, 183, 109, 0.8);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 10rem;
+  animation: noti 3s ease-in-out forwards;
+}
+
+@keyframes noti {
+  0% {
+    bottom: 5rem;
+    opacity: 0%;
+  }
+  10% {
+    bottom: 10rem;
+    opacity: 100%;
+  }
+  90% {
+    bottom: 10rem;
+    opacity: 100%;
+  }
+  100% {
+    bottom: 5rem;
+    opacity: 0%;
+  }
+}
