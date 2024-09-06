@@ -24,6 +24,21 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.deleteModalWrap {
+  width: 35.6rem;
+  height: 21.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.9rem;
+  background-color: #fff;
+  border-radius: 14px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .modalImgWrap {
   width: 4rem;

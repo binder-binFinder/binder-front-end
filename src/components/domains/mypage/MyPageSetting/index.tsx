@@ -10,14 +10,15 @@ import Share from "@/components/commons/Modal/Share";
 import { useAtom } from "jotai";
 import { loginState } from "@/lib/atoms/userAtom";
 import ShareNoti from "@/components/commons/Modal/Share/ShareNoti";
+import DeleteMemberModal from "@/components/commons/Modal/DeleteMember";
 
 const cn = classNames.bind(styles);
 export default function MyPageSetting() {
   const [drop, setDrop] = useState<boolean>(false);
   const [dropShare, setDropShare] = useState<boolean>(false);
   const [share, setShare] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [loginStates, setLoginState] = useAtom(loginState);
-  console.log(loginStates);
 
   const router = useRouter();
   const { mutate: logout } = useMutation({
@@ -37,6 +38,11 @@ export default function MyPageSetting() {
     setLoginState(false);
     router.push("/signin");
   };
+  const deleteModalClose = () => {
+    setDeleteModal(false);
+    router.push("/");
+  };
+
   useEffect(() => {
     if (share) {
       setTimeout(() => {
@@ -58,9 +64,12 @@ export default function MyPageSetting() {
           <SettingItem name={"소셜 로그인"} handleFn={socialLogin} />
         )}
       </div>
-      {drop && <DropCancel handleDrop={handleDrop} />}
+      {drop && (
+        <DropCancel handleDrop={handleDrop} setDeleteModal={setDeleteModal} />
+      )}
       {dropShare && <Share modalClose={handleDropShare} setShare={setShare} />}
       {share && <ShareNoti />}
+      {deleteModal && <DeleteMemberModal modalClose={deleteModalClose} />}
     </div>
   );
 }

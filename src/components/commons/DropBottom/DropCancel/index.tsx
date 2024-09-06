@@ -12,12 +12,16 @@ const cn = classNames.bind(styles);
 
 interface DropCancelProps {
   handleDrop: () => void;
+  setDeleteModal: any;
 }
 interface IFormInput {
   cancel: string;
 }
 
-export default function DropCancel({ handleDrop }: DropCancelProps) {
+export default function DropCancel({
+  handleDrop,
+  setDeleteModal,
+}: DropCancelProps) {
   const [cancelStats, setCancelState] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
   const [btnBool, setBtnBoolean] = useState<boolean>(false);
@@ -31,6 +35,7 @@ export default function DropCancel({ handleDrop }: DropCancelProps) {
     onSuccess: () => {
       console.log("성공");
       handleDrop();
+      setDeleteModal(true);
     },
   });
 
