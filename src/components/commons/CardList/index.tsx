@@ -3,6 +3,9 @@ import Card from "../Card";
 import styles from "./CardList.module.scss";
 import classNames from "classnames/bind";
 import { getMembersTimeline } from "@/lib/apis/members";
+import { loginState } from "@/lib/atoms/userAtom";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
 
 const cn = classNames.bind(styles);
 
@@ -20,10 +23,18 @@ export interface CardProps {
 }
 
 export default function CardList() {
+  const [, setLoginState] = useAtom(loginState);
   const { data: cardLists } = useQuery({
     queryKey: ["cardList"],
     queryFn: getMembersTimeline,
   });
+  // useEffect(() => {
+  //   if (cardLists === null) {
+  //     setLoginState(false);
+  //   } else {
+  //     setLoginState(true);
+  //   }
+  // }, []);
   return (
     <ul className={cn("card-list")}>
       {cardLists === null ? (

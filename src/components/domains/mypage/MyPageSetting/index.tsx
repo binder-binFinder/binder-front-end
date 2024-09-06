@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DropCancel from "@/components/commons/DropBottom/DropCancel";
 import Share from "@/components/commons/Modal/Share";
-import Modal from "@/components/commons/Modal/TrashHow";
 import { useAtom } from "jotai";
 import { loginState } from "@/lib/atoms/userAtom";
 import ShareNoti from "@/components/commons/Modal/Share/ShareNoti";
@@ -17,7 +16,8 @@ export default function MyPageSetting() {
   const [drop, setDrop] = useState<boolean>(false);
   const [dropShare, setDropShare] = useState<boolean>(false);
   const [share, setShare] = useState<boolean>(false);
-  const [loginStates] = useAtom(loginState);
+  const [loginStates, setLoginState] = useAtom(loginState);
+  console.log(loginStates);
 
   const router = useRouter();
   const { mutate: logout } = useMutation({
@@ -34,6 +34,7 @@ export default function MyPageSetting() {
     setDropShare((prev) => !prev);
   };
   const socialLogin = () => {
+    setLoginState(false);
     router.push("/signin");
   };
   useEffect(() => {

@@ -24,8 +24,8 @@ interface ProfileProps {
 
 export default function MyPageProfile({ memberData }: ProfileProps) {
   const [profileEdit, setProfileEdit] = useState<boolean>(false);
-  const [nick, setNick] = useState<string>(memberData.nickname);
-  const [img, setImg] = useState<string>(memberData.imageUrl);
+  const [nick, setNick] = useState<string>(memberData?.nickname || "");
+  const [img, setImg] = useState<string>(memberData?.imageUrl || "");
 
   const handleProfileEdit = () => {
     setProfileEdit((prev) => !prev);
@@ -53,7 +53,7 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
           <div className={cn("profileStarImg")}>
             <Image src={star} alt="별점" fill sizes="15px" />
           </div>
-          {memberData.bookmarkCount}
+          {memberData?.bookmarkCount}
         </div>
       </div>
 
