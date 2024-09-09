@@ -1,4 +1,7 @@
-import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-
-export const testAtom = atom(0);
+interface SearchType {
+  state: string;
+  title: string;
+  date: string;
+}
+export const searchPrev = atomWithStorage<SearchType[]>("searchPrev", []);

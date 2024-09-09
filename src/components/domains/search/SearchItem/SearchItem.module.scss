@@ -1,0 +1,25 @@
+@import "@/styles/main.scss";
+
+.itemWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.9rem 2.9rem;
+  border: 0.1rem solid #efefef;
+  gap: 1rem;
+}
+.itemTitle {
+  color: #515f58;
+  font-size: 1.6rem;
+  line-height: 25px;
+  cursor: pointer;
+  flex: 1;
+}
+.itemDate {
+  color: #a4b7ad;
+  font-size: 1.4rem;
+  line-height: 37px;
+}
+.itemClose {
+  cursor: pointer;
+}

@@ -1,0 +1,8 @@
+@import "@/styles/main.scss";
+
+.itemsWrap {
+  width: 100%;
+  height: calc(100vh - 13.1rem - 8.3rem);
+  background: #f4f6f5;
+  overflow-y: scroll;
+}
