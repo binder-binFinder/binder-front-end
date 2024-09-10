@@ -31,7 +31,7 @@ export default function CardList() {
     <ul className={cn("card-list")}>
       {cardLists === null ? (
         <div className={cn("card-nologin")}>
-          <Image src={nologin} alt="로그인해주세요" />
+          <Image src={nologin} alt="로그인해주세요" width={79} height={79} />
           로그인 후 이용 가능합니다.
         </div>
       ) : (
