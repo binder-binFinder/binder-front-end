@@ -50,7 +50,7 @@ const getAddressFromCoords = (
   geocoder.coord2Address(coord.getLng(), coord.getLat(), (result: any, status: any) => {
     if (status === kakao.maps.services.Status.OK) {
       console.log(result);
-      const getAddress = result[0].address;
+      const getAddress = result[0];
       callback(getAddress);
     } else {
       console.error("역지오코딩 실패", status);
@@ -85,7 +85,10 @@ export default function TestKakao() {
           const map = initMap(window.kakao, coordinate);
           addMarker(map, window.kakao, coordinate);
           getAddressFromCoords(window.kakao, coordinate, (getAddress: any) => {
-            setAddress({ roadAddress: getAddress.road_address, address: getAddress.address_name });
+            setAddress({
+              roadAddress: getAddress.road_address.address_name,
+              address: getAddress.address.address_name,
+            });
             console.log("주소:", address);
           });
         });

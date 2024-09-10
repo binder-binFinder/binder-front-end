@@ -42,7 +42,7 @@ export default function AddBinForm() {
   const [isBtnFocus, setIsBtnFocus] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [coordinate, setCoordinate] = useAtom(userCoordinate);
-  const [address] = useAtom(userAddress);
+  const [address, setAddresss] = useAtom(userAddress);
 
   const {
     register,
@@ -61,8 +61,9 @@ export default function AddBinForm() {
       setValue("address", address.roadAddress || address.address);
     }
   }, [address, setValue]);
+
   console.log("formerror", errors);
-  console.log(address);
+  console.log("address", address);
 
   const handleCloseModal = () => {
     setIsOpenModal(false);

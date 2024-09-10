@@ -7,17 +7,17 @@ export default function Home() {
       <Link href={"/signin"}>
         <Button>signin</Button>
       </Link>
-
       <Link href={"/location"}>
         <Button>location</Button>
       </Link>
-
       <Link href={"/mypage"}>
         <Button>mypage</Button>
       </Link>
-
       <Link href={"/addbin"}>
         <Button>addbin</Button>
+      </Link>
+      <Link href={"/testkakao"}>
+        <Button>kakaomap</Button>
       </Link>
     </>
   );
