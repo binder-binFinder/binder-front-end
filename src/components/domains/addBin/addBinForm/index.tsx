@@ -62,9 +62,6 @@ export default function AddBinForm() {
     }
   }, [address, setValue]);
 
-  console.log("formerror", errors);
-  console.log("address", address);
-
   const handleCloseModal = () => {
     setIsOpenModal(false);
   };
@@ -93,7 +90,7 @@ export default function AddBinForm() {
   const onSubmit: SubmitHandler<AddbinFormValues> = (data) => {
     const postData: PostAddbinValues = data;
     postData.imageUrl = img;
-    console.log("postData", postData);
+    //console.log("postData", postData);
     postData.type = postData.binType;
     delete postData.binType;
     postData.latitude = coordinate.x;

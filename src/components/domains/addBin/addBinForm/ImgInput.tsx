@@ -19,7 +19,6 @@ const ImgInput = forwardRef<HTMLInputElement, Props>(({ id, img, onChangeImgData
   const { mutate: imgPost } = useMutation({
     mutationFn: (data: FormData) => postImg(data),
     onSuccess: (imgData: { imageUrl: string }) => {
-      console.log(imgData);
       onChangeImgData(imgData.imageUrl);
       setPreview(imgData.imageUrl);
     },
