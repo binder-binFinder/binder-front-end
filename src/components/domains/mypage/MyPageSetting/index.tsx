@@ -21,7 +21,7 @@ export default function MyPageSetting() {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [loginStates, setLoginState] = useAtom(loginState);
   const [isAdmin] = useAtom(adminUser);
-  console.log(loginStates);
+
   const router = useRouter();
   const { mutate: logout } = useMutation({
     mutationFn: postLogout,

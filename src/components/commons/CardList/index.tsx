@@ -1,6 +1,8 @@
+import nologin from "@/../public/images/mypageNologin.svg";
 import { getMembersTimeline } from "@/lib/apis/members";
 import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
+import Image from "next/image";
 import Card from "../Card";
 import styles from "./CardList.module.scss";
 
@@ -28,7 +30,10 @@ export default function CardList() {
   return (
     <ul className={cn("card-list")}>
       {cardLists === null ? (
-        <span>로그인 후 이용 가능합니다.</span>
+        <div className={cn("card-nologin")}>
+          <Image src={nologin} alt="로그인해주세요" />
+          로그인 후 이용 가능합니다.
+        </div>
       ) : (
         cardLists?.map((item: any) => (
           <li key={item.id}>
