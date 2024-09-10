@@ -50,7 +50,7 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
 
         <div className={cn("profileName")}>
           {nick.slice(0, 16)}
-          {memberData.role === "ROLE_ADMIN" && (
+          {memberData?.role === "ROLE_ADMIN" && (
             <Image
               src={adminMark}
               alt="어드민 인증마크"

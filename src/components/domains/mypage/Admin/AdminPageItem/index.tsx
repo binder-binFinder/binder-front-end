@@ -1,12 +1,9 @@
 import arrowGary from "@/../public/images/arrowGray.svg";
 import Card from "@/components/commons/Card";
 import AdminFilter from "@/components/commons/DropBottom/AdminFilter";
-import {
-  getAdminBins,
-  getAdminBinsFix,
-  getAdminBinsReport,
-} from "@/lib/apis/admin";
-import { useQuery } from "@tanstack/react-query";
+import { usePageContext } from "@/pages/mypage/ask";
+import { useFixPageContext } from "@/pages/mypage/fix";
+import { useReportPageContext } from "@/pages/mypage/report";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -23,26 +20,28 @@ export default function AdminPageItem({ title }: AdminProps) {
   const [pageFilter, setPageFilter] = useState<string>("전체");
 
   const router = useRouter();
+  const binData = (() => {
+    switch (router.pathname) {
+      case "/mypage/ask":
+        const ask = usePageContext();
+        const askCount = ask.queries[0].state.data.pendingCount;
+        return [askCount, ask.queries[0].state.data.binRegistrationDetails]; // 데이터를 반환
 
-  const getBins = () => {
-    if (title === "요청받은 쓰레기통") {
-      return getAdminBins(pageFilter);
-    } else if (title === "신고받은 쓰레기통") {
-      return getAdminBinsReport(pageFilter);
-    } else if (title === "수정요청 쓰레기통") {
-      return getAdminBinsFix(pageFilter);
+      case "/mypage/fix":
+        const fix = useFixPageContext();
+        const fixCount = fix.queries[0].state.data.pendingCount;
+        return [fixCount, fix.queries[0].state.data.binModificationDetails]; // 데이터를 반환
+
+      default:
+        const report = useReportPageContext();
+        const reportCount = report.queries[0].state.data.pendingCount;
+        return [
+          reportCount,
+          report.queries[0].state.data.binModificationDetails,
+        ]; // 기본 데이터를 반환
     }
-  };
-
-  const { data: bins } = useQuery({
-    queryKey: ["bins", title, pageFilter],
-    queryFn: () => getBins(),
-  });
-  const details =
-    bins?.binRegistrationDetails ||
-    bins?.binModificationDetails ||
-    bins?.binComplaintsDetails ||
-    [];
+  })();
+  console.log(binData);
   const handleDrop = () => {
     setDrop((prev) => !prev);
   };
@@ -53,7 +52,7 @@ export default function AdminPageItem({ title }: AdminProps) {
         <div className={cn("adminTitleWrap")}>
           <div className={cn("adminTitle")}>
             <div className={cn("adminTitleText")}>{title}</div>
-            <div className={cn("adminTitleTag")}>{bins?.pendingCount}건</div>
+            <div className={cn("adminTitleTag")}>{binData[0]}건</div>
           </div>
           <div className={cn("adminDrop")} onClick={handleDrop}>
             {pageFilter}
@@ -62,7 +61,7 @@ export default function AdminPageItem({ title }: AdminProps) {
         </div>
 
         <div className={cn("adminCardList")}>
-          {details.map((item: any, index: number) => (
+          {binData[1].map((item: any, index: number) => (
             <div
               onClick={() => {
                 router.push(router.asPath + "/" + item.binId);
@@ -94,4 +93,7 @@ export default function AdminPageItem({ title }: AdminProps) {
       )}
     </>
   );
+}
+function askPageContext() {
+  throw new Error("Function not implemented.");
 }

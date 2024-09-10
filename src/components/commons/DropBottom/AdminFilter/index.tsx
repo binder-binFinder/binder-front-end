@@ -1,6 +1,7 @@
-import DropWrap from "..";
-import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import DropWrap from "..";
 import styles from "./AdminFilter.module.scss";
 
 const cn = classNames.bind(styles);
@@ -17,7 +18,7 @@ export default function AdminFilter({
 }: AdminFilter) {
   const [submit, setSubmit] = useState<boolean>(false);
   const [choice, setChoice] = useState<string>(pageFilter);
-
+  const router = useRouter();
   const handleChoice = (e: string) => {
     setChoice(e);
   };
@@ -31,6 +32,7 @@ export default function AdminFilter({
   const handleSubmit = () => {
     setPageFilter(choice);
     closeModal();
+    router.push(router.pathname + "?filter=" + choice);
   };
 
   return (

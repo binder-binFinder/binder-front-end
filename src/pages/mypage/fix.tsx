@@ -1,9 +1,43 @@
 import AdminPage from "@/components/domains/mypage/Admin/AdminPage";
+import { getAdminBinsFix } from "@/lib/apis/admin";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { createContext, useContext } from "react";
 
-export default function Fix() {
+// GetServerSideProps에서 context를 사용해 쿼리 파라미터 받기
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const queryClient = new QueryClient();
+  const { req } = context;
+
+  // 쿠키 값 가져오기
+  const cookies = req.headers.cookie || "";
+
+  // 쿼리 파라미터에서 pageFilter 값 가져오기
+  const { filter } = context.query;
+
+  const filterValue = filter || "전체"; // 기본값을 "전체"로 설정
+
+  // prefetchQuery로 데이터를 미리 가져옴
+  await queryClient.prefetchQuery({
+    queryKey: ["memberDatas", filterValue], // queryKey에 필터 값을 포함
+    queryFn: () => getAdminBinsFix(filterValue, cookies), // 필터 값과 쿠키를 API에 전달
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
+const fixPageContext = createContext<any>([]);
+export const useFixPageContext = () => useContext(fixPageContext);
+export default function Fix({
+  dehydratedState,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log(dehydratedState);
   return (
-    <>
+    <fixPageContext.Provider value={dehydratedState}>
       <AdminPage title={"수정요청 쓰레기통"} />
-    </>
+    </fixPageContext.Provider>
   );
 }

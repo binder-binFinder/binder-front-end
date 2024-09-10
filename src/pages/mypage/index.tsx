@@ -23,33 +23,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient), // 상태를 직렬화하여 클라이언트에 전달
-      cookies, // 쿠키도 전달
     },
   };
 };
 
 export default function MyPage({
   dehydratedState,
-  cookies,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const memberData = dehydratedState.queries[0].state.data;
   const [isLogin, setLoginState] = useAtom(loginState);
   const [, setIsAdmin] = useAtom(adminUser);
-
-  // 쿠키에서 값을 가져오는 함수
-  function getCookieValue(name: string, cookieString: string) {
-    const cookies = cookieString.split("; ");
-    for (let cookie of cookies) {
-      const [key, value] = cookie.split("=");
-      if (key === name) {
-        return value;
-      }
-    }
-    return null; // 쿠키가 없을 경우
-  }
-
-  // SSR에서 받은 쿠키로 처리
-  const login = getCookieValue("loginState", cookies);
 
   useEffect(() => {
     if (memberData !== null) {
@@ -62,10 +45,12 @@ export default function MyPage({
     }
   }, [memberData, setLoginState, setIsAdmin]);
 
-  return login && isLogin && memberData !== null ? (
+  return isLogin && memberData !== null ? (
     <>
+      {/* <HydrationBoundary state={dehydratedState}> */}
       <MyPageProfile memberData={memberData} />
       <MyPageToggle />
+      {/* </HydrationBoundary> */}
     </>
   ) : (
     <>
