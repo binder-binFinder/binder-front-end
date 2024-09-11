@@ -1,6 +1,6 @@
 import AdminDetail from "@/components/domains/mypage/Admin/AdminDetail";
 import AdminPageBar from "@/components/domains/mypage/Admin/AdminPageBar";
-import { postAcceptFix } from "@/lib/apis/fix";
+import { postAccept } from "@/lib/apis/ask";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
@@ -9,7 +9,7 @@ export default function AskDetail() {
   const { id } = router.query;
 
   const { mutate: handleAccept } = useMutation({
-    mutationFn: () => postAcceptFix(id),
+    mutationFn: () => postAccept(id),
     onSuccess: () => {
       router.push(`/mypage/ask`);
     },

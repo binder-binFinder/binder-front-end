@@ -45,7 +45,7 @@ export default function AdminPageItem({ title }: AdminProps) {
   const handleDrop = () => {
     setDrop((prev) => !prev);
   };
-  console.log(router);
+
   return (
     <>
       <div className={cn("adminWrap")}>

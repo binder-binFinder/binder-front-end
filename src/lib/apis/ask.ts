@@ -20,7 +20,9 @@ export const getAdminBins = async (data: any, cookies: any) => {
 
 export const postAccept = async (id: any) => {
   try {
-    const res = await instance.post(`/admin/bins/registrations/${id}/approve`);
+    const res = await instance.post(
+      `/admin/bins/registrations/${id - 1}/approve`
+    );
     return res.data;
   } catch (err) {
     console.error(err);
