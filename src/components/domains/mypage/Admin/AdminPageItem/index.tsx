@@ -41,11 +41,11 @@ export default function AdminPageItem({ title }: AdminProps) {
         ]; // 기본 데이터를 반환
     }
   })();
-  console.log(binData);
+
   const handleDrop = () => {
     setDrop((prev) => !prev);
   };
-
+  console.log(router);
   return (
     <>
       <div className={cn("adminWrap")}>
@@ -64,7 +64,7 @@ export default function AdminPageItem({ title }: AdminProps) {
           {binData[1].map((item: any, index: number) => (
             <div
               onClick={() => {
-                router.push(router.asPath + "/" + item.binId);
+                router.push(router.route + "/" + item.binId);
               }}
               key={index}
             >

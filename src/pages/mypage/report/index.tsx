@@ -1,5 +1,5 @@
 import AdminPage from "@/components/domains/mypage/Admin/AdminPage";
-import { getAdminBinsReport } from "@/lib/apis/admin";
+import { getAdminBinsReport } from "@/lib/apis/report";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { createContext, useContext } from "react";
