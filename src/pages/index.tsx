@@ -16,7 +16,7 @@ export default function Home() {
       <Link href={"/addbin"}>
         <Button>addbin</Button>
       </Link>
-      <Link href={"/testkakao"}>
+      <Link href={"/KakaoMap"}>
         <Button>kakaomap</Button>
       </Link>
     </>

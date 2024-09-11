@@ -2,7 +2,13 @@ import { getLocation } from "@/lib/apis/geo";
 import { userAddress, userCoordinate } from "@/lib/atoms/userAtom";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import styles from "./KakaoMap.module.scss";
+import classNames from "classnames/bind";
+import BtnField from "./searchBtn";
+
+const cn = classNames.bind(styles);
 
 declare global {
   interface Window {
@@ -14,17 +20,25 @@ const initMap = (kakao: any, coordinate: { x: number; y: number }) => {
   const container = document.getElementById("map");
   const options = {
     center: new kakao.maps.LatLng(coordinate.x, coordinate.y),
-    level: 3,
+    level: 0,
   };
 
-  return new kakao.maps.Map(container, options);
+  const map = new kakao.maps.Map(container, options);
+  map.setMaxLevel(5);
+
+  return map;
 };
 
 const addMarker = (map: any, kakao: any, coordinate: { x: number; y: number }) => {
-  const markerPosition = new kakao.maps.LatLng(coordinate.x, coordinate.y);
+  const imageSrc = "/images/icon-marker-my-location.svg",
+    imageSize = new kakao.maps.Size(40, 40);
+
+  const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
+    markerPosition = new kakao.maps.LatLng(coordinate.x, coordinate.y);
 
   const marker = new kakao.maps.Marker({
     position: markerPosition,
+    image: markerImage,
     map: map,
   });
 
@@ -49,7 +63,6 @@ const getAddressFromCoords = (
 
   geocoder.coord2Address(coord.getLng(), coord.getLat(), (result: any, status: any) => {
     if (status === kakao.maps.services.Status.OK) {
-      console.log(result);
       const getAddress = result[0];
       callback(getAddress);
     } else {
@@ -58,13 +71,16 @@ const getAddressFromCoords = (
   });
 };
 
-export default function TestKakao() {
+export default function KakaoMap() {
   const [coordinate, setCoordinate] = useAtom(userCoordinate);
-  const [address, setAddress] = useAtom(userAddress);
+  const [, setAddress] = useAtom(userAddress);
+  const mapRef = useRef<any>(null);
+  const myMarkerRef = useRef<any>(null);
 
-  const { data: locationData } = useQuery<any>({
+  const { data: locationData, refetch: locationRefetch } = useQuery<any>({
     queryKey: ["locations"],
     queryFn: getLocation,
+    gcTime: 3000,
   });
 
   useEffect(() => {
@@ -83,13 +99,16 @@ export default function TestKakao() {
       const onLoadKakaoAPI = () => {
         window.kakao.maps.load(() => {
           const map = initMap(window.kakao, coordinate);
-          addMarker(map, window.kakao, coordinate);
+          const marker = addMarker(map, window.kakao, coordinate);
+
+          mapRef.current = map;
+          myMarkerRef.current = marker;
+
           getAddressFromCoords(window.kakao, coordinate, (getAddress: any) => {
             setAddress({
-              roadAddress: getAddress.road_address.address_name,
+              roadAddress: getAddress.road_address?.address_name || null,
               address: getAddress.address.address_name,
             });
-            console.log("주소:", address);
           });
         });
       };
@@ -98,5 +117,40 @@ export default function TestKakao() {
     }
   }, [coordinate]);
 
-  return <div id="map" style={{ width: "100%", height: "100vh", zIndex: "0" }}></div>;
+  const handelClickGetmyLocation = async () => {
+    try {
+      const { data: newLocationData } = await locationRefetch();
+      if (newLocationData && Array.isArray(newLocationData)) {
+        const newCoordinate = newLocationData[0];
+        setCoordinate(newCoordinate);
+
+        if (mapRef.current && myMarkerRef.current) {
+          const newLatLng = new window.kakao.maps.LatLng(newCoordinate.x, newCoordinate.y);
+          mapRef.current.panTo(newLatLng);
+          myMarkerRef.current.setPosition(newLatLng);
+
+          getAddressFromCoords(window.kakao, newCoordinate, (getAddress: any) => {
+            setAddress({
+              roadAddress: getAddress.road_address?.address_name || null,
+              address: getAddress.address.address_name,
+            });
+          });
+        }
+      }
+    } catch (error) {
+      console.error("데이터 다시 불러오기 실패:", error);
+    }
+  };
+
+  return (
+    <>
+      <BtnField />
+      <div id="map" style={{ width: "100%", height: "100vh", zIndex: "0", position: "relative" }}></div>
+      <section className={cn("map-wrapper")}>
+        <button className={cn("my-location-btn")} onClick={handelClickGetmyLocation}>
+          <Image src={"/images/icon-my-lovcationBtn.svg"} alt="내 위치 다시 가져오기" width={49} height={49} />
+        </button>
+      </section>
+    </>
+  );
 }
