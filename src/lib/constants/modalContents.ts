@@ -1,23 +1,23 @@
 export const MODAL_CONTENTS: Record<string, ModalContent> = {
-  rejectAsk: {
+  rejectFix: {
     title: "수정 거절 처리",
     text: "쓰레기통 정보수정을 거절하였습니다.",
     ismore: true,
     status: "red",
   },
-  reJectFix: {
+  rejectAdd: {
     title: "등록 거절 처리",
     text: "쓰레기통 등록을 거절하였습니다.",
     ismore: true,
     status: "red",
   },
-  editbin: {
+  SuccessReport: {
     title: "신고 승인",
     text: "신고받은 장소를 삭제하였습니다.",
     ismore: true,
     status: "red",
   },
-  SuccessReport: {
+  editbin: {
     title: "쓰레기통 정보 수정",
     text: "쓰레기통 정보를 수정하였습니다.",
     ismore: true,
@@ -48,13 +48,13 @@ export const MODAL_CONTENTS: Record<string, ModalContent> = {
     ismore: false,
     status: "basic",
   },
-  approveFix: {
+  approveAdd: {
     title: "등록 승인 처리",
     text: "쓰레기통 등록을 승인하였습니다.",
     ismore: false,
     status: "green",
   },
-  approveAdd: {
+  approveFix: {
     title: "수정 승인 처리",
     text: "쓰레기통 정보 수정을 승인하였습니다.",
     ismore: false,

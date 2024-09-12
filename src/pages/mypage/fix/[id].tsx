@@ -10,12 +10,12 @@ import { useState } from "react";
 export default function AskDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const [isOpenModal, setIsOpenModal] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAcceptFix(id),
     onSuccess: () => {
-      router.push(`/mypage/ask`);
+      setIsOpenModal(true);
     },
   });
 
@@ -27,7 +27,7 @@ export default function AskDetail() {
     <>
       <AdminPageBar />
       <AdminDetail state={"수정"} approve={handleAccept} />
-      {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveAdd} />}
+      {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveFix} />}
     </>
   );
 }

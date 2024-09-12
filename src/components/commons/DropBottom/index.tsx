@@ -16,14 +16,7 @@ interface DropProps {
   submitState: boolean;
 }
 
-export default function DropWrap({
-  children,
-  title,
-  closeBtn,
-  btn,
-  btnFunction,
-  submitState = false,
-}: DropProps) {
+export default function DropWrap({ children, title, closeBtn, btn, btnFunction, submitState = false }: DropProps) {
   const ref = useRef(null);
 
   useOnClickOutside(ref, closeBtn);
@@ -39,10 +32,7 @@ export default function DropWrap({
 
         <div className={cn("dropChildren")}>{children}</div>
 
-        <div
-          onClick={submitState ? btnFunction : () => {}}
-          className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
-        >
+        <div onClick={submitState ? btnFunction : () => {}} className={submitState ? cn("dropBtnOn") : cn("dropBtn")}>
           {btn}
         </div>
       </div>
@@ -63,10 +53,7 @@ export default function DropWrap({
           <div onClick={closeBtn} className={cn("dropBtnCancel")}>
             취소하기
           </div>
-          <div
-            onClick={submitState ? btnFunction : () => {}}
-            className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
-          >
+          <div onClick={submitState ? btnFunction : () => {}} className={submitState ? cn("dropBtnOn") : cn("dropBtn")}>
             {btn}
           </div>
         </div>

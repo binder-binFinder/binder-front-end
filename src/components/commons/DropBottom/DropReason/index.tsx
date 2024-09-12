@@ -6,6 +6,8 @@ import styles from "./DropReason.module.scss";
 import Image from "next/image";
 import defaultImg from "@/../public/images/profileDefault.svg";
 import profileEdit from "@/../public/images/profileEdit.svg";
+import { postRejectAddbin } from "@/lib/apis/postRejectAddbin";
+import { useMutation } from "@tanstack/react-query";
 
 const cn = classNames.bind(styles);
 
@@ -13,11 +15,25 @@ interface IFormInput {
   text: string;
 }
 
-export default function DropReason() {
+interface Props {
+  title: string;
+  placeholder: string;
+  onHandleSubmit: (data: string) => void;
+  binId: string | string[] | undefined;
+}
+export default function DropReason({ title, placeholder, binId, onHandleSubmit }: Props) {
   const [submit, setSubmit] = useState<boolean>(false);
+
+  const { mutate: rejectMutate } = useMutation({
+    mutationKey: ["rejectAddBin", binId],
+    mutationFn: (data: string) => postRejectAddbin(binId, data),
+    onSuccess: () => {},
+  });
 
   const { register, handleSubmit, watch } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    onHandleSubmit(data.text);
+    rejectMutate(data.text);
     console.log(data);
   };
   const text = watch("text");
@@ -31,7 +47,7 @@ export default function DropReason() {
 
   return (
     <DropWrap
-      title="거절 사유 입력"
+      title={title + "사유 입력"}
       btn="등록"
       closeBtn={() => {}}
       btnFunction={handleSubmit(onSubmit)}
@@ -42,7 +58,7 @@ export default function DropReason() {
           className={cn("textInput")}
           id="text"
           {...register("text")}
-          placeholder="거절 사유를 입력하세요"
+          placeholder={placeholder + "사유를 입력하세요"}
         />
       </form>
     </DropWrap>
