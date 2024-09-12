@@ -21,7 +21,7 @@ export default function DefaultForm({ state, approve }: Props) {
     queryKey: ["binDetail", id],
     queryFn: () => getBinsId(id),
   });
-
+  console.log(state);
   return (
     <>
       <article className={cn("detailWrap")}>
@@ -54,10 +54,21 @@ export default function DefaultForm({ state, approve }: Props) {
         )}
         {state === "수정" && <AdminDetailItem title={"수정 요청 사유"} detail={"binDetail?.title"} />}
         <article className={cn("detailBtn")}>
-          <button className={cn("detailReject")}>{state} 거절</button>
-          <button className={cn("detailAccept")} onClick={approve}>
-            {state} 승인
-          </button>
+          <div
+            className={
+              state === "신고" ? cn("detailRejectReport") : cn("detailReject")
+            }
+          >
+            {state} 거절
+          </div>
+          <div
+            className={
+              state === "신고" ? cn("detailAcceptReport") : cn("detailAccept")
+            }
+            onClick={approve}
+          >
+             {state} 승인
+          </div>
         </article>
       </section>
     </>

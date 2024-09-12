@@ -1,6 +1,6 @@
 import { instance } from "./axios";
 
-export const getMembers = async (cookies: string | undefined) => {
+export const getMembers = async (cookies?: string | undefined) => {
   try {
     const res = await instance.get("/members/me", {
       headers: {

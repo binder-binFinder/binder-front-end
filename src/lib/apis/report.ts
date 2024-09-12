@@ -14,3 +14,21 @@ export const getAdminBinsReport = async (data: any, cookies: any) => {
     console.error(err);
   }
 };
+export const getAdminBinsReportCount = async (id: any) => {
+  try {
+    const res = await instance.get(`/admin/bins/complaints/${id}/counts`);
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+export const postAcceptReport = async (id: any) => {
+  try {
+    const res = await instance.post(
+      `/admin/bins/modifications/${id - 1}/approve`
+    );
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

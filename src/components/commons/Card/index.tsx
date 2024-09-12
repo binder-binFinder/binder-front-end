@@ -1,5 +1,7 @@
 import grayStar from "@/../public/images/icon-gray-star.svg";
 import reportGray from "@/../public/images/report-gray.svg";
+import { getAdminBinsReportCount } from "@/lib/apis/report";
+import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -47,6 +49,12 @@ export default function Card({ ...item }: CardProps) {
         return "일반 쓰레기통";
     }
   };
+
+  const { data: reportCount } = useQuery({
+    queryKey: ["reportCountQuery"],
+    queryFn: () => getAdminBinsReportCount(item.id),
+    enabled: !!isReport,
+  });
 
   return (
     <button className={cn("card-wrapper")} disabled={completed}>
@@ -107,7 +115,11 @@ export default function Card({ ...item }: CardProps) {
                   />
                 )}
 
-                <p>{item.bookmarkCount}</p>
+                {reportCount ? (
+                  <p>{reportCount}</p>
+                ) : (
+                  <p>{item.bookmarkCount}</p>
+                )}
               </>
             )}
           </div>

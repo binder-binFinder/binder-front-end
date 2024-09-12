@@ -1,4 +1,5 @@
 import arrowRight from "@/../public/images/arrowGreen.svg";
+import noti from "@/../public/images/noti.svg";
 import defaultImg from "@/../public/images/profileDefault.svg";
 import classNames from "classnames/bind";
 import Image from "next/image";
@@ -32,6 +33,13 @@ export default function MyPageNologin() {
             <Image src={arrowRight} alt={"로그인하러 가기"} fill />
           </div>
         </div>
+        <Image
+          className={cn("profileNoti")}
+          src={noti}
+          alt="알림이미지"
+          width={26}
+          height={30}
+        />
       </div>
     </>
   );

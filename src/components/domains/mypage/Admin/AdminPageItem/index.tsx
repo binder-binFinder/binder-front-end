@@ -35,10 +35,7 @@ export default function AdminPageItem({ title }: AdminProps) {
       default:
         const report = useReportPageContext();
         const reportCount = report.queries[0].state.data.pendingCount;
-        return [
-          reportCount,
-          report.queries[0].state.data.binModificationDetails,
-        ]; // 기본 데이터를 반환
+        return [reportCount, report.queries[0].state.data.binComplaintDetails]; // 기본 데이터를 반환
     }
   })();
 
