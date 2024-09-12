@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import styles from "./KakaoMap.module.scss";
 import classNames from "classnames/bind";
-import BtnField from "./searchBtn";
+import BtnField from "./SearchBtn";
 
 const cn = classNames.bind(styles);
 
