@@ -11,6 +11,7 @@ import postAddbin from "@/lib/apis/postAddbin";
 import { useAtom } from "jotai";
 import { userAddress, userCoordinate } from "@/lib/atoms/userAtom";
 import Modal from "@/components/commons/Modal/TrashHow";
+import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 
 const cn = classNames.bind(styles);
 
@@ -167,7 +168,7 @@ export default function AddBinForm() {
           위치 등록하기
         </Button>
       </form>
-      {isOpenModal && <Modal modalState="신청" modalClose={handleCloseModal}></Modal>}
+      {isOpenModal && <Modal modalState={MODAL_CONTENTS.requestAddBin} modalClose={handleCloseModal}></Modal>}
     </>
   );
 }

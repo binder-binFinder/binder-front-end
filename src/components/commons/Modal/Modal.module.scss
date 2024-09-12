@@ -5,13 +5,15 @@
   z-index: 999;
   width: 100vw;
   height: 100vh;
+  padding: 0 2rem;
   top: 0;
   left: 0;
   background-color: rgba($color: black, $alpha: 0.2);
 }
 .modalWrap {
-  width: 35.6rem;
-  height: 30.3rem;
+  width: 100%;
+  max-width: 35rem;
+  padding: 6.7rem 3rem 6.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,6 +105,9 @@
   font-size: 1.6rem;
   text-align: center;
   line-height: 23px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 
 .modalClose {
