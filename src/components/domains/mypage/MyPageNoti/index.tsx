@@ -29,6 +29,8 @@ export default function MyPageNoti({ closeBtn }: any) {
                 <NotiItem />
                 <NotiItem />
                 <NotiItem />
+                <NotiItem />
+                <NotiItem />
               </div>
             ) : (
               <div className={cn("notiNone")}>
