@@ -1,4 +1,5 @@
 import adminMark from "@/../public/images/adminMark.svg";
+import noti from "@/../public/images/noti.svg";
 import defaultImg from "@/../public/images/profileDefault.svg";
 import profileEditImg from "@/../public/images/profileEdit.svg";
 import star from "@/../public/images/star.svg";
@@ -6,6 +7,7 @@ import DropProfileEdit from "@/components/commons/DropBottom/DropProfileEdit";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useState } from "react";
+import MyPageNoti from "../MyPageNoti";
 import styles from "./MyPageProfile.module.scss";
 
 const cn = classNames.bind(styles);
@@ -25,11 +27,15 @@ interface ProfileProps {
 
 export default function MyPageProfile({ memberData }: ProfileProps) {
   const [profileEdit, setProfileEdit] = useState<boolean>(false);
+  const [notiModal, setNotiModal] = useState<boolean>(false);
   const [nick, setNick] = useState<string>(memberData?.nickname);
   const [img, setImg] = useState<string>(memberData?.imageUrl);
 
   const handleProfileEdit = () => {
     setProfileEdit((prev) => !prev);
+  };
+  const handleNoti = () => {
+    setNotiModal((prev) => !prev);
   };
 
   const profileImg = img !== null ? img : defaultImg;
@@ -66,6 +72,15 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
           </div>
           {memberData?.bookmarkCount}
         </div>
+
+        <Image
+          className={cn("profileNoti")}
+          src={noti}
+          alt="알림이미지"
+          width={26}
+          height={30}
+          onClick={handleNoti}
+        />
       </div>
 
       {profileEdit && (
@@ -77,6 +92,7 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
           setImg={setImg}
         />
       )}
+      {notiModal && <MyPageNoti closeBtn={handleNoti} />}
     </>
   );
 }

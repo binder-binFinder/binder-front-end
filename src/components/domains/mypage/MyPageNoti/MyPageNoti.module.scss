@@ -1,0 +1,113 @@
+@import "@/styles/main.scss";
+.modal {
+  position: fixed;
+  z-index: 4;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba($color: black, $alpha: 0.2);
+}
+
+.notiWrap {
+  width: 39rem;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bar {
+  width: 100%;
+  height: 7.5rem;
+  padding: 0 1.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  & > img {
+    rotate: 180deg;
+    cursor: pointer;
+  }
+  & > div {
+    color: #06130d;
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 37px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+}
+.notiCount {
+  width: 6rem;
+  height: 2.5rem;
+  border-radius: 1.8rem;
+  background: #ff3232;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notiBack {
+  width: 100%;
+  height: 100%;
+  background: #f4f6f5;
+}
+
+.notiItemBox {
+  padding: 2.5rem 1.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.notiItemWrap {
+  padding: 1.2rem 1.7rem;
+  width: 100%;
+  height: 12.3rem;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  position: relative;
+}
+.notiItemDate {
+  color: #96a9a0;
+  font-size: 1.3rem;
+  line-height: 20px;
+}
+.notiItemTitle {
+  color: #06130d;
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 24px;
+  width: 95%;
+}
+.notiItemAdmin {
+  color: #515f58;
+  font-size: 1.6rem;
+  line-height: 25px;
+}
+.notiItemDelete {
+  position: absolute;
+  top: 1.8rem;
+  right: 1rem;
+}
+
+.notiNone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8.5rem;
+  gap: 1.2rem;
+  & p {
+    color: #515f58;
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 37px;
+  }
+}

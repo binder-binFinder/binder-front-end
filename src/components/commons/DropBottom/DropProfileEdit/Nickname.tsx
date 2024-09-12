@@ -49,7 +49,7 @@ export default function Nickname({
       </div>
       <div className={cn("inputWrap")}>
         <input
-          defaultValue={prevNickname}
+          // defaultValue={inputValue}
           className={
             errors.nickname
               ? cn("nicknameInputRed")
@@ -60,11 +60,11 @@ export default function Nickname({
           id="nickname"
           type="text"
           maxLength={16}
-          // value={inputValue}
+          value={inputValue}
           {...register}
           placeholder="한글, 영어, 숫자만 사용가능 (2자 이상)"
         />
-        <div className={cn("inputX")} onClick={handleInputX}>
+        <div className={cn("inputX")} onClick={() => handleInputX()}>
           <Image src={inputX} alt="인풋 비우기" fill sizes="17px" />
         </div>
       </div>

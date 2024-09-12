@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
+  position: relative;
   //   gap: 0.7rem;
 }
 .imgEditWrap {
@@ -79,4 +80,10 @@
   width: 1.5rem;
   height: 1.5rem;
   position: relative;
+}
+.profileNoti {
+  position: absolute;
+  top: 4rem;
+  right: 1.7rem;
+  cursor: pointer;
 }

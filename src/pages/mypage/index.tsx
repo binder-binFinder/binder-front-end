@@ -13,7 +13,7 @@ export default function MyPage() {
     queryFn: () => getMembers(),
   });
 
-  const [isLogin, setLoginState] = useAtom(loginState);
+  const [, setLoginState] = useAtom(loginState);
   const [, setIsAdmin] = useAtom(adminUser);
 
   useEffect(() => {
