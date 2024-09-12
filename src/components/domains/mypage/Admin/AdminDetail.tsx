@@ -18,7 +18,7 @@ export default function DefaultForm({ state, approve }: any) {
     queryKey: ["binDetail", id],
     queryFn: () => getBinsId(id),
   });
-
+  console.log(state);
   return (
     <>
       <div className={cn("detailWrap")}>
@@ -65,8 +65,19 @@ export default function DefaultForm({ state, approve }: any) {
           />
         )}
         <div className={cn("detailBtn")}>
-          <div className={cn("detailReject")}>등록 거절</div>
-          <div className={cn("detailAccept")} onClick={approve}>
+          <div
+            className={
+              state === "신고" ? cn("detailRejectReport") : cn("detailReject")
+            }
+          >
+            등록 거절
+          </div>
+          <div
+            className={
+              state === "신고" ? cn("detailAcceptReport") : cn("detailAccept")
+            }
+            onClick={approve}
+          >
             등록 승인
           </div>
         </div>

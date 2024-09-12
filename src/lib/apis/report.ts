@@ -22,3 +22,13 @@ export const getAdminBinsReportCount = async (id: any) => {
     console.error(err);
   }
 };
+export const postAcceptReport = async (id: any) => {
+  try {
+    const res = await instance.post(
+      `/admin/bins/modifications/${id - 1}/approve`
+    );
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
