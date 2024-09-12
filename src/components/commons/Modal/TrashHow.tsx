@@ -5,17 +5,17 @@ import wrong from "@/../public/images/modalWrong.svg";
 import access from "@/../public/images/modalAccess.svg";
 import audit from "@/../public/images/modalAudit.svg";
 import Image from "next/image";
-import { useState } from "react";
 import { ModalContent } from "@/lib/constants/modalContents";
 
 const cn = classNames.bind(styles);
 
 interface IModalProps {
   modalState: ModalContent;
+  moreInfo?: string;
   modalClose: () => void;
 }
 
-export default function Modal({ modalState, modalClose }: IModalProps) {
+export default function Modal({ modalState, modalClose, moreInfo }: IModalProps) {
   const getImageSrc = () => {
     switch (modalState.status) {
       case "red":
@@ -66,6 +66,7 @@ export default function Modal({ modalState, modalClose }: IModalProps) {
               </span>
             ))}
           </div>
+          {modalState.ismore && <div className={cn("modalMoreInfo")}>{moreInfo}</div>}
 
           <div className={cn("modalClose")} onClick={modalClose}>
             닫기

@@ -14,7 +14,7 @@ interface Props {
   approve: () => void;
 }
 
-export default function DefaultForm({ state, approve }: any) {
+export default function DefaultForm({ state, approve }: Props) {
   const router = useRouter();
   const { id } = router.query;
   const { data: binDetail } = useQuery({
