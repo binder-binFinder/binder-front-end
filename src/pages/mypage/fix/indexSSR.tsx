@@ -40,3 +40,6 @@
 //     </fixPageContext.Provider>
 //   );
 // }
+export default function a() {
+  return <>dsdsf</>;
+}
