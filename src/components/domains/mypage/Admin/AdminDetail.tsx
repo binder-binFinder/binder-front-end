@@ -11,16 +11,19 @@ import { useState } from "react";
 import Modal from "@/components/commons/Modal/TrashHow";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
-
+import { getAdminBinsFix } from "@/lib/apis/fix";
+import { getAdminBinsReport } from "@/lib/apis/report";
+import { BinDetail } from "@/lib/atoms/binAtom";
 
 const cn = classNames.bind(styles);
 
 interface Props {
   state: "등록" | "신고" | "수정";
   approve: () => void;
+  binDetail: BinDetail;
 }
 
-export default function DefaultForm({ state, approve }: Props) {
+export default function DefaultForm({ state, approve, binDetail }: Props) {
   const [isOpenDropBottom, openDropBottom, closeDropBottom] = useToggle(false);
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [reason, setReason] = useState("");
@@ -28,10 +31,7 @@ export default function DefaultForm({ state, approve }: Props) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: binDetail } = useQuery({
-    queryKey: ["binDetail", id],
-    queryFn: () => getBinsId(id),
-  });
+  console.log("binDetail", binDetail);
 
   const handleClickReject = () => openDropBottom();
 

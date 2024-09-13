@@ -1,12 +1,9 @@
 import { instance } from "./axios";
 
 export const getAdminBinsFix = async (data: any) => {
-  const filter =
-    data === "전체" ? "ENTIRE" : data === "처리 전" ? "PENDING" : "FINISHED";
+  const filter = data === "전체" ? "ENTIRE" : data === "처리 전" ? "PENDING" : "FINISHED";
   try {
-    const res = await instance.get(
-      `/admin/bins/modifications?filter=${filter}`
-    );
+    const res = await instance.get(`/admin/bins/modifications?filter=${filter}`);
     return res.data;
   } catch (err) {
     console.error(err);

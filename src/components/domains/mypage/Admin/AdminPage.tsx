@@ -8,7 +8,6 @@ export default function AdminPage({ title }: AdminPageProps) {
   return (
     <>
       <AdminPageBar />
-
       <AdminPageItem title={title} />
     </>
   );

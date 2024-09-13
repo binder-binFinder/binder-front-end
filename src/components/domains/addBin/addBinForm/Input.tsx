@@ -15,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label}
       </label>
       {type === "serch" && (
-        <Link href={"/testkakao"}>
+        <Link href={"/KakaoMap"}>
           <button className={cn("addbin-input-delete-button")}>
             <Image src={"/images/search.svg"} alt="입력값 지우기" width={17} height={17} />
           </button>
