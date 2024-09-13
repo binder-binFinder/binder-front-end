@@ -44,9 +44,10 @@ export default function DropProfileEdit({
   } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     profileEdit({
-      nickname: data.nickname,
+      nickname: data.nickname ? data.nickname : prevNickname,
       imageUrl: imgData,
     });
+    console.log(data.nickname, imgData);
   };
 
   const { mutate: profileEdit } = useMutation({
@@ -86,6 +87,7 @@ export default function DropProfileEdit({
   useEffect(() => {
     setInputValue(prevNickname);
   }, []);
+
   return (
     <DropWrap
       title="프로필 수정"

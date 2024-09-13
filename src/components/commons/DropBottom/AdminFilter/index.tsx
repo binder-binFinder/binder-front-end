@@ -8,14 +8,9 @@ const cn = classNames.bind(styles);
 
 interface AdminFilter {
   closeModal: () => void;
-  setPageFilter: (filter: string) => void;
-  pageFilter: string;
+  pageFilter: any;
 }
-export default function AdminFilter({
-  closeModal,
-  setPageFilter,
-  pageFilter,
-}: AdminFilter) {
+export default function AdminFilter({ closeModal, pageFilter }: AdminFilter) {
   const [submit, setSubmit] = useState<boolean>(false);
   const [choice, setChoice] = useState<string>(pageFilter);
   const router = useRouter();
@@ -30,7 +25,6 @@ export default function AdminFilter({
   }, [choice]);
 
   const handleSubmit = () => {
-    setPageFilter(choice);
     closeModal();
     router.push(router.pathname + "?filter=" + choice);
   };

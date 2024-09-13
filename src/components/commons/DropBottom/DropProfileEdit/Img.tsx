@@ -1,11 +1,11 @@
-import { useCallback, useEffect } from "react";
-import Image from "next/image";
 import defaultImg from "@/../public/images/profileDefault.svg";
 import profileEdit from "@/../public/images/profileEdit.svg";
-import classNames from "classnames/bind";
-import styles from "./DropProfileEdit.module.scss";
-import { useMutation } from "@tanstack/react-query";
 import { postImg } from "@/lib/apis/image";
+import { useMutation } from "@tanstack/react-query";
+import classNames from "classnames/bind";
+import Image from "next/image";
+import { useCallback, useEffect } from "react";
+import styles from "./DropProfileEdit.module.scss";
 
 const cn = classNames.bind(styles);
 
@@ -42,7 +42,12 @@ export default function Img({
     }
   }, [handleImgPost, profileImg]);
 
-  const img = imgData ? imgData : memberImg ? memberImg : defaultImg;
+  const img =
+    imgData !== "null"
+      ? imgData
+      : memberImg !== "null"
+        ? memberImg
+        : defaultImg;
 
   return (
     <>
