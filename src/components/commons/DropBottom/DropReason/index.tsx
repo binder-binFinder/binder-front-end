@@ -7,6 +7,7 @@ import { postRejectAddbin } from "@/lib/apis/postRejectAddbin";
 import { useMutation } from "@tanstack/react-query";
 import { postRejectFixbin } from "@/lib/apis/postRejectAskbin";
 
+
 const cn = classNames.bind(styles);
 
 interface IFormInput {
@@ -47,6 +48,7 @@ export default function DropReason({ title, placeholder, binId, onHandleSubmit, 
       default:
         console.log("Unknown state:", state);
     }
+
 
     console.log(data);
   };

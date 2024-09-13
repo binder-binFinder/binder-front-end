@@ -8,10 +8,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useToggle } from "@/lib/hooks/useToggle";
 
+
 export default function AskDetail() {
   const router = useRouter();
   const { id } = router.query;
   const [isOpenModal, openModal, closeModal] = useToggle(false);
+
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAccept(id),

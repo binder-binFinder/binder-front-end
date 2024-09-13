@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./AdminDetail.module.scss";
 import { getBinsId } from "@/lib/apis/bins";
 import { btnInputValues } from "@/lib/constants/btnInputValues";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import AdminDetailItem from "./AdminDetailItem";
 import DropReason from "@/components/commons/DropBottom/DropReason";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import Modal from "@/components/commons/Modal/TrashHow";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
+
 
 const cn = classNames.bind(styles);
 
