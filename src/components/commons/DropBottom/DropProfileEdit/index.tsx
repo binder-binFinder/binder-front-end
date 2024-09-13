@@ -47,7 +47,6 @@ export default function DropProfileEdit({
       nickname: data.nickname ? data.nickname : prevNickname,
       imageUrl: imgData,
     });
-    console.log(data.nickname, imgData);
   };
 
   const { mutate: profileEdit } = useMutation({
@@ -70,7 +69,7 @@ export default function DropProfileEdit({
   const nickname = useWatch({
     control,
     name: "nickname",
-    defaultValue: "",
+    defaultValue: inputValue,
   });
 
   const handleInputX = () => {
@@ -78,15 +77,24 @@ export default function DropProfileEdit({
   };
 
   useEffect(() => {
-    setSubmit(
-      profileImg.length > 0 || (nickname !== "" && nickname.length > 1)
-    );
-    setSubmitNick(nickname.length > 1);
-  }, [profileImg, nickname]);
+    const isProfileImgChanged = profileImg.length !== 0;
+    const isNicknameValid = inputValue.length >= 2;
+    const isNicknameChanged = inputValue !== prevNickname;
+
+    if (isProfileImgChanged && !isNicknameValid) {
+      setSubmit(false);
+    } else if (isProfileImgChanged || (isNicknameChanged && isNicknameValid)) {
+      setSubmit(true);
+    } else {
+      setSubmit(false);
+    }
+
+    setSubmitNick(isNicknameValid);
+  }, [profileImg, inputValue, imgData, prevNickname]);
 
   useEffect(() => {
     setInputValue(prevNickname);
-  }, []);
+  }, [prevNickname]);
 
   return (
     <DropWrap
