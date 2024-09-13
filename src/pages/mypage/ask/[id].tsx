@@ -13,7 +13,6 @@ export default function AskDetail() {
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
 
-
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAccept(id),
     onSuccess: (res) => {
@@ -32,7 +31,6 @@ export default function AskDetail() {
       <AdminPageBar />
       <AdminDetail state={"등록"} approve={handleAccept} />
       {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveAdd} />}
-      {isOpenErrorModal && }
     </>
   );
 }
