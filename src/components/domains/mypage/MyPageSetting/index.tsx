@@ -63,7 +63,7 @@ export default function MyPageSetting() {
         socialLogin={socialLogin}
         loginStates={loginStates}
       />
-      {loginStates && isAdmin && <AdminSetting />}
+      {loginStates && isAdmin === "ROLE_ADMIN" && <AdminSetting />}
 
       {drop && (
         <DropCancel handleDrop={handleDrop} setDeleteModal={setDeleteModal} />

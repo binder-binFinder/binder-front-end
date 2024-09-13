@@ -20,6 +20,7 @@ export interface CardProps {
   isAdmin?: boolean;
   admin: boolean;
   nickname?: string;
+  complaintCount?: number;
 }
 
 export default function CardList() {

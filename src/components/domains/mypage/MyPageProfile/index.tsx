@@ -38,7 +38,7 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
     setNotiModal((prev) => !prev);
   };
 
-  const profileImg = img !== "null" ? img : defaultImg;
+  const profileImg = img !== "null" && img !== null ? img : defaultImg;
 
   return (
     <>

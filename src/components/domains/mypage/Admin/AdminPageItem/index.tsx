@@ -75,6 +75,7 @@ export default function AdminPageItem({ title }: AdminProps) {
                 nickname={item.nickname}
                 bookmarkCount={0}
                 admin={true}
+                complaintCount={item?.complaintCount}
               />
             </div>
           ))}
