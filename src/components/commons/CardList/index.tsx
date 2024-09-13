@@ -5,6 +5,8 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 import Card from "../Card";
 import styles from "./CardList.module.scss";
+import { BinDetail } from "@/lib/atoms/binAtom";
+import { useRouter } from "next/router";
 
 const cn = classNames.bind(styles);
 
@@ -21,14 +23,17 @@ export interface CardProps {
   admin: boolean;
   nickname?: string;
   complaintCount?: number;
-  onClick?: () => void;
 }
 
 export default function CardList() {
+  const router = useRouter();
   const { data: cardLists } = useQuery({
     queryKey: ["cardList"],
     queryFn: getMembersTimeline,
   });
+  const handleClickCard = (id: string) => {
+    router.push(router.route + "/detail/" + id);
+  };
   return (
     <ul className={cn("card-list")}>
       {cardLists === null ? (
@@ -38,7 +43,7 @@ export default function CardList() {
         </div>
       ) : (
         cardLists?.map((item: any) => (
-          <li key={item.binId}>
+          <li key={item.binId} onClick={() => handleClickCard(item.binId)}>
             <Card admin={false} {...item} />
           </li>
         ))

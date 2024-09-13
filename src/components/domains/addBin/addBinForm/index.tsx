@@ -14,6 +14,7 @@ import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
 import DropReason from "@/components/commons/DropBottom/DropReason";
 import { patchEditbin, postAddbin } from "@/lib/apis/postAddbin";
+import { filterAddress } from "@/pages/KakaoMap";
 
 const cn = classNames.bind(styles);
 
@@ -79,7 +80,7 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
     }
 
     if (address.roadAddress || address.address) {
-      setValue("address", address.roadAddress || address.address);
+      setValue("address", filterAddress(address.roadAddress!) || filterAddress(address.address));
     }
   }, [address, setValue, binDetail]);
 
@@ -126,14 +127,16 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
   const { mutate: submitAddbin } = useMutation({
     mutationKey: ["post-add-bin"],
     mutationFn: (data: PostAddbinValues) => postAddbin(data),
+
     onSuccess: () => {
       openModal();
     },
   });
   const { mutate: submitEditbin } = useMutation({
-    mutationKey: ["petch-edit-bin", binDetail.id],
-    mutationFn: (data) => patchEditbin(binDetail.id, data),
+    mutationKey: ["petch-edit-bin", binDetail?.id],
+    mutationFn: (data) => patchEditbin(binDetail?.id, data),
     onSuccess: () => {
+      closeDropBottom();
       openModal();
     },
     onError: (error: any) => alert(error.response.data.message),
@@ -145,7 +148,9 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
       ...prevData,
       modificationReason: data,
     }));
-    submitEditbin(editPostData);
+    if (editPostData.modificationReason) {
+      submitEditbin(editPostData);
+    }
   };
 
   return (

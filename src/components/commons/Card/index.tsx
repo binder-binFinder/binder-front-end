@@ -14,7 +14,7 @@ const STATUSTEXT: Record<Status, string> = {
   PENDING: "심사 중",
 };
 
-export default function Card({ onClick, ...item }: CardProps) {
+export default function Card({ ...item }: CardProps) {
   const statusText = STATUSTEXT[item.status as Status];
 
   const router = useRouter();
@@ -48,12 +48,8 @@ export default function Card({ onClick, ...item }: CardProps) {
   };
   console.log(item);
 
-  const handleClickBtn = () => {
-    !!onClick ? onClick : router.push(router.route + "/detail/" + item.binId);
-  };
-
   return (
-    <button className={cn("card-wrapper")} onClick={handleClickBtn} disabled={completed}>
+    <button className={cn("card-wrapper")} disabled={completed}>
       <Image
         src={"/images/icon-location-green-pin.svg"}
         alt="초록색 위치 표시 핀"

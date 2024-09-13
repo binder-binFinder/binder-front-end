@@ -79,11 +79,8 @@ export default function AdminPageItem({ title }: AdminProps) {
 
         <div className={cn("adminCardList")}>
           {binData[1]?.map((item: any) => (
-            <div key={item.id}>
+            <div onClick={() => handleClickCard(item, item.binId)} key={item.id}>
               <Card
-                onClick={() => {
-                  handleClickCard(item, item.binId);
-                }}
                 binId={item.binId}
                 title={item.title}
                 address={item.address}
