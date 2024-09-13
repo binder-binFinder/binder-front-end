@@ -15,26 +15,27 @@ export default function AskDetail() {
   const [askDetail] = useAtom(binDetail);
 
   const [isOpenModal, openModal, closeModal] = useToggle(false);
-  //const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
+  const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAccept(String(askDetail.binId)),
-    onSuccess: (res) => {
-      !!res && openModal();
+    onSuccess: () => {
+      openModal();
     },
     onError: (error: any) => {
-      alert(error.response.data.message);
+      if (error.status === 400) {
+        openErrorModal();
+      }
+      console.log("err", error.status);
     },
   });
 
-  const handleCloseModal = () => {
-    closeModal();
-  };
   return (
     <>
       <AdminPageBar />
       <AdminDetail state={"등록"} binDetail={askDetail} approve={handleAccept} />
-      {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveAdd} />}
+      {isOpenModal && <Modal modalClose={closeModal} modalState={MODAL_CONTENTS.approveAdd} />}
+      {isOpenErrorModal && <Modal modalClose={closeErrorModal} modalState={MODAL_CONTENTS.processingCompleted} />}
     </>
   );
 }

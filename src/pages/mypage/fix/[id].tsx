@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 export default function FixDetail() {
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [fixDetail] = useAtom(binDetail);
+  const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAcceptFix(fixDetail.modificationId),
@@ -19,7 +20,10 @@ export default function FixDetail() {
       res && openModal();
     },
     onError: (error: any) => {
-      return alert(error.response.data.message);
+      if (error.status === 400) {
+        openErrorModal();
+      }
+      console.log("err", error.status);
     },
   });
 
@@ -32,6 +36,7 @@ export default function FixDetail() {
       <AdminPageBar />
       <AdminDetail state={"수정"} approve={handleAccept} binDetail={fixDetail} />
       {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveFix} />}
+      {isOpenErrorModal && <Modal modalClose={closeErrorModal} modalState={MODAL_CONTENTS.processingCompleted} />}
     </>
   );
 }
