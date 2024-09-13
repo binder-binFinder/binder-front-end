@@ -10,7 +10,7 @@ const cn = classNames.bind(styles);
 
 export type Status = "REJECTED" | "APPROVED" | "PENDING";
 export interface CardProps {
-  id: number;
+  binId: number;
   title: string;
   address: string;
   type: string;
@@ -21,6 +21,7 @@ export interface CardProps {
   admin: boolean;
   nickname?: string;
   complaintCount?: number;
+  onClick?: () => void;
 }
 
 export default function CardList() {
@@ -37,7 +38,7 @@ export default function CardList() {
         </div>
       ) : (
         cardLists?.map((item: any) => (
-          <li key={item.id}>
+          <li key={item.binId}>
             <Card admin={false} {...item} />
           </li>
         ))

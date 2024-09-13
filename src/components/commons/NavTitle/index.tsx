@@ -16,12 +16,12 @@ export default function NavTitle({ children }: Props) {
   const handelClickRouteBack = () => router.back();
 
   return (
-    <section className={cn("nav-title-wrapper")}>
+    <header className={cn("nav-title-wrapper")}>
       <button className={cn("prev-btn")} onClick={handelClickRouteBack} type="button">
         <Image src={"/images/icon-left-arrow.svg"} alt="전 페이지로 이동" width={8} height={16} />
       </button>
       <h2 className={cn("nav-title")}>{children}</h2>
       <div></div>
-    </section>
+    </header>
   );
 }

@@ -6,7 +6,7 @@ const cn = classNames.bind(style);
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  status?: "basic" | "alert" | "primary";
+  status?: "basic" | "alert" | "primary" | "edit" | "editCancel" | "editComplete";
   selected?: boolean;
 }
 

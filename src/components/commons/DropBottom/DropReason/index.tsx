@@ -17,33 +17,35 @@ interface Props {
   title: string;
   placeholder: string;
   onHandleSubmit: (data: string) => void;
-  binId: string | string[] | undefined;
-  state: "수정" | "등록" | "신고" | undefined;
+  id: number | string;
+  state: "수정" | "등록" | "신고" | "정보";
   closeBtn: () => void;
 }
-export default function DropReason({ title, placeholder, binId, onHandleSubmit, closeBtn, state }: Props) {
+export default function DropReason({ title, placeholder, id, onHandleSubmit, closeBtn, state }: Props) {
   const [submit, setSubmit] = useState<boolean>(false);
 
   const { mutate: rejectAskMutate } = useMutation({
-    mutationKey: ["rejectAddBin", binId],
-    mutationFn: (data: string) => postRejectAccept(binId, data),
+    mutationKey: ["rejectAddBin", id],
+    mutationFn: (data: string) => postRejectAccept(String(id), data),
     onSuccess: () => {},
   });
 
   const { mutate: rejectFixMutate } = useMutation({
-    mutationKey: ["rejectFixBin", binId],
-    mutationFn: (data: string) => postRejectFix(binId, data),
+    mutationKey: ["rejectFixBin", id],
+    mutationFn: (data: string) => postRejectFix(String(id), data),
   });
 
   const { register, handleSubmit, watch } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    onHandleSubmit(data.text);
-
     switch (state) {
       case "수정":
-        return rejectFixMutate(data.text);
+        return onHandleSubmit(data.text), rejectFixMutate(data.text);
       case "등록":
-        return rejectAskMutate(data.text);
+        return onHandleSubmit(data.text), rejectAskMutate(data.text);
+      case "정보":
+        return onHandleSubmit(data.text);
+      case "신고":
+        return onHandleSubmit(data.text);
       default:
         console.log("Unknown state:", state);
     }

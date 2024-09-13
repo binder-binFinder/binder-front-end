@@ -7,7 +7,6 @@ import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import { useRouter } from "next/router";
 
 export default function ReportDetail() {
   const [reportDetail] = useAtom(binDetail);

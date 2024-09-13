@@ -14,13 +14,10 @@ interface Props extends InputProps {
 }
 
 const ImgInput = forwardRef<HTMLInputElement, Props>(({ id, img, onChangeImgData, onChange, ...props }, ref) => {
-  const [preview, setPreview] = useState<string | null>(img || null);
-
   const { mutate: imgPost } = useMutation({
     mutationFn: (data: FormData) => postImg(data),
     onSuccess: (imgData: { imageUrl: string }) => {
       onChangeImgData(imgData.imageUrl);
-      setPreview(imgData.imageUrl);
     },
     onError: (error) => {
       console.error(error);
@@ -43,9 +40,9 @@ const ImgInput = forwardRef<HTMLInputElement, Props>(({ id, img, onChangeImgData
         <div className={cn("addbin-img-box")}>
           <Image src={"/images/icon-add-img.svg"} alt="쓰레기통 이미지 추가하기" width={30} height={22} />
           <p className={cn("addbin-img-box-text")}>여기를 눌러 사진을 추가하세요</p>
-          {preview && (
+          {img && (
             <Image
-              src={preview}
+              src={img}
               className={cn("preview")}
               alt="쓰레기통 사진 미리 보기"
               fill

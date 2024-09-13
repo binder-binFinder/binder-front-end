@@ -16,8 +16,9 @@
   }
 
   &.alert,
-  &.primary {
-    font-size: 2rem;
+  &.primary,
+  &.edit {
+    font-size: 1.6rem;
     font-weight: 500;
     letter-spacing: -0.0225rem;
     border-radius: 1rem;
@@ -25,11 +26,11 @@
     padding: 1.4rem;
 
     border: none;
+    color: #fff;
   }
 
   &.alert {
     background-color: #ff3232;
-    color: #fff;
     &:disabled {
       background-color: #e9aead;
     }
@@ -37,9 +38,30 @@
 
   &.primary {
     background-color: $primary-green;
-    color: #fff;
     &:disabled {
       background-color: #94ccb4;
     }
   }
+
+  &.edit {
+    background-color: #3b4943;
+    font-size: 1.5rem;
+  }
+}
+
+.editCancel,
+.editComplete {
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem; /* 133.333% */
+  letter-spacing: -0.0225rem;
+  flex-grow: 1;
+  border: 1px solid #3b4943;
+  color: #3b4943;
+}
+
+.editComplete {
+  background: #3b4943;
+  color: $white;
 }

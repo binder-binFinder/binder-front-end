@@ -14,13 +14,12 @@ const STATUSTEXT: Record<Status, string> = {
   PENDING: "심사 중",
 };
 
-export default function Card({ ...item }: CardProps) {
+export default function Card({ onClick, ...item }: CardProps) {
   const statusText = STATUSTEXT[item.status as Status];
 
   const router = useRouter();
   const isReport = router.asPath === "/mypage/report";
-  const completed =
-    item.status === "REJECTED" || (item.status === "APPROVED" && item.admin);
+  const completed = item.status === "REJECTED" || (item.status === "APPROVED" && item.admin);
 
   const tagNames: { [key: string]: string } = {
     "/mypage/ask": "요청",
@@ -47,9 +46,14 @@ export default function Card({ ...item }: CardProps) {
         return "일반 쓰레기통";
     }
   };
+  console.log(item);
+
+  const handleClickBtn = () => {
+    !!onClick ? onClick : router.push(router.route + "/detail/" + item.binId);
+  };
 
   return (
-    <button className={cn("card-wrapper")} disabled={completed}>
+    <button className={cn("card-wrapper")} onClick={handleClickBtn} disabled={completed}>
       <Image
         src={"/images/icon-location-green-pin.svg"}
         alt="초록색 위치 표시 핀"
@@ -98,20 +102,10 @@ export default function Card({ ...item }: CardProps) {
                     className={cn("isReport")}
                   />
                 ) : (
-                  <Image
-                    src={grayStar}
-                    alt="좋아요"
-                    width={15}
-                    height={15}
-                    objectFit="fit"
-                  />
+                  <Image src={grayStar} alt="좋아요" width={15} height={15} objectFit="fit" />
                 )}
 
-                {item?.complaintCount ? (
-                  <p>{item?.complaintCount}</p>
-                ) : (
-                  <p>{item.bookmarkCount}</p>
-                )}
+                {item?.complaintCount ? <p>{item?.complaintCount}</p> : <p>{item.bookmarkCount}</p>}
               </>
             )}
           </div>
