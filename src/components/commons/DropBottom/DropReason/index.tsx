@@ -3,11 +3,9 @@ import DropWrap from "..";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./DropReason.module.scss";
-import Image from "next/image";
-import defaultImg from "@/../public/images/profileDefault.svg";
-import profileEdit from "@/../public/images/profileEdit.svg";
 import { postRejectAddbin } from "@/lib/apis/postRejectAddbin";
 import { useMutation } from "@tanstack/react-query";
+import { postRejectFixbin } from "@/lib/apis/postRejectAskbin";
 
 const cn = classNames.bind(styles);
 
@@ -20,22 +18,39 @@ interface Props {
   placeholder: string;
   onHandleSubmit: (data: string) => void;
   binId: string | string[] | undefined;
+  state: "수정" | "등록" | "신고" | undefined;
+  closeBtn: () => void;
 }
-export default function DropReason({ title, placeholder, binId, onHandleSubmit }: Props) {
+export default function DropReason({ title, placeholder, binId, onHandleSubmit, closeBtn, state }: Props) {
   const [submit, setSubmit] = useState<boolean>(false);
 
-  const { mutate: rejectMutate } = useMutation({
+  const { mutate: rejectAskMutate } = useMutation({
     mutationKey: ["rejectAddBin", binId],
     mutationFn: (data: string) => postRejectAddbin(binId, data),
     onSuccess: () => {},
   });
 
+  const { mutate: rejectFixMutate } = useMutation({
+    mutationKey: ["rejectFixBin", binId],
+    mutationFn: (data: string) => postRejectFixbin(binId, data),
+  });
+
   const { register, handleSubmit, watch } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     onHandleSubmit(data.text);
-    rejectMutate(data.text);
+
+    switch (state) {
+      case "수정":
+        return rejectFixMutate(data.text);
+      case "등록":
+        return rejectAskMutate(data.text);
+      default:
+        console.log("Unknown state:", state);
+    }
+
     console.log(data);
   };
+
   const text = watch("text");
   useEffect(() => {
     if (text !== "") {
@@ -49,7 +64,7 @@ export default function DropReason({ title, placeholder, binId, onHandleSubmit }
     <DropWrap
       title={title + "사유 입력"}
       btn="등록"
-      closeBtn={() => {}}
+      closeBtn={closeBtn}
       btnFunction={handleSubmit(onSubmit)}
       submitState={submit}
     >

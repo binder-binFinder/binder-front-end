@@ -1,0 +1,23 @@
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.card-list > span {
+  color: #515f58;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 37px;
+}
+
+.card-nologin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7.1rem;
+  gap: 1.1rem;
+  color: #515f58;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 37px;
+}/*# sourceMappingURL=CardList.module.css.map */

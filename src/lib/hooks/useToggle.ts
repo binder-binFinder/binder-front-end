@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export function useToggle(): { isToggle: boolean; handleToggleClick: () => void } {
-  const [isToggle, setIsToggle] = useState<boolean>(false);
+// 배열을 반환하도록 수정
+export const useToggle = (initialState: boolean = false): [boolean, () => void, () => void] => {
+  const [isOpen, setIsOpen] = useState(initialState);
 
-  const handleToggleClick = () => {
-    setIsToggle((prev) => !prev);
-  };
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
-  return { isToggle, handleToggleClick };
-}
+  return [isOpen, open, close];
+};
