@@ -5,20 +5,22 @@ import { postAccept } from "@/lib/apis/ask";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useToggle } from "@/lib/hooks/useToggle";
-
 
 export default function AskDetail() {
   const router = useRouter();
   const { id } = router.query;
   const [isOpenModal, openModal, closeModal] = useToggle(false);
+  const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
 
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAccept(id),
-    onSuccess: () => {
-      openModal();
+    onSuccess: (res) => {
+      !!res && openModal();
+    },
+    onError: (error: any) => {
+      alert(error.response.data.message);
     },
   });
 
@@ -30,6 +32,7 @@ export default function AskDetail() {
       <AdminPageBar />
       <AdminDetail state={"등록"} approve={handleAccept} />
       {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveAdd} />}
+      {isOpenErrorModal && }
     </>
   );
 }

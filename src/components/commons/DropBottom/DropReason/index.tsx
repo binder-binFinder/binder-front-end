@@ -3,10 +3,9 @@ import DropWrap from "..";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./DropReason.module.scss";
-import { postRejectAddbin } from "@/lib/apis/postRejectAddbin";
 import { useMutation } from "@tanstack/react-query";
-import { postRejectFixbin } from "@/lib/apis/postRejectAskbin";
-
+import { postRejectAccept } from "@/lib/apis/ask";
+import { postRejectFix } from "@/lib/apis/fix";
 
 const cn = classNames.bind(styles);
 
@@ -27,13 +26,13 @@ export default function DropReason({ title, placeholder, binId, onHandleSubmit, 
 
   const { mutate: rejectAskMutate } = useMutation({
     mutationKey: ["rejectAddBin", binId],
-    mutationFn: (data: string) => postRejectAddbin(binId, data),
+    mutationFn: (data: string) => postRejectAccept(binId, data),
     onSuccess: () => {},
   });
 
   const { mutate: rejectFixMutate } = useMutation({
     mutationKey: ["rejectFixBin", binId],
-    mutationFn: (data: string) => postRejectFixbin(binId, data),
+    mutationFn: (data: string) => postRejectFix(binId, data),
   });
 
   const { register, handleSubmit, watch } = useForm<IFormInput>();
@@ -48,7 +47,6 @@ export default function DropReason({ title, placeholder, binId, onHandleSubmit, 
       default:
         console.log("Unknown state:", state);
     }
-
 
     console.log(data);
   };

@@ -3,24 +3,27 @@ import AdminDetail from "@/components/domains/mypage/Admin/AdminDetail";
 import AdminPageBar from "@/components/domains/mypage/Admin/AdminPageBar";
 import { postAcceptFix } from "@/lib/apis/fix";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
+import { useToggle } from "@/lib/hooks/useToggle";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 export default function AskDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModal, openModal, closeModal] = useToggle(false);
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAcceptFix(id),
-    onSuccess: () => {
-      setIsOpenModal(true);
+    onSuccess: (res) => {
+      res && openModal();
+    },
+    onError: (error: any) => {
+      return alert(error.response.data.message);
     },
   });
 
   const handleCloseModal = () => {
-    setIsOpenModal(false);
+    closeModal();
   };
 
   return (
