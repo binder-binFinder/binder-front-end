@@ -34,7 +34,7 @@ const dropReasonPlaceholderMap: Record<DropBottomState, string> = {
   정보: "",
 };
 
-export default function DefaultForm({ state, approve, binDetail, toggleIsEdit }: Props) {
+export default function DefaultForm({ state, approve, binDetail }: Props) {
   const [isOpenDropBottom, openDropBottom, closeDropBottom] = useToggle(false);
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
@@ -54,14 +54,12 @@ export default function DefaultForm({ state, approve, binDetail, toggleIsEdit }:
 
     return openDropBottom();
   };
-
   const mutationFnMap = {
-    수정: useMutation(getMutationOptions("rejectFixBin", postRejectFix, binDetail.modificationId!)),
-    등록: useMutation(getMutationOptions("rejectAddBin", postRejectAccept, binDetail.binId)),
-    "신고 거절": useMutation(getMutationOptions("rejectReportBin", postRejectReport, binDetail.complaintId!)),
+    수정: useMutation(getMutationOptions("rejectFixBin", postRejectFix, binDetail?.modificationId)),
+    등록: useMutation(getMutationOptions("rejectAddBin", postRejectAccept, binDetail?.binId)),
+    "신고 거절": useMutation(getMutationOptions("rejectReportBin", postRejectReport, binDetail?.complaintId)),
   };
-
-  function getMutationOptions(mutationKey: string, mutationFn: Function, id: string | number) {
+  function getMutationOptions(mutationKey: string, mutationFn: Function, id: string | number | undefined) {
     return {
       mutationKey: [mutationKey, id],
       mutationFn: (data: string) => mutationFn(String(id), data),
@@ -162,7 +160,7 @@ export default function DefaultForm({ state, approve, binDetail, toggleIsEdit }:
         )}
         {state === "수정" && <AdminDetailItem title={"수정 요청 사유"} detail={binDetail?.title} />}
         {state === "정보" ? (
-          <Button status="edit" onClick={toggleIsEdit}>
+          <Button status="edit" onClick={approve as () => void}>
             쓰레기통 정보 수정하기
           </Button>
         ) : (

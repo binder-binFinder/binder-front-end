@@ -10,6 +10,7 @@
   transform: translateX(-50%);
   z-index: 999;
   overflow: hidden;
+  visibility: visible;
 }
 
 .dropWrap {
@@ -20,6 +21,11 @@
   background-color: #fff;
   position: absolute;
   bottom: 0;
+  animation: slide-up 0.3s ease-out;
+
+  &.exit {
+    animation: slide-down 0.3s ease-out forwards;
+  }
 }
 
 .dropTitle {
@@ -88,5 +94,22 @@
   }
   & > .dropBtnOn {
     background-color: #ff3232;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slide-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
   }
 }

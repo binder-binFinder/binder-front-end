@@ -43,7 +43,7 @@ export default function DropReason({ title, placeholder, onHandleSubmit, closeBt
   return (
     <DropWrap
       title={title + " 사유 입력"}
-      btn="등록"
+      btn={state === "신고 거절" || state === "신고 승인" ? state : "등록"}
       closeBtn={closeBtn}
       btnFunction={handleSubmit(onSubmit)}
       submitState={submit}

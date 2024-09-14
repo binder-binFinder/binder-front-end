@@ -3,6 +3,7 @@ import AddBinForm from "@/components/domains/addBin/addBinForm";
 import AdminDetail from "@/components/domains/mypage/Admin/AdminDetail";
 import { getBinsId } from "@/lib/apis/bins";
 import { useQuery } from "@tanstack/react-query";
+import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { useToggle } from "usehooks-ts";
 
@@ -16,13 +17,17 @@ export default function EditPage() {
     queryFn: () => getBinsId(id),
   });
 
+  // const handleClickToggleIsEdit = () => {
+  //   return toggleIsEdit();
+  // };
+
   return (
     <>
       <NavTitle>내가 발견한 쓰레기통</NavTitle>
       {isEdit ? (
         <AddBinForm binDetail={binDetail} toggleIsEdit={toggleIsEdit} />
       ) : (
-        <AdminDetail state="정보" binDetail={binDetail} approve={toggleIsEdit} toggleIsEdit={toggleIsEdit} />
+        <AdminDetail state="정보" binDetail={binDetail} approve={toggleIsEdit} />
       )}
     </>
   );
