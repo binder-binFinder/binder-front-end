@@ -14,8 +14,8 @@ import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
 import DropReason from "@/components/commons/DropBottom/DropReason";
 import { patchEditbin, postAddbin } from "@/lib/apis/postAddbin";
-import { filterAddress } from "@/pages/KakaoMap";
 import Router from "next/router";
+import { BinDetail } from "@/lib/atoms/binAtom";
 
 const cn = classNames.bind(styles);
 
@@ -32,7 +32,7 @@ interface AddbinFormValues {
   address: string;
   title: string;
   binType?: string;
-  imageUrl?: FileList | string;
+  imageUrl?: string;
 }
 
 export interface PostAddbinValues extends AddbinFormValues {
@@ -42,11 +42,12 @@ export interface PostAddbinValues extends AddbinFormValues {
 }
 
 interface Props {
-  binDetail?: any;
+  binDetail?: BinDetail;
   toggleIsEdit?: () => void;
+  isAdmin?: boolean;
 }
 
-export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
+export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }: Props) {
   const [isOpenDropBottom, openDropBottom, closeDropBottom] = useToggle(false);
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [selectedBin, setSelectedBin] = useState<string>("");
@@ -61,30 +62,57 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
     register,
     handleSubmit,
     setValue,
+    getValues,
     trigger,
     control,
     formState: { errors },
   } = useForm<AddbinFormValues>({
-    mode: "onBlur",
+    mode: "onChange",
     defaultValues: { binType: "", title: "", imageUrl: "" },
   });
 
-  // 초기값 설정 및 주소 필터링
+  const handleDisabledSubmit = () => {
+    if (errors.address || errors.binType || errors.title) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleCheckValues = () => {
+    const allValues = getValues(); // 전체 폼 데이터를 가져옴
+    console.log("모든 폼 값:", allValues); // 콘솔에 폼의 모든 값 출력
+  };
+
+  handleCheckValues();
   useEffect(() => {
-    if (binDetail && binDetail.binInfoForMember.isOwner) {
-      initializeFormWithBinDetail(binDetail);
-    } else if (address.roadAddress || address.address) {
-      setValue("address", filterAddress(address.roadAddress!) || filterAddress(address.address));
+    if (binDetail && binDetail.binInfoForMember?.isOwner) {
+      setValue("address", binDetail.address || "");
+      setValue("binType", binDetail.type || "");
+      setValue("title", binDetail.title || "");
+      setValue("imageUrl", binDetail.imageUrl || "");
+      setSelectedBin(btnInputValues.find((item) => item.id === binDetail.type)?.id || "");
+      setImg(binDetail.imageUrl || "");
+    } else if (address?.roadAddress || address?.address) {
+      setValue("address", address.roadAddress || address.address);
     }
   }, [address, setValue, binDetail]);
 
-  const initializeFormWithBinDetail = (binDetail: any) => {
-    setValue("address", binDetail.address);
-    setValue("binType", binDetail.type);
-    setValue("title", binDetail.title);
-    setValue("imageUrl", binDetail.imageUrl);
-    setSelectedBin(binDetail.type);
-    setImg(binDetail.imageUrl);
+  const handleBlurBtn: FocusEventHandler<HTMLButtonElement> = () => {
+    setIsBtnFocus(false);
+  };
+
+  const handleFousBtn: FocusEventHandler<HTMLButtonElement> = () => {
+    return setIsBtnFocus(true);
+  };
+
+  const handleDeleteInput = (name: string) => {
+    setValue(name as keyof AddbinFormValues, "");
+  };
+
+  const handleChangeImgData = (imgUrl: string) => {
+    setValue("imageUrl", imgUrl);
+    setImg(imgUrl);
   };
 
   const handleBinTypeClick = (id: string) => {
@@ -93,24 +121,41 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
     trigger("binType");
   };
 
-  const handleChangeImgData = (imgUrl: string) => setImg(imgUrl);
-
   const onSubmit: SubmitHandler<AddbinFormValues> = (data) => {
     const postData: PostAddbinValues = {
       ...data,
       type: data.binType,
-      imageUrl: img,
-      latitude: binDetail ? binDetail.latitude : coordinate.x,
-      longitude: binDetail ? binDetail.longitude : coordinate.y,
     };
 
-    binDetail ? handleEditSubmit(postData) : submitAddbinMutate(postData);
+    if (!!binDetail) {
+      postData.latitude = binDetail.latitude;
+      postData.longitude = binDetail.longitude;
+      setEditPostData(postData);
+    } else {
+      postData.latitude = coordinate?.x;
+      postData.longitude = coordinate?.y;
+      submitAddbin(postData);
+    }
   };
 
-  const handleEditSubmit = (postData: PostAddbinValues) => {
-    setEditPostData(postData);
-    openDropBottom();
-  };
+  const { mutate: submitAddbin } = useMutation({
+    mutationKey: ["post-add-bin"],
+    mutationFn: (data: PostAddbinValues) => postAddbin(data),
+
+    onSuccess: () => {
+      openModal();
+    },
+  });
+
+  const { mutate: submitEditbin } = useMutation({
+    mutationKey: ["petch-edit-bin", binDetail?.id],
+    mutationFn: (data) => patchEditbin(binDetail?.id!, data),
+    onSuccess: () => {
+      closeDropBottom();
+      openModal();
+    },
+    onError: (error: any) => alert(error.response.data.message),
+  });
 
   const handleClickEditSubmit = (data: string) => {
     setReason(data);
@@ -120,52 +165,17 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
     }));
   };
 
+  // 비동기 처리 후 값 체크
   useEffect(() => {
-    if (!editPostData.modificationReason) return;
-
-    submitEditbinMutate(editPostData);
-  }, [editPostData]);
-
-  const { mutate: submitAddbinMutate } = useMutation({
-    mutationKey: ["post-add-bin"],
-    mutationFn: (data: PostAddbinValues) => postAddbin(data),
-    onSuccess: () => openModal(),
-  });
-
-  const { mutate: submitEditbinMutate } = useMutation({
-    mutationKey: ["patch-edit-bin", binDetail?.id],
-    mutationFn: (data) => patchEditbin(binDetail?.id, data),
-    onSuccess: () => {
-      closeDropBottom();
-      openModal();
-    },
-    onError: (error: any) => alert(error.response.data.message),
-  });
-
-  const renderButtons = () => {
-    if (binDetail) {
-      return (
-        <article className={cn("edit-btnWrapper")}>
-          <Button status="editCancel" type="button" onClick={toggleIsEdit}>
-            수정 취소
-          </Button>
-          <Button status="editComplete" type="submit" onClick={openDropBottom}>
-            수정 완료
-          </Button>
-        </article>
-      );
+    console.log("zzzzzz", editPostData);
+    if (editPostData?.modificationReason) {
+      submitEditbin(editPostData);
     }
-
-    return (
-      <Button status="primary" type="submit" disabled={!!errors}>
-        위치 등록하기
-      </Button>
-    );
-  };
+  }, [editPostData]);
 
   return (
     <>
-      {binDetail && <h3 className={cn("edit-small-title")}>쓰레기통 정보 수정 요청</h3>}
+      {!!binDetail && <h3 className={cn("edit-small-title")}>쓰레기통 정보 수정{!isAdmin && "요청"}</h3>}
       <form className={cn("addbin-form")} onSubmit={handleSubmit(onSubmit)}>
         <Input
           id="address"
@@ -191,12 +201,12 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
                   <Button
                     key={bin.id}
                     id={bin.id}
-                    onFocus={() => setIsBtnFocus(true)}
+                    onFocus={handleFousBtn}
                     type="button"
                     selected={selectedBin === bin.id}
                     onClick={() => handleBinTypeClick(bin.id)}
                     {...field}
-                    onBlur={() => setIsBtnFocus(false)}
+                    onBlur={handleBlurBtn}
                   >
                     {bin.label}
                   </Button>
@@ -213,27 +223,40 @@ export default function AddBinForm({ binDetail, toggleIsEdit }: Props) {
           placeholder="명칭을 입력하세요"
           {...register("title", { required: "명칭은 필수입니다." })}
           isError={!!errors.title}
-          onClickDelete={(name) => setValue(name as keyof AddbinFormValues, "")}
+          onClickDelete={handleDeleteInput}
           errorMessage={errors.title?.message}
         />
 
-        <ImgInput id="img" {...register("imageUrl")} img={img} onChangeImgData={handleChangeImgData} />
+        <ImgInput id="img" img={img} onChangeImgData={handleChangeImgData} />
 
-        {renderButtons()}
+        {!!binDetail ? (
+          <article className={cn("edit-btnWrapper")}>
+            <Button status="editCancel" type="button" onClick={toggleIsEdit}>
+              수정 취소
+            </Button>
+            <Button status="editComplete" type="submit" onClick={openDropBottom}>
+              수정 완료
+            </Button>
+          </article>
+        ) : (
+          <Button status="primary" type="submit" disabled={handleDisabledSubmit()}>
+            위치 등록하기
+          </Button>
+        )}
       </form>
 
       {isOpenModal && (
         <Modal
-          modalState={binDetail ? MODAL_CONTENTS.requestFixBin : MODAL_CONTENTS.requestAddBin}
+          modalState={!!binDetail ? MODAL_CONTENTS.requestFixBin : MODAL_CONTENTS.requestAddBin}
           modalClose={Router.back}
           moreInfo={reason}
         />
       )}
+
       {isOpenDropBottom && (
         <DropReason
           onHandleSubmit={handleClickEditSubmit}
           state="정보"
-          id={binDetail?.binId}
           closeBtn={closeDropBottom}
           title="수정 사유 입력"
           placeholder="쓰레기통 수정"

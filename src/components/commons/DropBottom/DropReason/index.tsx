@@ -14,7 +14,6 @@ interface Props {
   title: string;
   placeholder: string;
   onHandleSubmit: (data: string) => void;
-  id: number | string;
   state: "수정" | "등록" | "신고 승인" | "신고 거절" | "정보";
   closeBtn: () => void;
 }

@@ -11,7 +11,8 @@ export const binDetail = atomWithStorage<BinDetail>("bindata", {
 });
 
 export interface BinDetail {
-  binId: number;
+  binId?: number;
+  id?: number;
   title: string;
   address: string;
   nickname: string;
@@ -30,4 +31,10 @@ export interface BinDetail {
   complaintId?: number;
   mostRecentComplaintAt?: string;
   complaintCount?: number;
+  binInfoForMember?: {
+    isOwner: true;
+    isLiked: false;
+    isDisliked: false;
+    isBookMarked: false;
+  };
 }

@@ -46,7 +46,6 @@ export default function Card({ ...item }: CardProps) {
         return "일반 쓰레기통";
     }
   };
-  console.log(item);
 
   return (
     <button className={cn("card-wrapper")} disabled={completed}>

@@ -51,10 +51,6 @@
     font-size: 1.3rem;
     line-height: 26px;
   }
-  & > img {
-    object-fit: cover;
-    border-radius: 1rem;
-  }
 }
 .detailItemTitle {
   color: #6b7772;
@@ -121,4 +117,13 @@
 }
 .detailAcceptReport {
   background: #ff3232;
+}
+
+.imgBox {
+  position: relative;
+  width: 100%;
+  height: 14.3rem;
+
+  border-radius: 1rem;
+  overflow: hidden;
 }

@@ -1,4 +1,5 @@
 import Modal from "@/components/commons/Modal/TrashHow";
+import AddBinForm from "@/components/domains/addBin/addBinForm";
 import AdminDetail from "@/components/domains/mypage/Admin/AdminDetail";
 import AdminPageBar from "@/components/domains/mypage/Admin/AdminPageBar";
 import { postAcceptFix } from "@/lib/apis/fix";
@@ -8,9 +9,11 @@ import { useToggle } from "@/lib/hooks/useToggle";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function FixDetail() {
   const [isOpenModal, openModal, closeModal] = useToggle(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [fixDetail] = useAtom(binDetail);
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
   const router = useRouter();
@@ -35,7 +38,11 @@ export default function FixDetail() {
   return (
     <>
       <AdminPageBar />
-      <AdminDetail state={"수정"} approve={handleAccept} binDetail={fixDetail} />
+      {isEdit ? (
+        <AddBinForm isAdmin={true} binDetail={fixDetail} toggleIsEdit={() => setIsEdit(false)} />
+      ) : (
+        <AdminDetail state={"수정"} approve={handleAccept} binDetail={fixDetail} toggleIsEdit={() => setIsEdit(true)} />
+      )}
       {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveFix} />}
       {isOpenErrorModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.processingCompleted} />}
     </>
