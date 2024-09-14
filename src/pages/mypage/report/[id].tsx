@@ -13,7 +13,7 @@ export default function ReportDetail() {
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
 
   const { mutate: reportMutate } = useMutation({
-    mutationFn: () => postAcceptReport(String(reportDetail.complaintId)),
+    mutationFn: (data: string) => postAcceptReport(String(reportDetail.complaintId), data),
     onSuccess: () => {},
     onError: (error: any) => {
       if (error.status === 400) {
@@ -25,7 +25,7 @@ export default function ReportDetail() {
   return (
     <>
       <AdminPageBar />
-      <AdminDetail binDetail={reportDetail} state={"신고"} approve={reportMutate} />
+      <AdminDetail binDetail={reportDetail} state={"신고"} approve={(data: string) => reportMutate(data)} />
       {isOpenErrorModal && <Modal modalClose={closeErrorModal} modalState={MODAL_CONTENTS.processingCompleted} />}
     </>
   );

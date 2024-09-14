@@ -19,9 +19,9 @@ export const getAdminBinsReportCount = async (id: string | string[] | undefined)
     throw err;
   }
 };
-export const postAcceptReport = async (id: string | string[] | undefined) => {
+export const postAcceptReport = async (id: string | string[] | undefined, data: string) => {
   try {
-    const res = await instance.post(`/admin/bins/complaints/${id}/approve`);
+    const res = await instance.post(`/admin/bins/complaints/${id}/approve`, { approveReason: data });
     return res.data;
   } catch (err) {
     console.error(err);
