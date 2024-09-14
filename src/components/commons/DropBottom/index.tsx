@@ -13,7 +13,7 @@ interface DropProps {
   closeBtn: () => void;
   btn: string;
   btnFunction?: () => void;
-  submitState: boolean;
+  submitState?: boolean;
 }
 
 export default function DropWrap({ children, title, closeBtn, btn, btnFunction, submitState = false }: DropProps) {
@@ -22,48 +22,38 @@ export default function DropWrap({ children, title, closeBtn, btn, btnFunction, 
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(() => {
-      closeBtn();
-    }, 280);
+    setTimeout(closeBtn, 290);
   };
 
   useOnClickOutside(ref, handleClose);
-  return title !== "탈퇴하기" ? (
-    <div className={cn("drop")}>
-      <div className={cn("dropWrap", { exit: !isVisible })} ref={ref}>
-        <div className={cn("dropTitle")}>
-          <div>{title}</div>
-          <div className={cn("dropClose")} onClick={handleClose}>
-            <Image src={close} fill alt="닫기" sizes="35px" />
-          </div>
-        </div>
 
-        <div className={cn("dropChildren")}>{children}</div>
+  const renderButtons = () => {
+    if (btn === "none") return null;
 
-        {btn === "신고 거절" || btn === "신고 승인" ? (
-          <article className={cn("cancle")}>
-            <button className={cn("dropBtnCancel")} onClick={handleClose}>
-              취소 하기
-            </button>
-            <button
-              className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
-              onClick={submitState ? btnFunction : () => {}}
-            >
-              사유 등록
-            </button>
-          </article>
-        ) : (
-          <button
-            onClick={btnFunction}
-            disabled={!submitState}
-            className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
-          >
-            {btn}
+    if (btn === "신고 거절" || btn === "신고 승인") {
+      return (
+        <article className={cn("cancle")}>
+          <button className={cn("dropBtnCancel")} onClick={handleClose}>
+            취소 하기
           </button>
-        )}
-      </div>
-    </div>
-  ) : (
+          <button
+            className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
+            onClick={submitState ? btnFunction : undefined}
+          >
+            사유 등록
+          </button>
+        </article>
+      );
+    }
+
+    return (
+      <button onClick={btnFunction} disabled={!submitState} className={submitState ? cn("dropBtnOn") : cn("dropBtn")}>
+        {btn}
+      </button>
+    );
+  };
+
+  return (
     <div className={cn("drop")}>
       <div className={cn("dropWrap", { exit: !isVisible })} ref={ref}>
         <div className={cn("dropTitle")}>
@@ -72,17 +62,22 @@ export default function DropWrap({ children, title, closeBtn, btn, btnFunction, 
             <Image src={close} fill alt="닫기" sizes="35px" />
           </div>
         </div>
-
         <div className={cn("dropChildren")}>{children}</div>
-
-        <div className={cn("cancle")}>
-          <div onClick={handleClose} className={cn("dropBtnCancel")}>
-            취소하기
+        {title === "탈퇴하기" ? (
+          <div className={cn("cancle")}>
+            <div onClick={handleClose} className={cn("dropBtnCancel")}>
+              취소하기
+            </div>
+            <div
+              onClick={submitState ? btnFunction : undefined}
+              className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
+            >
+              {btn}
+            </div>
           </div>
-          <div onClick={submitState ? btnFunction : () => {}} className={submitState ? cn("dropBtnOn") : cn("dropBtn")}>
-            {btn}
-          </div>
-        </div>
+        ) : (
+          renderButtons()
+        )}
       </div>
     </div>
   );

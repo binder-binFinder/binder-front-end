@@ -3,10 +3,6 @@ import DropWrap from "..";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./DropReason.module.scss";
-import { useMutation } from "@tanstack/react-query";
-import { postRejectAccept } from "@/lib/apis/ask";
-import { postRejectFix } from "@/lib/apis/fix";
-import { postRejectReport } from "@/lib/apis/report";
 
 const cn = classNames.bind(styles);
 
@@ -42,7 +38,7 @@ export default function DropReason({ title, placeholder, onHandleSubmit, closeBt
 
   return (
     <DropWrap
-      title={title + " 사유 입력"}
+      title={title}
       btn={state === "신고 거절" || state === "신고 승인" ? state : "등록"}
       closeBtn={closeBtn}
       btnFunction={handleSubmit(onSubmit)}

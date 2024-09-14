@@ -38,3 +38,13 @@ export const postRejectReport = async (id: string | string[] | undefined, data: 
     throw err;
   }
 };
+
+export const getReportReason = async (complaintId: string | number) => {
+  try {
+    const res = await instance.get(`/admin/bins/complaints/${complaintId}/counts`);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
