@@ -10,12 +10,16 @@ import { useAtom } from "jotai";
 import { binDetail } from "@/lib/atoms/binAtom";
 
 export default function AskDetail() {
-  // const router = useRouter();
+  const router = useRouter();
   // const { id } = router.query;
   const [askDetail] = useAtom(binDetail);
 
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
+
+  const handleCloseModal = () => {
+    router.back();
+  };
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAccept(String(askDetail.binId)),
@@ -34,8 +38,8 @@ export default function AskDetail() {
     <>
       <AdminPageBar />
       <AdminDetail state={"등록"} binDetail={askDetail} approve={handleAccept} />
-      {isOpenModal && <Modal modalClose={closeModal} modalState={MODAL_CONTENTS.approveAdd} />}
-      {isOpenErrorModal && <Modal modalClose={closeErrorModal} modalState={MODAL_CONTENTS.processingCompleted} />}
+      {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveAdd} />}
+      {isOpenErrorModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.processingCompleted} />}
     </>
   );
 }

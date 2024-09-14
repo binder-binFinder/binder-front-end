@@ -13,11 +13,12 @@ export default function FixDetail() {
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [fixDetail] = useAtom(binDetail);
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
+  const router = useRouter();
 
   const { mutate: handleAccept } = useMutation({
     mutationFn: () => postAcceptFix(fixDetail.modificationId),
-    onSuccess: (res) => {
-      res && openModal();
+    onSuccess: () => {
+      openModal();
     },
     onError: (error: any) => {
       if (error.status === 400) {
@@ -28,7 +29,7 @@ export default function FixDetail() {
   });
 
   const handleCloseModal = () => {
-    closeModal();
+    router.back();
   };
 
   return (
@@ -36,7 +37,7 @@ export default function FixDetail() {
       <AdminPageBar />
       <AdminDetail state={"수정"} approve={handleAccept} binDetail={fixDetail} />
       {isOpenModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.approveFix} />}
-      {isOpenErrorModal && <Modal modalClose={closeErrorModal} modalState={MODAL_CONTENTS.processingCompleted} />}
+      {isOpenErrorModal && <Modal modalClose={handleCloseModal} modalState={MODAL_CONTENTS.processingCompleted} />}
     </>
   );
 }

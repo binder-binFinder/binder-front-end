@@ -8,12 +8,15 @@ import { useState } from "react";
 import Modal from "@/components/commons/Modal/TrashHow";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
-import { BinDetail } from "@/lib/atoms/binAtom";
+import { binDetail, BinDetail } from "@/lib/atoms/binAtom";
 import Button from "@/components/commons/Button";
 import { UseMutateFunction, useMutation } from "@tanstack/react-query";
 import { postRejectFix } from "@/lib/apis/fix";
 import { postRejectAccept } from "@/lib/apis/ask";
 import { postRejectReport } from "@/lib/apis/report";
+import ImgInput from "../../addBin/addBinForm/ImgInput";
+import NoneImgInput from "../../addBin/addBinForm/NoneImgInput";
+import DropInfo from "@/components/commons/DropBottom/DropInfo";
 
 const cn = classNames.bind(styles);
 
@@ -27,19 +30,30 @@ interface Props {
 type DropBottomState = "수정" | "등록" | "신고 승인" | "신고 거절" | "정보";
 
 const dropReasonPlaceholderMap: Record<DropBottomState, string> = {
-  수정: "수정 요청받은 쓰레기 통의 거절",
+  수정: "수정 요청받은 쓰레기 통의 거절사유를 입력해 주세요",
   등록: "거절 사유를 입력해 주세요",
   "신고 거절": "신고가 반려되니 신중히 입력해 주세요",
   "신고 승인": "장소가 삭제되니 신중히 입력해 주세요",
   정보: "",
 };
 
+const dropReasonTitleMap: Record<DropBottomState, string> = {
+  수정: "수정 거절 사유 입력",
+  등록: "거절 사유 입력",
+  "신고 거절": "신고 거절 사유 입력",
+  "신고 승인": "신고 승인 사유 입력",
+  정보: "",
+};
+
 export default function DefaultForm({ state, approve, binDetail }: Props) {
   const [isOpenDropBottom, openDropBottom, closeDropBottom] = useToggle(false);
+  const [isOpenInfoDropBottom, openInfoDropBottom, closeInfoDropBottom] = useToggle(false);
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
+  const [isExistImg] = useState(binDetail?.imageUrl && binDetail?.imageUrl !== "string" && binDetail.imageUrl);
   const [dropBottomState, setDropBottomState] = useState<DropBottomState>(getInitialDropBottomState(state));
   const [reason, setReason] = useState("");
+  console.log("ddd", binDetail);
 
   const handleClickReportApprove = () => {
     setDropBottomState("신고 승인");
@@ -104,7 +118,7 @@ export default function DefaultForm({ state, approve, binDetail }: Props) {
     <DropReason
       state={dropBottomState}
       closeBtn={closeDropBottom}
-      title={dropBottomState}
+      title={dropReasonTitleMap[dropBottomState]}
       placeholder={dropReasonPlaceholderMap[dropBottomState]}
       id={binDetail.complaintId || binDetail.modificationId || binDetail.binId}
       onHandleSubmit={handleClickSubmit}
@@ -133,6 +147,17 @@ export default function DefaultForm({ state, approve, binDetail }: Props) {
     <>
       <article className={cn("detailWrap")}>
         <h3 className={cn("detailTitle")}>{renderDetailTitle()}</h3>
+        {state !== "정보" && (
+          <div className={cn("detailIitle-btn-wrapper")}>
+            {state === "수정" ||
+              (state === "신고" && (
+                <button className={cn("detailIitle-btn")} onClick={openInfoDropBottom}>
+                  {state === "신고" ? "신고 사유보기" : "원본 불러오기"}
+                </button>
+              ))}
+            {state !== "신고" && <button className={cn("detailIitle-btn")}>수정하기</button>}
+          </div>
+        )}
       </article>
       <section className={cn("detailInner")}>
         <AdminDetailItem title={"쓰레기통 주소"} detail={binDetail?.address} />
@@ -150,15 +175,17 @@ export default function DefaultForm({ state, approve, binDetail }: Props) {
           </div>
         </article>
         <AdminDetailItem title={"장소 명칭"} detail={binDetail?.title} />
-        {binDetail?.imageUrl && binDetail?.imageUrl !== "string" && (
-          <article className={cn("detail")}>
-            <h4>
-              쓰레기통 사진<span>(선택)</span>
-            </h4>
-            <Image src={binDetail?.imageUrl} alt="이미지" width={356} height={143} />
-          </article>
-        )}
-        {state === "수정" && <AdminDetailItem title={"수정 요청 사유"} detail={binDetail?.title} />}
+        <article className={cn("detail")}>
+          <h4>
+            쓰레기통 사진<span>(선택)</span>
+          </h4>
+          {isExistImg ? (
+            <Image src={isExistImg} alt="이미지" width={356} height={143} />
+          ) : (
+            <NoneImgInput disabled={true} />
+          )}
+        </article>
+        {state === "수정" && <AdminDetailItem title={"수정 요청 사유"} detail={binDetail?.modificationReason!} />}
         {state === "정보" ? (
           <Button status="edit" onClick={approve as () => void}>
             쓰레기통 정보 수정하기
@@ -169,6 +196,14 @@ export default function DefaultForm({ state, approve, binDetail }: Props) {
         {isOpenDropBottom && renderDropReason()}
         {isOpenModal && renderModal()}
         {isOpenErrorModal && <Modal modalClose={closeErrorModal} modalState={MODAL_CONTENTS.processingCompleted} />}
+        {isOpenInfoDropBottom && (
+          <DropInfo
+            title={state === "신고" ? "신고 사유보기" : "원본 불러오기"}
+            closeBtn={closeInfoDropBottom}
+            state={state}
+            id={binDetail.complaintId || binDetail.binId}
+          />
+        )}
       </section>
     </>
   );
