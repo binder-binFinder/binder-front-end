@@ -1,11 +1,11 @@
 import { getLocation } from "@/lib/apis/geo";
 import { userAddress, userCoordinate } from "@/lib/atoms/userAtom";
 import { useQuery } from "@tanstack/react-query";
+import classNames from "classnames/bind";
 import { useAtom } from "jotai";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import styles from "./KakaoMap.module.scss";
-import classNames from "classnames/bind";
 import BtnField from "./SearchBtn";
 
 const cn = classNames.bind(styles);
@@ -34,7 +34,11 @@ const initMap = (kakao: any, coordinate: { x: number; y: number }) => {
   return map;
 };
 
-const addMarker = (map: any, kakao: any, coordinate: { x: number; y: number }) => {
+const addMarker = (
+  map: any,
+  kakao: any,
+  coordinate: { x: number; y: number }
+) => {
   const imageSrc = "/images/icon-marker-my-location.svg",
     imageSize = new kakao.maps.Size(40, 40);
 
@@ -66,15 +70,19 @@ const getAddressFromCoords = (
   const geocoder = new kakao.maps.services.Geocoder();
   const coord = new kakao.maps.LatLng(coordinate.x, coordinate.y);
 
-  geocoder.coord2Address(coord.getLng(), coord.getLat(), (result: any, status: any) => {
-    if (status === kakao.maps.services.Status.OK) {
-      const getAddress = result[0];
-      console.log("address", getAddress);
-      callback(getAddress);
-    } else {
-      console.error("역지오코딩 실패", status);
+  geocoder.coord2Address(
+    coord.getLng(),
+    coord.getLat(),
+    (result: any, status: any) => {
+      if (status === kakao.maps.services.Status.OK) {
+        const getAddress = result[0];
+        console.log("address", getAddress);
+        callback(getAddress);
+      } else {
+        console.error("역지오코딩 실패", status);
+      }
     }
-  });
+  );
 };
 
 export default function KakaoMap() {
@@ -112,7 +120,8 @@ export default function KakaoMap() {
 
           getAddressFromCoords(window.kakao, coordinate, (getAddress: any) => {
             setAddress({
-              roadAddress: filterAddress(getAddress.road_address?.address_name) || null,
+              roadAddress:
+                filterAddress(getAddress.road_address?.address_name) || null,
               address: filterAddress(getAddress.address.address_name),
             });
           });
@@ -131,16 +140,23 @@ export default function KakaoMap() {
         setCoordinate(newCoordinate);
 
         if (mapRef.current && myMarkerRef.current) {
-          const newLatLng = new window.kakao.maps.LatLng(newCoordinate.x, newCoordinate.y);
+          const newLatLng = new window.kakao.maps.LatLng(
+            newCoordinate.x,
+            newCoordinate.y
+          );
           mapRef.current.panTo(newLatLng);
           myMarkerRef.current.setPosition(newLatLng);
 
-          getAddressFromCoords(window.kakao, newCoordinate, (getAddress: any) => {
-            setAddress({
-              roadAddress: getAddress.road_address?.address_name || null,
-              address: getAddress.address.address_name,
-            });
-          });
+          getAddressFromCoords(
+            window.kakao,
+            newCoordinate,
+            (getAddress: any) => {
+              setAddress({
+                roadAddress: getAddress.road_address?.address_name || null,
+                address: getAddress.address.address_name,
+              });
+            }
+          );
         }
       }
     } catch (error) {
@@ -151,10 +167,26 @@ export default function KakaoMap() {
   return (
     <>
       <BtnField />
-      <div id="map" style={{ width: "100%", height: "100vh", zIndex: "0", position: "relative" }}></div>
+      <div
+        id="map"
+        style={{
+          width: "100%",
+          height: "100vh",
+          zIndex: "0",
+          position: "relative",
+        }}
+      ></div>
       <section className={cn("map-wrapper")}>
-        <button className={cn("my-location-btn")} onClick={handelClickGetmyLocation}>
-          <Image src={"/images/icon-my-lovcationBtn.svg"} alt="내 위치 다시 가져오기" width={49} height={49} />
+        <button
+          className={cn("my-location-btn")}
+          onClick={handelClickGetmyLocation}
+        >
+          <Image
+            src={"/images/icon-my-lovcationBtn.svg"}
+            alt="내 위치 다시 가져오기"
+            width={49}
+            height={49}
+          />
         </button>
       </section>
     </>
