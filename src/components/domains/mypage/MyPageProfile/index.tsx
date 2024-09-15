@@ -1,5 +1,6 @@
 import adminMark from "@/../public/images/adminMark.svg";
 import noti from "@/../public/images/noti.svg";
+import notiOn from "@/../public/images/notiOn.svg";
 import defaultImg from "@/../public/images/profileDefault.svg";
 import profileEditImg from "@/../public/images/profileEdit.svg";
 import star from "@/../public/images/star.svg";
@@ -74,10 +75,10 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
         </div>
 
         <Image
-          className={cn("profileNoti")}
-          src={noti}
+          className={true ? cn("profileNoti") : cn("profileNotiOn")}
+          src={true ? noti : notiOn}
           alt="알림이미지"
-          width={26}
+          width={31}
           height={30}
           onClick={handleNoti}
         />

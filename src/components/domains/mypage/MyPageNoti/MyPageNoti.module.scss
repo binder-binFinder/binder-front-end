@@ -81,6 +81,15 @@
   color: #96a9a0;
   font-size: 1.3rem;
   line-height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  & > .notiItemNew {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 2.5rem;
+    background: #ff3232;
+  }
 }
 .notiItemTitle {
   color: #06130d;

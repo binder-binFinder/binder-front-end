@@ -1,15 +1,15 @@
-import classNames from "classnames/bind";
-import styles from "./Gnb.module.scss";
-import Image from "next/image";
-import homeOn from "@/../public/images/homeOn.svg";
 import home from "@/../public/images/home.svg";
-import search from "@/../public/images/search.svg";
-import searchOn from "@/../public/images/searchOn.svg";
+import homeOn from "@/../public/images/homeOn.svg";
 import mypage from "@/../public/images/mypage.svg";
 import mypageOn from "@/../public/images/mypageOn.svg";
+import search from "@/../public/images/search.svg";
+import searchOn from "@/../public/images/searchOn.svg";
+import classNames from "classnames/bind";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import styles from "./Gnb.module.scss";
 
 const cn = classNames.bind(styles);
 
@@ -50,6 +50,7 @@ export default function Gnb() {
             alt="마이"
             fill
           />
+          {false && <div className={cn("notiNew")}></div>}
         </Link>
         <span>마이</span>
       </div>

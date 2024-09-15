@@ -5,7 +5,13 @@
   height: calc(100vh - 4.1rem - 21.1rem - 7.6rem);
   background-color: #f4f6f5;
   padding: 1.9rem 1.7rem;
-  overflow: scroll;
+  position: relative;
+}
+.findWrap2 {
+  width: 100%;
+  height: calc(100vh - 4.1rem - 21.1rem - 7.6rem - 2.6rem - 3rem);
+  padding-bottom: 1.7rem;
+  overflow-y: scroll;
 }
 .findTitle {
   color: #06130d;
@@ -13,4 +19,13 @@
   font-weight: 700;
   line-height: 26px;
   margin-bottom: 1.4rem;
+}
+.more {
+  width: 5.2rem;
+  height: 5.2rem;
+  position: absolute;
+  bottom: 1.4rem;
+  right: 1.7rem;
+  z-index: 7;
+  cursor: pointer;
 }

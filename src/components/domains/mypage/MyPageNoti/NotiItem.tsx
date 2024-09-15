@@ -7,7 +7,9 @@ const cn = classNames.bind(styles);
 export default function NotiItem() {
   return (
     <div className={cn("notiItemWrap")}>
-      <div className={cn("notiItemDate")}>2023. 06. 13</div>
+      <div className={cn("notiItemDate")}>
+        2023. 06. 13 <div className={cn("notiItemNew")}></div>
+      </div>
       <div className={cn("notiItemTitle")}>
         이렇고 저렇고 알림 이 왔습니다. 쓰레기통이 거절일지도 승인일지도
       </div>
