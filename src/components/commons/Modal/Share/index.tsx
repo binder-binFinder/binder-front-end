@@ -15,7 +15,7 @@ interface IModalProps {
 
 export default function Share({ modalClose, setShare }: IModalProps) {
   const copyURL = () => {
-    let currentUrl = window.document.location.href;
+    let currentUrl = "https://www.bin-finder.net/";
     let t = document.createElement("textarea");
     document.body.appendChild(t);
     t.value = currentUrl;
