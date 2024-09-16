@@ -1,7 +1,7 @@
 @import "@/styles/main.scss";
 .modal {
   position: fixed;
-  z-index: 4;
+  z-index: 7;
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -58,17 +58,22 @@
 }
 
 .notiItemBox {
+  height: calc(100vh - 7.5rem - 7.6rem);
   padding: 2.5rem 1.7rem;
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
-  height: 100%;
+  // height: 100%;
   overflow-y: scroll;
+  & .refBox {
+    height: 1px;
+    margin-top: -5rem;
+  }
 }
 .notiItemWrap {
   padding: 1.2rem 1.7rem;
   width: 100%;
-  height: 12.3rem;
+  max-height: 15.7rem;
   border-radius: 1rem;
   background: #fff;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.1);
@@ -91,6 +96,11 @@
     background: #ff3232;
   }
 }
+.notiItemAddress {
+  color: #96a9a0;
+  font-size: 1.6rem;
+  line-height: 25px;
+}
 .notiItemTitle {
   color: #06130d;
   font-size: 1.7rem;
@@ -102,6 +112,7 @@
   color: #515f58;
   font-size: 1.6rem;
   line-height: 25px;
+  margin-top: 0.6rem;
 }
 .notiItemDelete {
   position: absolute;
