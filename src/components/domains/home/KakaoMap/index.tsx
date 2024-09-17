@@ -68,7 +68,7 @@ const initializeMap = (coordinate: any, setAddress: any) => {
 
 const updateMarkers = (binData: any, map: any, binkMarkerRef: any) => {
   if (binkMarkerRef.current.length > 0) {
-    binkMarkerRef.current.forEach((marker: any) => marker.setMap(null));
+    binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
   }
 
   if (binData && !!map) {
@@ -149,7 +149,7 @@ export default function KakaoMap() {
 
     return () => {
       if (mapRef.current) {
-        binkMarkerRef.current.forEach((marker: any) => marker.setMap(null));
+        binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
         binkMarkerRef.current = [];
       }
     };
