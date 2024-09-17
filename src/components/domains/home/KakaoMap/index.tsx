@@ -40,7 +40,7 @@ const loadKakaoMapScript = (callback: () => void) => {
     document.head.appendChild(kakaoMapScript);
     const onLoadKakaoAPI = () => {
       window.kakao.maps.load(() => {
-        callback;
+        callback();
       });
     };
     kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
