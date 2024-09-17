@@ -1,4 +1,4 @@
-import { PostAddbinValues } from "@/components/domains/addBin/addBinForm";
+import { PostAddbinValues } from "@/types/addFormTypes";
 import { instance } from "./axios";
 
 export const postAddbin = async (data: PostAddbinValues) => {
