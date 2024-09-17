@@ -4,14 +4,14 @@ import AdminFilter from "@/components/commons/DropBottom/AdminFilter";
 import { getAdminBins } from "@/lib/apis/ask";
 import { getAdminBinsFix } from "@/lib/apis/fix";
 import { getAdminBinsReport } from "@/lib/apis/report";
+import { BinDetail, binDetail } from "@/lib/atoms/binAtom";
 import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "./AdminPageItem.module.scss";
-import { useAtom } from "jotai";
-import { BinDetail, binDetail } from "@/lib/atoms/binAtom";
 
 const cn = classNames.bind(styles);
 
@@ -79,7 +79,10 @@ export default function AdminPageItem({ title }: AdminProps) {
 
         <div className={cn("adminCardList")}>
           {binData[1]?.map((item: any) => (
-            <div onClick={() => handleClickCard(item, item.binId)} key={item.id}>
+            <div
+              onClick={() => handleClickCard(item, item.binId)}
+              key={item.id}
+            >
               <Card
                 binId={item.binId}
                 title={item.title}
