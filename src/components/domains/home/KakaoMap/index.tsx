@@ -8,6 +8,7 @@ import {
 import {
   addMyLocationMarker,
   createMarker,
+  filterAddress,
   getAddressFromCoords,
   getMarkerImage,
   initMap,
@@ -37,9 +38,12 @@ const loadKakaoMapScript = (callback: () => void) => {
 
     kakaoMapScript.async = false;
     document.head.appendChild(kakaoMapScript);
-    kakaoMapScript.onload = () => {
-      callback();
+    const onLoadKakaoAPI = () => {
+      window.kakao.maps.load(() => {
+        callback;
+      });
     };
+    kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
   }
 };
 
@@ -50,14 +54,14 @@ const initializeMap = (coordinate: any, setAddress: any) => {
 
     getAddressFromCoords(window.kakao, coordinate, (getAddress: any) => {
       setAddress({
-        roadAddress: getAddress.road_address?.address_name || null,
+        roadAddress:
+          filterAddress(getAddress.road_address?.address_name) || null,
         address: getAddress.address?.address_name,
       });
     });
 
     return { map, myLocationMarker };
   } else {
-    console.error("Kakao Map API is not loaded properly");
     return null;
   }
 };
@@ -67,7 +71,7 @@ const updateMarkers = (binData: any, map: any, binkMarkerRef: any) => {
     binkMarkerRef.current.forEach((marker: any) => marker.setMap(null));
   }
 
-  if (binData && map) {
+  if (binData && !!map) {
     const newMarkers = binData.map((bin: any) => {
       const marker = createMarker(
         window.kakao,
@@ -119,18 +123,12 @@ export default function KakaoMap() {
         y: center.getLng(),
       };
       setCenterCoordinate(newCenterCoordinate);
-      console.log("center", center);
     }
   }, 500);
 
   useEffect(() => {
     loadKakaoMapScript(() => {
-      if (
-        coordinate.x !== 0 &&
-        coordinate.y !== 0 &&
-        window.kakao &&
-        window.kakao.maps
-      ) {
+      if (coordinate.x !== 0 && coordinate.y !== 0) {
         const result = initializeMap(coordinate, setAddress);
         if (result) {
           mapRef.current = result.map;
@@ -177,7 +175,8 @@ export default function KakaoMap() {
             newCoordinate,
             (getAddress: any) => {
               setAddress({
-                roadAddress: getAddress.road_address?.address_name || null,
+                roadAddress:
+                  filterAddress(getAddress.road_address?.address_name) || null,
                 address: getAddress.address?.address_name,
               });
             }
@@ -196,7 +195,7 @@ export default function KakaoMap() {
   }, [centerCoordinate, refetchBinData]);
 
   useEffect(() => {
-    if (binData && mapRef.current) {
+    if (binData && !!mapRef.current) {
       updateMarkers(binData, mapRef.current, binkMarkerRef);
     }
   }, [binData]);

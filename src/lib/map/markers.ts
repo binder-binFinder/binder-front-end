@@ -5,6 +5,10 @@ export const createMarker = (
   imageSrc: string,
   infoContent: string
 ) => {
+  if (!kakao || !kakao.maps.Size) {
+    console.error("Kakao maps API is not loaded.marker");
+    return null;
+  }
   const imageSize = new kakao.maps.Size(40, 40);
   const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
   const markerPosition = new kakao.maps.LatLng(coordinate.x, coordinate.y);
@@ -41,7 +45,6 @@ export const addMyLocationMarker = (
   return createMarker(kakao, map, coordinate, myLocationMarkerImage, "내 위치");
 };
 
-// 클릭 마커를 추가하는 함수
 export const addClickMarker = (
   map: any,
   kakao: any,
