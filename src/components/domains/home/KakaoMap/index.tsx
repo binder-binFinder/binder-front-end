@@ -17,6 +17,7 @@ import classNames from "classnames/bind";
 import { useAtom } from "jotai";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { useDebounceCallback } from "usehooks-ts";
 import styles from "./KakaoMap.module.scss";
 
 const cn = classNames.bind(styles);
@@ -26,15 +27,6 @@ declare global {
     kakao: any;
   }
 }
-function debounce(func: (...args: any[]) => void, delay: number) {
-  let timeoutId: NodeJS.Timeout;
-  return (...args: any[]) => {
-    if (timeoutId) clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func(...args);
-    }, delay);
-  };
-}
 
 const loadKakaoMapScript = (callback: () => void) => {
   if (window.kakao && window.kakao.maps) {
@@ -42,14 +34,17 @@ const loadKakaoMapScript = (callback: () => void) => {
   } else {
     const kakaoMapScript = document.createElement("script");
     kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services,clusterer,drawing&autoload=false`;
-    kakaoMapScript.async = true;
-    kakaoMapScript.onload = callback;
+    kakaoMapScript.async = false;
     document.head.appendChild(kakaoMapScript);
+
+    kakaoMapScript.onload = () => {
+      callback();
+    };
   }
 };
 
 const initializeMap = (coordinate: any, setAddress: any) => {
-  if (coordinate.x !== 0 && coordinate.y !== 0) {
+  if (window.kakao && window.kakao.maps) {
     const map = initMap(window.kakao, coordinate);
     const myLocationMarker = addMyLocationMarker(map, window.kakao, coordinate);
 
@@ -61,8 +56,10 @@ const initializeMap = (coordinate: any, setAddress: any) => {
     });
 
     return { map, myLocationMarker };
+  } else {
+    console.error("Kakao Map API is not loaded properly");
+    return null;
   }
-  return null;
 };
 
 const updateMarkers = (binData: any, map: any, binkMarkerRef: any) => {
@@ -107,30 +104,48 @@ export default function KakaoMap() {
     gcTime: 3000,
   });
 
-  const debouncedHandleCenterChanged = debounce(() => {
-    const center = mapRef.current.getCenter();
-    const newCenterCoordinate = {
-      x: center.getLat(),
-      y: center.getLng(),
-    };
-    setCenterCoordinate(newCenterCoordinate);
-    console.log("center", center);
+  useEffect(() => {
+    if (locationData && Array.isArray(locationData)) {
+      setCoordinate(locationData[0]);
+      setCenterCoordinate(locationData[0]);
+    }
+  }, [locationData]);
+
+  const debouncedHandleCenterChanged = useDebounceCallback(() => {
+    if (mapRef.current) {
+      const center = mapRef.current.getCenter();
+      const newCenterCoordinate = {
+        x: center.getLat(),
+        y: center.getLng(),
+      };
+      setCenterCoordinate(newCenterCoordinate);
+      console.log("center", center);
+    }
   }, 500);
 
   useEffect(() => {
     loadKakaoMapScript(() => {
-      const result = initializeMap(coordinate, setAddress);
-      if (result) {
-        mapRef.current = result.map;
-        myMarkerRef.current = result.myLocationMarker;
+      if (
+        coordinate.x !== 0 &&
+        coordinate.y !== 0 &&
+        window.kakao &&
+        window.kakao.maps
+      ) {
+        const result = initializeMap(coordinate, setAddress);
+        if (result) {
+          mapRef.current = result.map;
+          myMarkerRef.current = result.myLocationMarker;
 
-        updateMarkers(binData, mapRef.current, binkMarkerRef);
+          updateMarkers(binData, mapRef.current, binkMarkerRef);
 
-        window.kakao.maps.event.addListener(
-          mapRef.current,
-          "center_changed",
-          debouncedHandleCenterChanged
-        );
+          window.kakao.maps.event.addListener(
+            mapRef.current,
+            "center_changed",
+            debouncedHandleCenterChanged
+          );
+        }
+      } else {
+        console.error("Invalid coordinates or Kakao Map API not loaded.");
       }
     });
 
@@ -149,7 +164,7 @@ export default function KakaoMap() {
         const newCoordinate = newLocationData[0];
         setCoordinate(newCoordinate);
 
-        if (mapRef.current && myMarkerRef.current) {
+        if (mapRef.current && myMarkerRef.current && window.kakao.maps) {
           const newLatLng = new window.kakao.maps.LatLng(
             newCoordinate.x,
             newCoordinate.y
