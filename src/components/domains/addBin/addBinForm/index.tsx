@@ -1,53 +1,33 @@
-import React, { DetailedHTMLProps, FocusEventHandler, InputHTMLAttributes, useEffect, useState } from "react";
-import styles from "./AddBinForm.module.scss";
-import classNames from "classnames/bind";
 import Button from "@/components/commons/Button";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import ImgInput from "./ImgInput";
-import Input from "./Input";
-import { btnInputValues } from "@/lib/constants/btnInputValues";
-import { useMutation } from "@tanstack/react-query";
-import { useAtom } from "jotai";
-import { userAddress, userCoordinate } from "@/lib/atoms/userAtom";
+import DropReason from "@/components/commons/DropBottom/DropReason";
 import Modal from "@/components/commons/Modal/TrashHow";
+import { patchEditbin, postAddbin } from "@/lib/apis/postAddbin";
+import { userAddress, userCoordinate } from "@/lib/atoms/userAtom";
+import { btnInputValues } from "@/lib/constants/btnInputValues";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
-import DropReason from "@/components/commons/DropBottom/DropReason";
-import { patchEditbin, postAddbin } from "@/lib/apis/postAddbin";
+import { useMutation } from "@tanstack/react-query";
+import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Router from "next/router";
-import { BinDetail } from "@/lib/atoms/binAtom";
+import { FocusEventHandler, useEffect, useState } from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import styles from "./AddBinForm.module.scss";
+import ImgInput from "./ImgInput";
+import Input from "./Input";
+import {
+  AddbinFormValues,
+  AddFormProps,
+  PostAddbinValues,
+} from "@/types/addFormTypes";
 
 const cn = classNames.bind(styles);
 
-export interface InputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
-  label?: string;
-  isError?: boolean;
-  errorMessage?: string;
-  required?: boolean;
-  id: string;
-  onClickDelete?: (name: string) => void;
-}
-
-interface AddbinFormValues {
-  address: string;
-  title: string;
-  binType?: string;
-  imageUrl?: string;
-}
-
-export interface PostAddbinValues extends AddbinFormValues {
-  type?: string;
-  latitude?: number;
-  longitude?: number;
-}
-
-interface Props {
-  binDetail?: BinDetail;
-  toggleIsEdit?: () => void;
-  isAdmin?: boolean;
-}
-
-export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }: Props) {
+export default function AddBinForm({
+  binDetail,
+  toggleIsEdit,
+  isAdmin = false,
+}: AddFormProps) {
   const [isOpenDropBottom, openDropBottom, closeDropBottom] = useToggle(false);
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [selectedBin, setSelectedBin] = useState<string>("");
@@ -62,7 +42,6 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
     register,
     handleSubmit,
     setValue,
-    getValues,
     trigger,
     control,
     formState: { errors },
@@ -79,19 +58,15 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
     }
   };
 
-  const handleCheckValues = () => {
-    const allValues = getValues(); // 전체 폼 데이터를 가져옴
-    console.log("모든 폼 값:", allValues); // 콘솔에 폼의 모든 값 출력
-  };
-
-  handleCheckValues();
   useEffect(() => {
     if (binDetail && binDetail.binInfoForMember?.isOwner) {
       setValue("address", binDetail.address || "");
       setValue("binType", binDetail.type || "");
       setValue("title", binDetail.title || "");
       setValue("imageUrl", binDetail.imageUrl || "");
-      setSelectedBin(btnInputValues.find((item) => item.id === binDetail.type)?.id || "");
+      setSelectedBin(
+        btnInputValues.find((item) => item.id === binDetail.type)?.id || ""
+      );
       setImg(binDetail.imageUrl || "");
     } else if (address?.roadAddress || address?.address) {
       setValue("address", address.roadAddress || address.address);
@@ -165,9 +140,7 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
     }));
   };
 
-  // 비동기 처리 후 값 체크
   useEffect(() => {
-    console.log("zzzzzz", editPostData);
     if (editPostData?.modificationReason) {
       submitEditbin(editPostData);
     }
@@ -175,7 +148,11 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
 
   return (
     <>
-      {!!binDetail && <h3 className={cn("edit-small-title")}>쓰레기통 정보 수정{!isAdmin && "요청"}</h3>}
+      {!!binDetail && (
+        <h3 className={cn("edit-small-title")}>
+          쓰레기통 정보 수정{!isAdmin && "요청"}
+        </h3>
+      )}
       <form className={cn("addbin-form")} onSubmit={handleSubmit(onSubmit)}>
         <Input
           id="address"
@@ -188,7 +165,13 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
         />
 
         <div className={cn("addbin-selector", { error: errors.binType })}>
-          <label className={cn("addbin-label", { focus: isBtnFocus }, { error: !!errors.binType })}>
+          <label
+            className={cn(
+              "addbin-label",
+              { focus: isBtnFocus },
+              { error: !!errors.binType }
+            )}
+          >
             쓰레기통 분류
           </label>
           <Controller
@@ -211,7 +194,9 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
                     {bin.label}
                   </Button>
                 ))}
-                {error && <p className={cn("error-message")}>{error.message}</p>}
+                {error && (
+                  <p className={cn("error-message")}>{error.message}</p>
+                )}
               </>
             )}
           />
@@ -234,12 +219,20 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
             <Button status="editCancel" type="button" onClick={toggleIsEdit}>
               수정 취소
             </Button>
-            <Button status="editComplete" type="submit" onClick={openDropBottom}>
+            <Button
+              status="editComplete"
+              type="submit"
+              onClick={openDropBottom}
+            >
               수정 완료
             </Button>
           </article>
         ) : (
-          <Button status="primary" type="submit" disabled={handleDisabledSubmit()}>
+          <Button
+            status="primary"
+            type="submit"
+            disabled={handleDisabledSubmit()}
+          >
             위치 등록하기
           </Button>
         )}
@@ -247,7 +240,11 @@ export default function AddBinForm({ binDetail, toggleIsEdit, isAdmin = false }:
 
       {isOpenModal && (
         <Modal
-          modalState={!!binDetail ? MODAL_CONTENTS.requestFixBin : MODAL_CONTENTS.requestAddBin}
+          modalState={
+            !!binDetail
+              ? MODAL_CONTENTS.requestFixBin
+              : MODAL_CONTENTS.requestAddBin
+          }
           modalClose={Router.back}
           moreInfo={reason}
         />

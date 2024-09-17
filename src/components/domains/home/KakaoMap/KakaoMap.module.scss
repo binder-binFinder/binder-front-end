@@ -16,12 +16,14 @@
   background: #fff;
   box-shadow: 0px 1px 4px 0px #c8d0cd;
   flex-grow: 1;
-  color: #88a297;
   font-size: 1.5rem;
   letter-spacing: -0.0225rem;
+  color: #88a297;
   cursor: text;
+
   > button {
     @include flexbox();
+    color: #88a297;
     gap: 1rem;
     cursor: text;
   }
