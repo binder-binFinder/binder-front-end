@@ -4,7 +4,11 @@ import mypage from "@/../public/images/mypage.svg";
 import mypageOn from "@/../public/images/mypageOn.svg";
 import search from "@/../public/images/search.svg";
 import searchOn from "@/../public/images/searchOn.svg";
+import { getNotiUnread } from "@/lib/apis/noti";
+import { notiAtom } from "@/lib/atoms/userAtom";
+import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,10 +19,22 @@ const cn = classNames.bind(styles);
 
 export default function Gnb() {
   const [page, setPage] = useState<string>("");
+  const [isNoti, setIsNoti] = useAtom(notiAtom);
+
   const router = useRouter();
   useEffect(() => {
     setPage(router.asPath);
   }, [router]);
+
+  const { data: noti, isSuccess } = useQuery({
+    queryKey: ["noti"],
+    queryFn: getNotiUnread,
+  });
+  useEffect(() => {
+    if (isSuccess) {
+      setIsNoti(noti.hasUnread);
+    }
+  }, [isSuccess]);
 
   return (
     <div className={cn("gnbWrap")}>
@@ -50,7 +66,7 @@ export default function Gnb() {
             alt="마이"
             fill
           />
-          {false && <div className={cn("notiNew")}></div>}
+          {isNoti && <div className={cn("notiNew")}></div>}
         </Link>
         <span>마이</span>
       </div>

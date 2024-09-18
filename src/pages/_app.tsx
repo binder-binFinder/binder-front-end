@@ -12,7 +12,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   const hideGnbOnPages = ["/signin"];
-
   return (
     <QueryClientProvider client={queryClient}>
       {/* Google Analytics 및 Kakao SDK 스크립트 추가 */}

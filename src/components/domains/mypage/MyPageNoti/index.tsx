@@ -1,9 +1,11 @@
 import arrowBack from "@/../public/images/arrowGreen.svg";
 import notiNone from "@/../public/images/notiNone.svg";
 import Portal from "@/components/commons/Modal/Portal";
-import { getNoti, readNoti } from "@/lib/apis/noti";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { getNoti, getNotiCount, readNoti } from "@/lib/apis/noti";
+import { notiAtom } from "@/lib/atoms/userAtom";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
@@ -15,9 +17,19 @@ const cn = classNames.bind(styles);
 export default function MyPageNoti({ closeBtn }: any) {
   const [lastId, setLastId] = useState<number>(-1);
   const [notis, setNotis] = useState<any[]>([]);
+  const [isNoti, setIsNoti] = useAtom(notiAtom);
+
+  const { data: unReadCount = 0 } = useQuery({
+    queryKey: ["unReadCounts"],
+    queryFn: getNotiCount,
+  });
 
   // Infinite Query 설정
-  const { data: notiData, fetchNextPage } = useInfiniteQuery({
+  const {
+    data: notiData,
+    fetchNextPage,
+    isSuccess,
+  } = useInfiniteQuery({
     queryKey: ["notiDatas", lastId],
     queryFn: () => getNoti(lastId),
     initialPageParam: 0,
@@ -27,6 +39,7 @@ export default function MyPageNoti({ closeBtn }: any) {
         ? notificationDetails[notificationDetails.length - 1].notificationId
         : undefined;
     },
+    enabled: !!unReadCount || unReadCount === 0,
   });
 
   // 읽음 처리 Mutation
@@ -36,8 +49,9 @@ export default function MyPageNoti({ closeBtn }: any) {
 
   // 컴포넌트 첫 렌더 시 알림 읽음 처리
   useEffect(() => {
-    read();
     setNotis([]);
+    read();
+    setIsNoti(false);
   }, []);
 
   // notiData 업데이트 시 새로운 알림 데이터 추가
@@ -46,7 +60,14 @@ export default function MyPageNoti({ closeBtn }: any) {
       const newNotis = notiData.pages.flatMap(
         (page) => page.notificationDetails
       );
-      setNotis((prev) => [...prev, ...newNotis]); // 새로운 알림 데이터로 상태 업데이트
+      // 중복된 알림을 제거하는 로직
+      setNotis((prev) => {
+        const combinedNotis = [...newNotis, ...prev];
+        const uniqueNotis = Array.from(
+          new Set(combinedNotis.map((item) => item.notificationId))
+        ).map((id) => combinedNotis.find((item) => item.notificationId === id));
+        return uniqueNotis;
+      });
     }
   }, [notiData]);
 
@@ -81,7 +102,7 @@ export default function MyPageNoti({ closeBtn }: any) {
         observer.unobserve(target.current);
       }
     };
-  }, [notiData]); // notiData가 변경될 때마다 observer 다시 설정
+  }, []);
 
   const ref = useRef(null);
   useOnClickOutside(ref, closeBtn);
@@ -99,10 +120,7 @@ export default function MyPageNoti({ closeBtn }: any) {
               onClick={closeBtn}
             />
             <div>
-              알림{" "}
-              <div className={cn("notiCount")}>
-                {notiData?.pages[0]?.unreadCount}건
-              </div>
+              알림 <div className={cn("notiCount")}>{unReadCount}건</div>
             </div>
             <span></span>
           </div>
@@ -111,7 +129,7 @@ export default function MyPageNoti({ closeBtn }: any) {
             {notis.length > 0 ? (
               <div className={cn("notiItemBox")}>
                 {notis.map((item: any, index: number) => (
-                  <NotiItem item={item} key={index} />
+                  <NotiItem item={item} key={index} setNotis={setNotis} />
                 ))}
                 <div ref={target} className={cn("refBox")}></div>
               </div>

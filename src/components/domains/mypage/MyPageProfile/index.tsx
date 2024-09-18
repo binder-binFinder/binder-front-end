@@ -5,7 +5,9 @@ import defaultImg from "@/../public/images/profileDefault.svg";
 import profileEditImg from "@/../public/images/profileEdit.svg";
 import star from "@/../public/images/star.svg";
 import DropProfileEdit from "@/components/commons/DropBottom/DropProfileEdit";
+import { notiAtom } from "@/lib/atoms/userAtom";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useState } from "react";
 import MyPageNoti from "../MyPageNoti";
@@ -31,6 +33,7 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
   const [notiModal, setNotiModal] = useState<boolean>(false);
   const [nick, setNick] = useState<string>(memberData?.nickname);
   const [img, setImg] = useState<string>(memberData?.imageUrl);
+  const [isNoti] = useAtom(notiAtom);
 
   const handleProfileEdit = () => {
     setProfileEdit((prev) => !prev);
@@ -75,8 +78,8 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
         </div>
 
         <Image
-          className={true ? cn("profileNoti") : cn("profileNotiOn")}
-          src={true ? noti : notiOn}
+          className={isNoti ? cn("profileNotiOn") : cn("profileNoti")}
+          src={isNoti ? notiOn : noti}
           alt="알림이미지"
           width={31}
           height={30}

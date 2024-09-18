@@ -1,4 +1,8 @@
 import close from "@/../public/images/close.svg";
+import { deleteNoti } from "@/lib/apis/noti";
+import { binType } from "@/lib/constants/binType";
+import { notiText } from "@/lib/constants/notiText";
+import { useMutation } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import styles from "./MyPageNoti.module.scss";
@@ -7,38 +11,37 @@ const cn = classNames.bind(styles);
 
 interface NotiItemProps {
   item: any;
+  setNotis: any;
 }
-export default function NotiItem({ item }: NotiItemProps) {
-  const binType = () => {
-    switch (item?.notificationType) {
-      case "BIN_REGISTRATION_REJECTED":
-        return "등록 이(가) 거절 되었습니다.";
-      case "BIN_REGISTRATION_APPROVED":
-        return "등록 이(가) 승인 되었습니다.";
-      case "BIN_MODIFICATION_APPROVED":
-        return "수정 이(가) 승인 되었습니다.";
-      case "BIN_MODIFICATION_REJECTED":
-        return "수정 이(가) 거절 되었습니다.";
-      case "BIN_COMPLAINT_APPROVED":
-        return "신고 이(가) 승인 되었습니다.";
-      case "BIN_COMPLAINT_REJECTED":
-        return "신고 이(가) 거절 되었습니다.";
-      case "BIN_LIKED":
-        return "좋아요";
-      case "BIN_DISLIKED":
-        return "싫어요";
-      default:
-        break;
-    }
-  };
+export default function NotiItem({ item, setNotis }: NotiItemProps) {
+  const binText = notiText(item?.notificationType);
 
+  const binTypes = binType(item.binType);
+  const date = [
+    item.createdAt.slice(0, 4),
+    item.createdAt.slice(5, 7),
+    item.createdAt.slice(8, 10),
+  ];
+
+  const { mutate: deleteNotis } = useMutation({
+    mutationFn: () => deleteNoti(item.notificationId),
+    onSuccess: () => {
+      setNotis((prev: any[]) =>
+        prev.filter(
+          (prevItem: { notificationId: any }) =>
+            prevItem.notificationId !== item.notificationId
+        )
+      );
+    },
+  });
   return (
     <div className={cn("notiItemWrap")}>
       <div className={cn("notiItemDate")}>
-        2023. 06. 13 {!item.isRead && <div className={cn("notiItemNew")}></div>}
+        {date[0] + ". " + date[1] + ". " + date[2]}{" "}
+        {!item.isRead && <div className={cn("notiItemNew")}></div>}
       </div>
       <div className={cn("notiItemTitle")}>
-        {item?.binTitle} (쓰레기통 종류) {binType()}
+        {item?.binTitle} {binTypes} {binText}
       </div>
       <div className={cn("notiItemAddress")}>{item?.binAddress}</div>
       <div className={cn("notiItemAdmin")}>{item?.reasonMessage}</div>
@@ -48,6 +51,7 @@ export default function NotiItem({ item }: NotiItemProps) {
         alt={"알림 지우기"}
         width={11}
         height={11}
+        onClick={() => deleteNotis()}
       />
     </div>
   );
