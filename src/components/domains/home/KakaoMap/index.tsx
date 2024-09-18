@@ -34,7 +34,7 @@ const loadKakaoMapScript = (callback: () => void) => {
     callback();
   } else {
     const kakaoMapScript = document.createElement("script");
-    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services,clusterer,drawing&autoload=false`;
+    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_KEY}&libraries=services,clusterer,drawing&autoload=false`;
 
     kakaoMapScript.async = false;
     document.head.appendChild(kakaoMapScript);
