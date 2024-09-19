@@ -6,7 +6,7 @@
 .my-location-btn {
   position: absolute;
   right: 2rem;
-  bottom: 14rem;
+  bottom: calc(env(safe-area-inset-bottom) + 14rem);
   z-index: 6;
 }
 

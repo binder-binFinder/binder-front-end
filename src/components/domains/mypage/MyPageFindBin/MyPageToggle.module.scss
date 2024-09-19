@@ -24,7 +24,7 @@
   width: 5.2rem;
   height: 5.2rem;
   position: absolute;
-  bottom: 1.4rem;
+  bottom: calc(env(safe-area-inset-bottom) + 1.4rem);
   right: 1.7rem;
   z-index: 7;
   cursor: pointer;
