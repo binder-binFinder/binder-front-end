@@ -6,6 +6,11 @@ import { userAddress, userCoordinate } from "@/lib/atoms/userAtom";
 import { btnInputValues } from "@/lib/constants/btnInputValues";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
+import {
+  AddFormProps,
+  AddbinFormValues,
+  PostAddbinValues,
+} from "@/types/addFormTypes";
 import { useMutation } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import { useAtom } from "jotai";
@@ -15,11 +20,6 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import styles from "./AddBinForm.module.scss";
 import ImgInput from "./ImgInput";
 import Input from "./Input";
-import {
-  AddbinFormValues,
-  AddFormProps,
-  PostAddbinValues,
-} from "@/types/addFormTypes";
 
 const cn = classNames.bind(styles);
 
@@ -85,6 +85,9 @@ export default function AddBinForm({
     setValue(name as keyof AddbinFormValues, "");
   };
 
+  const handleDeleteAddress = (name: string) => {
+    setValue(name as keyof AddbinFormValues, "");
+  };
   const handleChangeImgData = (imgUrl: string) => {
     setValue("imageUrl", imgUrl);
     setImg(imgUrl);
@@ -158,10 +161,11 @@ export default function AddBinForm({
           id="address"
           label="쓰레기통 주소"
           placeholder="주소를 입력하세요"
-          type="search"
+          type="text"
           {...register("address", { required: "주소는 필수입니다." })}
           isError={!!errors.address}
           errorMessage={errors.address?.message}
+          onClickDelete={handleDeleteAddress}
         />
 
         <div className={cn("addbin-selector", { error: errors.binType })}>
