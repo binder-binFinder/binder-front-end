@@ -5,6 +5,7 @@ import {
   userAddress,
   userCoordinate,
 } from "@/lib/atoms/userAtom";
+import { useToggle } from "@/lib/hooks/useToggle";
 import {
   addMyLocationMarker,
   createMarker,
@@ -93,6 +94,7 @@ export default function KakaoMap() {
   const myMarkerRef = useRef<any>(null);
   const binkMarkerRef = useRef<any>([]);
   const [centerCoordinate, setCenterCoordinate] = useAtom(mapCenterCoordinate);
+  const [toggleMyLocation, toggleOpen, toggleClose] = useToggle(false);
 
   const { data: locationData, refetch: locationRefetch } = useQuery<any>({
     queryKey: ["locations"],
@@ -214,8 +216,13 @@ export default function KakaoMap() {
       ></div>
       <section className={cn("map-wrapper")}>
         <button
-          className={cn("my-location-btn")}
-          onClick={handelClickGetmyLocation}
+          className={
+            !toggleMyLocation ? cn("my-location-btn") : cn("my-location-btn-on")
+          }
+          onClick={() => {
+            handelClickGetmyLocation(); // 함수 호출
+            !toggleMyLocation ? toggleOpen() : toggleClose(); // 토글 함수 호출
+          }}
         >
           <Image
             src={"/images/icon-my-lovcationBtn.svg"}

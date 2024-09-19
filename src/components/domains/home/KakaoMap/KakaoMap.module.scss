@@ -3,11 +3,16 @@
   width: 100%;
 }
 
-.my-location-btn {
+.my-location-btn,
+.my-location-btn-on {
   position: absolute;
   right: 2rem;
   bottom: calc(env(safe-area-inset-bottom) + 14rem);
   z-index: 6;
+  opacity: 1;
+}
+.my-location-btn {
+  filter: grayscale(1);
 }
 
 .btn-search-link {
