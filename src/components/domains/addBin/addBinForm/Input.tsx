@@ -1,9 +1,9 @@
-import { forwardRef } from "react";
-import styles from "./AddBinForm.module.scss";
+import { InputProps } from "@/types/addFormTypes";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
-import { InputProps } from "@/types/addFormTypes";
+import { forwardRef } from "react";
+import styles from "./AddBinForm.module.scss";
 
 const cn = classNames.bind(styles);
 
@@ -34,7 +34,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label}
       </label>
       {id === "address" && (
-        <Link href={"/KakaoMap"}>
+        <Link
+          href={{
+            pathname: "/",
+            query: { addBin: true },
+          }}
+        >
           <button className={cn("addbin-input-delete-button")}>
             <Image
               src={"/images/search.svg"}

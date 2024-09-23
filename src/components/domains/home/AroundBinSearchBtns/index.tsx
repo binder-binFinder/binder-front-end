@@ -9,6 +9,7 @@ interface Props {
   toggleAroundBin: boolean;
   toggleMyLocation: boolean;
   hasData: boolean;
+  isCardHidden: boolean;
 }
 
 export default function AroundBinSearchBtns({
@@ -17,9 +18,12 @@ export default function AroundBinSearchBtns({
   toggleAroundBin,
   toggleMyLocation,
   hasData,
+  isCardHidden,
 }: Props) {
   return (
-    <article className={cn("btns-wrapper", hasData && "hasBin")}>
+    <article
+      className={cn("btns-wrapper", !isCardHidden && hasData ? "hasBin" : "")}
+    >
       <button
         onClick={onClickGetAroundBinData}
         className={cn("search-around-bin-btn", toggleAroundBin && "on")}

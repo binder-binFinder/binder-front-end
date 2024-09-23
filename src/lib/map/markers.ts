@@ -2,8 +2,7 @@ export const createMarker = (
   kakao: any,
   map: any,
   coordinate: { x: number; y: number },
-  imageSrc: string,
-  infoContent: string
+  imageSrc: string
 ) => {
   if (!kakao || !kakao.maps.Size) {
     console.error("Kakao maps API is not loaded.marker");
@@ -19,19 +18,11 @@ export const createMarker = (
     map: map,
   });
 
-  const infowindow = new kakao.maps.InfoWindow({
-    content: `<div style="padding:5px;">${infoContent}</div>`,
-  });
-
-  kakao.maps.event.addListener(marker, "click", () => {
-    infowindow.open(map, marker);
-  });
-
   return marker;
 };
 
 export const removeMarker = (marker: any) => {
-  if (marker) {
+  if (marker && typeof marker.setMap === "function") {
     marker.setMap(null);
   }
 };
@@ -42,7 +33,7 @@ export const addMyLocationMarker = (
   coordinate: { x: number; y: number }
 ) => {
   const myLocationMarkerImage = "/images/icon-marker-my-location.svg";
-  return createMarker(kakao, map, coordinate, myLocationMarkerImage, "내 위치");
+  return createMarker(kakao, map, coordinate, myLocationMarkerImage);
 };
 
 export const addClickMarker = (
@@ -54,14 +45,9 @@ export const addClickMarker = (
 ) => {
   removeMarker(existingMarker);
 
-  const clickMarkerImage = "/images/icon-marker-general-bin.svg";
-  const newMarker = createMarker(
-    kakao,
-    map,
-    coordinate,
-    clickMarkerImage,
-    "클릭한 위치"
-  );
+  const clickMarkerImage = "/images/icon-marker-add-bin.svg";
+  const newMarker = createMarker(kakao, map, coordinate, clickMarkerImage);
+  newMarker.setDraggable(true);
 
   setMarker(newMarker);
 };
@@ -101,11 +87,14 @@ export const updateMarkers = (binData: any, map: any, binkMarkerRef: any) => {
         window.kakao,
         map,
         { x: bin.latitude, y: bin.longitude },
-        getMarkerImage(bin.isBookMarked, bin.type),
-        bin.title
+        getMarkerImage(bin.isBookMarked, bin.type)
       );
+      window.kakao.maps.event.addListener(marker, "click", () => {
+        console.log(bin);
+      });
       return marker;
     });
+
     binkMarkerRef.current = newMarkers;
   }
 };

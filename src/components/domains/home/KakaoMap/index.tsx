@@ -1,14 +1,18 @@
+import DropBinInfo from "@/components/commons/DropBottom/DropBinInfo";
 import Toast from "@/components/commons/Toast";
 import { getLocation } from "@/lib/apis/geo";
 import { getAroundbins } from "@/lib/apis/search";
 import {
   mapCenterCoordinate,
+  newAddAddress,
+  newAddCoordinate,
   userAddress,
   userCoordinate,
 } from "@/lib/atoms/userAtom";
 import { BinItemType } from "@/lib/constants/btnInputValues";
 import { useToggle } from "@/lib/hooks/useToggle";
 import {
+  addClickMarker,
   filterAddress,
   getAddressFromCoords,
   initializeMap,
@@ -27,10 +31,15 @@ import styles from "./KakaoMap.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function KakaoMap() {
+export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
   const [coordinate, setCoordinate] = useAtom(userCoordinate);
   const [, setAddress] = useAtom(userAddress);
+  const [newAddress, setNewAddAddress] = useAtom(newAddAddress);
+  const [, setNewAddCoordinate] = useAtom(newAddCoordinate);
+
   const [bins, setbins] = useState<any>("");
+  const [isCardHidden, setIsCardHidden] = useState(false);
+
   const [binType, setBinType] = useState<
     null | BinItemType["id"] | "isBookmarked"
   >(null);
@@ -42,6 +51,8 @@ export default function KakaoMap() {
   const [toggleMyLocation, toggleMyLocationOpen, toggleMyLocationClose] =
     useToggle(false);
   const [toggleAroundBin, toggleAroundBinOpen, toggleAroundBinClose] =
+    useToggle(false);
+  const [toggleBinInfo, toggleBinInfoOpen, toggleBinInfoClose] =
     useToggle(false);
 
   const { data: locationData, refetch: locationRefetch } = useQuery<any>({
@@ -122,6 +133,7 @@ export default function KakaoMap() {
     if (locationData && Array.isArray(locationData)) {
       setCoordinate(locationData[0]);
       setCenterCoordinate(locationData[0]);
+      setNewAddCoordinate(locationData[0]);
     }
   }, [locationData]);
 
@@ -142,7 +154,35 @@ export default function KakaoMap() {
     }
   }, 500);
 
+  const handleClickAddMarker = (mouseEvent: any) => {
+    if (isAddBin) {
+      const latlng = mouseEvent.latLng;
+      const newCoordinate = { x: latlng.getLat(), y: latlng.getLng() };
+      setNewAddCoordinate(newCoordinate);
+      getAddressFromCoords(window.kakao, newCoordinate, (getAddress: any) => {
+        setNewAddAddress({
+          roadAddress:
+            filterAddress(getAddress.road_address?.address_name) || null,
+          address: getAddress.address?.address_name,
+        });
+      });
+      addClickMarker(
+        mapRef.current,
+        window.kakao,
+        newCoordinate,
+        binkMarkerRef.current,
+        (newMarker) => {
+          binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
+          binkMarkerRef.current = [];
+
+          binkMarkerRef.current.push(newMarker);
+        }
+      );
+    }
+  };
+
   useEffect(() => {
+    // Kakao Map 스크립트를 로드
     loadKakaoMapScript(() => {
       if (coordinate.x !== 0 && coordinate.y !== 0) {
         const result = initializeMap(coordinate, setAddress);
@@ -151,13 +191,19 @@ export default function KakaoMap() {
           myMarkerRef.current = result.myLocationMarker;
 
           // 맵 중앙 이동시 새로 데이터 불러오기
-          // updateMarkers(binData, mapRef.current, binkMarkerRef);
-
           window.kakao.maps.event.addListener(
             mapRef.current,
             "center_changed",
             debouncedHandleCenterChanged
           );
+
+          if (isAddBin) {
+            window.kakao.maps.event.addListener(
+              mapRef.current,
+              "click",
+              handleClickAddMarker
+            );
+          }
         }
       } else {
         console.error("Invalid coordinates or Kakao Map API not loaded.");
@@ -166,11 +212,12 @@ export default function KakaoMap() {
 
     return () => {
       if (mapRef.current) {
+        // 등록된 모든 마커 제거
         binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
         binkMarkerRef.current = [];
       }
     };
-  }, [coordinate]);
+  }, [coordinate, isAddBin, binkMarkerRef]);
 
   //내위치 버튼
   const handelClickGetmyLocation = async () => {
@@ -212,12 +259,12 @@ export default function KakaoMap() {
   const handelClickGetAroundBinData = async () => {
     try {
       if (centerCoordinate.x !== 0 && centerCoordinate.y !== 0) {
-        // 즉각적으로 마커를 지우고 빈 데이터를 로드하기 시작
         binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
         binkMarkerRef.current = [];
         toggleAroundBinOpen();
         const { data: fetchedBinData } = await refetchBinData();
         setbins(fetchedBinData);
+        setIsCardHidden(false);
 
         if (fetchedBinData.length === 0) {
           setShowToast(true);
@@ -236,6 +283,20 @@ export default function KakaoMap() {
 
     return () => clearTimeout(timer);
   };
+  if (isAddBin) {
+    return (
+      <div
+        id="map"
+        style={{
+          width: "100%",
+          height: "100vh",
+          zIndex: "0",
+          position: "relative",
+        }}
+        ref={mapRef}
+      ></div>
+    );
+  }
   return (
     <>
       <BinTypeBtnList binType={binType!} onClick={handleClickSearchBintype} />
@@ -249,19 +310,24 @@ export default function KakaoMap() {
         }}
         ref={mapRef}
       ></div>
-      <section className={cn("map-wrapper")}>
-        <AroundBinSearchBtns
-          onClickGetAroundBinData={handelClickGetAroundBinData}
-          onClickGetmyLocation={handelClickGetmyLocation}
-          toggleAroundBin={toggleAroundBin}
-          toggleMyLocation={toggleMyLocation}
-          hasData={!isError && bins?.length > 0}
+      <AroundBinSearchBtns
+        onClickGetAroundBinData={handelClickGetAroundBinData}
+        onClickGetmyLocation={handelClickGetmyLocation}
+        toggleAroundBin={toggleAroundBin}
+        toggleMyLocation={toggleMyLocation}
+        hasData={!isError && bins?.length > 0}
+        isCardHidden={isCardHidden}
+      />
+      {!isCardHidden && !!bins && bins[0]?.id && (
+        <RecommendCard
+          setIsCardHidden={setIsCardHidden}
+          isCardHidden={isCardHidden}
+          binDataId={bins[0]?.id}
+          distance={bins[0]?.distance}
         />
-        {!!bins && bins[0]?.id && (
-          <RecommendCard binDataId={bins[0]?.id} distance={bins[0]?.distance} />
-        )}
-        {showToast && <Toast>근처 쓰레기통이 없습니다</Toast>}
-      </section>
+      )}
+      {showToast && <Toast>근처 쓰레기통이 없습니다</Toast>}
+      <DropBinInfo />
     </>
   );
 }

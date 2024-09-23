@@ -5,10 +5,17 @@
   border-radius: 1rem;
   width: calc(100% - 4rem);
   bottom: calc(env(safe-area-inset-bottom) + 10rem);
+
   left: 2rem;
   background-color: $white;
   box-shadow: 0px 1px 4px 0px #c8d0cd;
   z-index: 3;
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+  }
 }
 
 .text-box {

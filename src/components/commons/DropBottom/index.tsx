@@ -49,7 +49,23 @@ export default function DropWrap({
             className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
             onClick={submitState ? btnFunction : undefined}
           >
-            사유 등록
+            {btn}
+          </button>
+        </article>
+      );
+    }
+    if (title === "프로필 수정") {
+      return (
+        <article className={cn("editProfile")}>
+          <button className={cn("dropBtnEdit")} onClick={handleDefault}>
+            기본이미지로 변경
+          </button>
+          <button
+            onClick={btnFunction}
+            disabled={!submitState}
+            className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
+          >
+            {btn}
           </button>
         </article>
       );

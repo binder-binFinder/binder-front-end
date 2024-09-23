@@ -2,7 +2,12 @@ import Button from "@/components/commons/Button";
 import DropReason from "@/components/commons/DropBottom/DropReason";
 import Modal from "@/components/commons/Modal/TrashHow";
 import { patchEditbin, postAddbin } from "@/lib/apis/postAddbin";
-import { userAddress, userCoordinate } from "@/lib/atoms/userAtom";
+import {
+  newAddAddress,
+  newAddCoordinate,
+  userAddress,
+  userCoordinate,
+} from "@/lib/atoms/userAtom";
 import { btnInputValues } from "@/lib/constants/btnInputValues";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
@@ -37,7 +42,8 @@ export default function AddBinForm({
   const [editPostData, setEditPostData] = useState<any>();
   const [coordinate] = useAtom(userCoordinate);
   const [address] = useAtom(userAddress);
-
+  const [newAddress] = useAtom(newAddAddress);
+  const [newCoordinate] = useAtom(newAddCoordinate);
   const {
     register,
     handleSubmit,
@@ -68,6 +74,8 @@ export default function AddBinForm({
         btnInputValues.find((item) => item.id === binDetail.type)?.id || ""
       );
       setImg(binDetail.imageUrl || "");
+    } else if (newAddress?.roadAddress || newAddress?.address) {
+      setValue("address", newAddress.roadAddress || newAddress.address);
     } else if (address?.roadAddress || address?.address) {
       setValue("address", address.roadAddress || address.address);
     }
@@ -110,8 +118,8 @@ export default function AddBinForm({
       postData.longitude = binDetail.longitude;
       setEditPostData(postData);
     } else {
-      postData.latitude = coordinate?.x;
-      postData.longitude = coordinate?.y;
+      postData.latitude = newCoordinate?.x || coordinate?.x;
+      postData.longitude = newCoordinate?.y || coordinate?.y;
       submitAddbin(postData);
     }
   };

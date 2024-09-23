@@ -17,3 +17,16 @@ export const userAddress = atomWithStorage<{
   roadAddress: null,
   address: "",
 });
+
+export const newAddAddress = atomWithStorage<{
+  roadAddress: null | string;
+  address: string;
+}>("newAddAddress", {
+  roadAddress: null,
+  address: "",
+});
+
+export const newAddCoordinate = atomWithStorage("newAddCoordinate", {
+  x: 0,
+  y: 0,
+});

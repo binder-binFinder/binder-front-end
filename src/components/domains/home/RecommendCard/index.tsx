@@ -2,6 +2,8 @@ import { getBinsId } from "@/lib/apis/bins";
 import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
+import { SetStateAction, useRef, useState } from "react";
+import { useDebounceCallback } from "usehooks-ts";
 import styles from "./RecommendCard.module.scss";
 
 const cn = classNames.bind(styles);
@@ -9,22 +11,68 @@ const cn = classNames.bind(styles);
 interface Props {
   binDataId: string;
   distance: number;
+  isCardHidden: boolean;
+  setIsCardHidden: (value: SetStateAction<boolean>) => void;
 }
 
-export default function RecommendCard({ binDataId, distance }: Props) {
+export default function RecommendCard({
+  binDataId,
+  distance,
+  isCardHidden,
+  setIsCardHidden,
+}: Props) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [startY, setStartY] = useState(0);
+  const [currentY, setCurrentY] = useState(0);
+
   const { data: binDetailData, isLoading } = useQuery({
     queryKey: ["bindetail", binDataId],
     queryFn: () => getBinsId(binDataId),
     enabled: !!binDataId,
   });
-  console.log("detail", binDetailData);
 
-  if (isLoading) {
-    return;
+  const handleDragStart = (e: React.TouchEvent | React.MouseEvent) => {
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+    setStartY(clientY);
+  };
+
+  const handleDrag = (e: React.TouchEvent | React.MouseEvent) => {
+    if (cardRef.current) {
+      const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+      const deltaY = clientY - startY;
+
+      if (deltaY > 0) {
+        setCurrentY(deltaY);
+        cardRef.current.style.transform = `translateY(${deltaY}px)`;
+      }
+    }
+  };
+
+  const handleDragEnd = () => {
+    if (currentY > 100) {
+      // 드래그가 일정 거리 이상이면 카드 숨기기
+      setIsCardHidden(true);
+    } else {
+      // 그렇지 않으면 원래 위치로 복귀
+      if (cardRef.current) {
+        cardRef.current.style.transform = `translateY(0)`;
+      }
+    }
+    setCurrentY(0); // 현재 Y 위치 초기화
+  };
+
+  if (isLoading || !binDetailData) {
+    return null;
   }
 
   return (
-    <button className={cn("card-wrapper")}>
+    <div
+      ref={cardRef}
+      onTouchStart={handleDragStart}
+      onTouchMove={handleDrag}
+      onTouchEnd={handleDragEnd}
+      className={cn("card-wrapper", { hidden: isCardHidden })}
+    >
       <div className={cn("text-box")}>
         <span className={cn("recommend")}>추천</span>
         <p className={cn("card-title")}>
@@ -84,6 +132,6 @@ export default function RecommendCard({ binDataId, distance }: Props) {
           {Math.floor(distance) + "m"}
         </p>
       </div>
-    </button>
+    </div>
   );
 }

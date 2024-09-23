@@ -24,11 +24,11 @@
 
 .btn-field {
   @include flexbox();
-  width: 100%;
-  max-width: 39rem;
-  padding: 0 2rem;
-  gap: 1.3rem;
-  z-index: 3;
   position: absolute;
   top: 2rem;
+  left: 2rem;
+  width: calc(100% - 4rem);
+  max-width: 60rem;
+  gap: 1rem;
+  z-index: 3;
 }
