@@ -8,9 +8,7 @@ const cn = classNames.bind(styles);
 interface Props {
   type: BinItemType | "isBookmarked";
   binType: null | BinItemType["id"] | "isBookmarked";
-  onClick: (
-    id: BinItemType["id"] | "isBookmarked"
-  ) => Promise<(() => void) | undefined>;
+  onClick: (id: BinItemType["id"] | "isBookmarked") => void;
 }
 
 const getBinImage = (binType?: string) => {

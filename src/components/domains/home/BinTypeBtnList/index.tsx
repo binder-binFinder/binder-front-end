@@ -6,9 +6,7 @@ import styles from "./BinTypeBtnList.module.scss";
 const cn = classNames.bind(styles);
 
 interface Props {
-  onClick: (
-    id: BinItemType["id"] | "isBookmarked"
-  ) => Promise<(() => void) | undefined>;
+  onClick: (id: BinItemType["id"] | "isBookmarked") => void;
   binType: null | BinItemType["id"] | "isBookmarked";
 }
 

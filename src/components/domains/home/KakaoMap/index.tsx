@@ -62,72 +62,80 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
   });
   console.log("bins", bins);
 
+  const fetchBinsWithId = async (
+    id: BinItemType["id"] | "isBookmarked" | null
+  ) => {
+    const data = await getAroundbins(
+      centerCoordinate.x,
+      centerCoordinate.y,
+      id !== "isBookmarked" ? id : null,
+      500
+    );
+    return data;
+  };
+
+  // React Query에서 binType을 기반으로 쿼리 실행
   const {
     data: binData,
     refetch: refetchBinData,
     isError,
   } = useQuery({
-    queryKey: ["get-around-bins", binType],
-    queryFn: () =>
-      getAroundbins(
-        centerCoordinate.x,
-        centerCoordinate.y,
-        binType !== "isBookmarked" ? binType : null,
-        500
-      ),
-    enabled:
-      toggleAroundBin &&
-      !!mapRef &&
-      !!centerCoordinate.x &&
-      !!centerCoordinate.y,
+    queryKey: ["get-around-bins", binType], // queryKey로 binType을 포함
+    queryFn: () => fetchBinsWithId(binType),
+    enabled: !!binType && !!centerCoordinate.x && !!centerCoordinate.y, // binType이 존재할 때만 실행
     gcTime: 3000,
   });
 
-  const handleClickSearchBintype = async (
-    id: BinItemType["id"] | "isBookmarked"
-  ) => {
-    setBinType(id);
+  const handleClickSearchBintype = (id: BinItemType["id"] | "isBookmarked") => {
+    setBinType((prev) => (prev === id ? null : id)); // 같은 타입이면 해제, 아니면 설정
+  };
 
-    if (binType === id) {
-      // 같은 타입의 버튼을 다시 클릭했을 때는 타입을 초기화
-      setBinType(null);
-      binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
-      binkMarkerRef.current = [];
-    } else {
-      // 선택한 binType에 해당하는 마커 데이터를 즉시 불러오고 업데이트
+  // binType 상태를 감지하고 그에 따라 데이터 가져오기
+  useEffect(() => {
+    const fetchBinData = async () => {
+      if (!binType || centerCoordinate.x === 0 || centerCoordinate.y === 0) {
+        return;
+      }
+
       try {
-        if (centerCoordinate.x !== 0 && centerCoordinate.y !== 0) {
-          binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
-          binkMarkerRef.current = [];
-          const { data: fetchedBinData } = await refetchBinData();
-          setbins(fetchedBinData);
-          if (fetchedBinData && !!mapRef.current) {
-            updateMarkers(fetchedBinData, mapRef.current, binkMarkerRef);
-          }
-          if (fetchedBinData?.length === 0) {
-            setShowToast(true);
-          }
+        binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null)); // 기존 마커 제거
+        binkMarkerRef.current = [];
 
-          if (id === "isBookmarked") {
-            setbins((prev: any) =>
-              prev?.filter((bin: any) => bin.isBookMarked)
-            );
-          }
-          const timer = setTimeout(() => {
-            setShowToast(false);
-          }, 3000);
+        const { data: fetchedBinData } = await refetchBinData(); // binType에 따른 데이터 가져오기
+        setbins(fetchedBinData);
 
-          return () => clearTimeout(timer);
+        if (fetchedBinData?.length === 0) {
+          setShowToast(true);
+        } else {
+          setShowToast(false);
         }
+
+        if (binType === "isBookmarked") {
+          setbins((prev: any) => prev?.filter((bin: any) => bin.isBookMarked));
+        }
+
+        // 마커 업데이트
+        if (fetchedBinData && !!mapRef.current) {
+          updateMarkers(fetchedBinData, mapRef.current, binkMarkerRef);
+        }
+
+        const timer = setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
       } catch (error) {
         console.error(
           "주변 쓰레기통 데이터를 불러오는 데 실패했습니다:",
           error
         );
       }
-    }
-  };
+    };
 
+    fetchBinData(); // 상태가 변경될 때마다 데이터 가져오기
+  }, [binType]); // binType과 좌표가 변경될 때 실행
+
+  console.log(binType);
   //gps로 현위치 불러오기
   useEffect(() => {
     if (locationData && Array.isArray(locationData)) {
