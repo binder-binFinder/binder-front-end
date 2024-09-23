@@ -269,7 +269,12 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
         if (fetchedBinData.length === 0) {
           setShowToast(true);
         }
-        if (fetchedBinData) {
+        if (fetchedBinData && fetchedBinData.length > 0) {
+          const { latitude, longitude } = fetchedBinData[0];
+          const latLng = new window.kakao.maps.LatLng(latitude, longitude);
+
+          mapRef.current.panTo(latLng);
+
           updateMarkers(fetchedBinData, mapRef.current, binkMarkerRef);
         }
       }
@@ -283,6 +288,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
 
     return () => clearTimeout(timer);
   };
+
   if (isAddBin) {
     return (
       <div

@@ -82,12 +82,16 @@ export const updateMarkers = (binData: any, map: any, binkMarkerRef: any) => {
   }
 
   if (binData && !!map) {
-    const newMarkers = binData.map((bin: any) => {
+    const newMarkers = binData.map((bin: any, index: number) => {
+      const markerImage =
+        index === 0
+          ? "/images/icon-marker-recommend.svg"
+          : getMarkerImage(bin.isBookMarked, bin.type);
       const marker = createMarker(
         window.kakao,
         map,
         { x: bin.latitude, y: bin.longitude },
-        getMarkerImage(bin.isBookMarked, bin.type)
+        markerImage
       );
       window.kakao.maps.event.addListener(marker, "click", () => {
         console.log(bin);
