@@ -1,6 +1,7 @@
 import { getBinsId } from "@/lib/apis/bins";
+import { deleteMyBookmark, postMyBookmark } from "@/lib/apis/bookmarks";
 import { useToggle } from "@/lib/hooks/useToggle";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -34,6 +35,14 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
     queryFn: () => getBinsId(binId),
     enabled: !!binId,
   });
+
+  const { mutate: postBookmarkMutate } = useMutation({
+    mutationFn: () => postMyBookmark(binId),
+  });
+  const { mutate: deleteBookmarkMutate } = useMutation({
+    mutationFn: () => deleteMyBookmark(binId),
+  });
+
   console.log("드롭바텀", binDetailData);
 
   const handleClose = () => {
