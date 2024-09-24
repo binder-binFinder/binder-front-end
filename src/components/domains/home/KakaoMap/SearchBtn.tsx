@@ -36,7 +36,7 @@ function AddBinBtn() {
   );
 }
 
-export default function BtnField({ isAddBin }: { isAddBin: boolean }) {
+export default function BtnField({ isAddBin }: { isAddBin?: boolean }) {
   if (isAddBin) {
     return (
       <section className={cn("btn-field")}>
