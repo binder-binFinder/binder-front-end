@@ -27,7 +27,7 @@ export default function Home({ isAddBin }: { isAddBin: boolean }) {
     <>
       {tutorial !== true && <Tutorial />}
       <section className={cn("map-wrapper")}>
-        <BtnField />
+        <BtnField isAddBin={isAddBin} />
         <KakaoMap isAddBin={isAddBin} />
       </section>
     </>

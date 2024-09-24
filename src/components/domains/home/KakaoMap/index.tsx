@@ -36,14 +36,13 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
   const [, setAddress] = useAtom(userAddress);
   const [newAddress, setNewAddAddress] = useAtom(newAddAddress);
   const [, setNewAddCoordinate] = useAtom(newAddCoordinate);
-
   const [bins, setbins] = useState<any>("");
   const [isCardHidden, setIsCardHidden] = useState(false);
-
   const [binType, setBinType] = useState<
     null | BinItemType["id"] | "isBookmarked"
   >(null);
   const [showToast, setShowToast] = useState(false);
+  const [selectedBinId, setSelectedBinId] = useState<number | null>(null);
   const mapRef = useRef<any>(null);
   const myMarkerRef = useRef<any>(null);
   const binkMarkerRef = useRef<any>([]);
@@ -116,7 +115,12 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
 
         // 마커 업데이트
         if (fetchedBinData && !!mapRef.current) {
-          updateMarkers(fetchedBinData, mapRef.current, binkMarkerRef);
+          updateMarkers(
+            fetchedBinData,
+            mapRef.current,
+            binkMarkerRef,
+            handelClickMarker
+          );
         }
 
         const timer = setTimeout(() => {
@@ -283,7 +287,12 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
 
           mapRef.current.panTo(latLng);
 
-          updateMarkers(fetchedBinData, mapRef.current, binkMarkerRef);
+          updateMarkers(
+            fetchedBinData,
+            mapRef.current,
+            binkMarkerRef,
+            handelClickMarker
+          );
         }
       }
     } catch (error) {
@@ -295,6 +304,12 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
     }, 3000);
 
     return () => clearTimeout(timer);
+  };
+
+  const handelClickMarker = (id: number) => {
+    console.log(id);
+    setSelectedBinId(id);
+    toggleBinInfoOpen();
   };
 
   if (isAddBin) {
@@ -341,7 +356,15 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
         />
       )}
       {showToast && <Toast>근처 쓰레기통이 없습니다</Toast>}
-      <DropBinInfo />
+      {toggleBinInfo && selectedBinId !== null && (
+        <DropBinInfo
+          binId={selectedBinId}
+          distance={
+            binData.find((bin: any) => bin.id === selectedBinId)?.distance
+          }
+          closeDropDown={toggleBinInfoClose}
+        />
+      )}
     </>
   );
 }

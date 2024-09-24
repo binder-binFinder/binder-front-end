@@ -53,7 +53,7 @@
   letter-spacing: -0.0225rem;
   color: #a4b7ad;
 
-  & .star {
+  > img {
     filter: invert(84%) sepia(11%) saturate(280%) hue-rotate(96deg)
       brightness(85%) contrast(86%);
   }

@@ -70,22 +70,6 @@ export default function DropWrap({
         </article>
       );
     }
-    if (title === "프로필 수정") {
-      return (
-        <article className={cn("editProfile")}>
-          <button className={cn("dropBtnEdit")} onClick={handleDefault}>
-            기본이미지로 변경
-          </button>
-          <button
-            onClick={btnFunction}
-            disabled={!submitState}
-            className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
-          >
-            {btn}
-          </button>
-        </article>
-      );
-    }
 
     return (
       <button

@@ -76,7 +76,12 @@ export const getMarkerImage = (isBookMarked: boolean, type: string) => {
   return imageSrc;
 };
 
-export const updateMarkers = (binData: any, map: any, binkMarkerRef: any) => {
+export const updateMarkers = (
+  binData: any,
+  map: any,
+  binkMarkerRef: any,
+  handelClickMarker: (id: number) => void
+) => {
   if (!!map && binkMarkerRef.current.length > 0) {
     binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
   }
@@ -94,6 +99,7 @@ export const updateMarkers = (binData: any, map: any, binkMarkerRef: any) => {
         markerImage
       );
       window.kakao.maps.event.addListener(marker, "click", () => {
+        handelClickMarker(bin.id);
         console.log(bin);
       });
       return marker;

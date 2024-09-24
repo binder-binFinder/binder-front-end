@@ -13,6 +13,10 @@
   font-weight: 400;
   letter-spacing: -0.021rem;
   animation: toast-slide 2.5s ease-in-out forwards;
+
+  &.green {
+    background: rgba(11, 183, 109, 0.8);
+  }
 }
 
 @keyframes toast-slide {

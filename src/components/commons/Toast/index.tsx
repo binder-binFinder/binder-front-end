@@ -6,11 +6,12 @@ const cn = classNames.bind(styles);
 
 interface Prop {
   children: ReactNode;
+  isgreen?: boolean;
 }
 
-export default function Toast({ children }: Prop) {
+export default function Toast({ children, isgreen }: Prop) {
   return (
-    <article className={cn("toast")}>
+    <article className={cn("toast", isgreen && "green")}>
       <p>{children}</p>
     </article>
   );

@@ -23,6 +23,12 @@ export const MODAL_CONTENTS: Record<string, ModalContent> = {
     ismore: true,
     status: "red",
   },
+  reportComplaint: {
+    title: "쓰레기통 신고 완료",
+    text: "서비스 이용에 불편을 드려 죄송합니다.신고는 검토 후 처리됩니다.",
+    ismore: true,
+    status: "red",
+  },
 
   rejectReport: {
     title: "신고 거절",
