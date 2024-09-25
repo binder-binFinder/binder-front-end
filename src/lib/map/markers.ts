@@ -100,7 +100,6 @@ export const updateMarkers = (
       );
       window.kakao.maps.event.addListener(marker, "click", () => {
         handelClickMarker(bin.id);
-        console.log(bin);
       });
       return marker;
     });
