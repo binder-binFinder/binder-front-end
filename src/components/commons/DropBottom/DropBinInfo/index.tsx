@@ -1,7 +1,4 @@
-import { getBinsId } from "@/lib/apis/bins";
-import { deleteMyBookmark, postMyBookmark } from "@/lib/apis/bookmarks";
 import { useToggle } from "@/lib/hooks/useToggle";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -9,6 +6,7 @@ import { useOnClickOutside } from "usehooks-ts";
 import Toast from "../../Toast";
 import DropReport from "../DropReport";
 import styles from "./DropBinInfo.module.scss";
+import { useBinActions } from "./useBinActions";
 
 const cn = classNames.bind(styles);
 interface Props {
@@ -29,21 +27,60 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(true);
   const [isReport, isReportOpen, iseReportClose] = useToggle(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false); // 버튼 비활성화 상태 추가
 
-  const { data: binDetailData } = useQuery({
-    queryKey: ["get-bin-detail", binId],
-    queryFn: () => getBinsId(binId),
-    enabled: !!binId,
-  });
+  const [
+    isSuccessMybookmark,
+    openSuccessMybookmarkToast,
+    closeSuccessMybookmarkToast,
+  ] = useToggle(false);
 
-  const { mutate: postBookmarkMutate } = useMutation({
-    mutationFn: () => postMyBookmark(binId),
-  });
-  const { mutate: deleteBookmarkMutate } = useMutation({
-    mutationFn: () => deleteMyBookmark(binId),
-  });
+  const {
+    binDetailData,
+    isLoading,
+    postBookmarkMutate,
+    deleteBookmarkMutate,
+    patchLikeMutate,
+    deleteLikeMutate,
+    patchDislikeMutate,
+    deletedisLikeMutate,
+  } = useBinActions(binId, openSuccessMybookmarkToast);
 
-  console.log("드롭바텀", binDetailData);
+  const disableButtonTemporarily = () => {
+    setIsButtonDisabled(true);
+    setTimeout(() => setIsButtonDisabled(false), 1000);
+  };
+
+  const handleClickBookmark = () => {
+    if (isButtonDisabled) return;
+    disableButtonTemporarily();
+
+    if (binDetailData?.binInfoForMember.isBookMarked) {
+      deleteBookmarkMutate();
+    } else {
+      postBookmarkMutate();
+    }
+  };
+  const handleClickLike = () => {
+    if (isButtonDisabled) return;
+    disableButtonTemporarily();
+
+    if (binDetailData?.binInfoForMember.isLiked) {
+      deleteLikeMutate();
+    } else {
+      patchLikeMutate();
+    }
+  };
+  const handleClickDisLike = () => {
+    if (isButtonDisabled) return;
+    disableButtonTemporarily();
+
+    if (binDetailData?.binInfoForMember.isDisliked) {
+      deletedisLikeMutate();
+    } else {
+      patchDislikeMutate();
+    }
+  };
 
   const handleClose = () => {
     setIsVisible(false);
@@ -53,6 +90,10 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
   useOnClickOutside(ref, () => {
     if (!isReport) handleClose();
   });
+
+  if (isLoading) {
+    <p>로딩 중</p>;
+  }
 
   return (
     <div className={cn("drop")}>
@@ -72,7 +113,7 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
             </p>
           </div>
           <div>
-            {binDetailData?.binInfoForMember.isOwner && (
+            {/* {binDetailData?.binInfoForMember.isOwner && (
               <button>
                 <Image
                   src={"/images/icon-edit-pen-btn.svg"}
@@ -81,7 +122,7 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
                   height={41}
                 />
               </button>
-            )}
+            )} */}
             <button className={cn("report-btn")} onClick={isReportOpen}>
               <Image
                 src={"/images/icon-report-btn.svg"}
@@ -97,8 +138,9 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
           <button
             className={cn(
               "state-btn",
-              binDetailData?.binInfoForMember.isBookmarked && "selected"
+              binDetailData?.binInfoForMember.isBookMarked && "selected"
             )}
+            onClick={handleClickBookmark}
           >
             <Image
               src={"/images/icon-gray-star.svg"}
@@ -113,6 +155,7 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
               "state-btn",
               binDetailData?.binInfoForMember.isLiked && "selected"
             )}
+            onClick={handleClickLike}
           >
             <Image
               src={"/images/thumb-up.svg"}
@@ -127,6 +170,7 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
               "state-btn",
               binDetailData?.binInfoForMember.isDisliked && "selected"
             )}
+            onClick={handleClickDisLike}
           >
             <Image
               src={"/images/thumb-down.svg"}
@@ -138,7 +182,9 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
           </button>
         </div>
         <div className={cn("info-box")}>
-          <p className={cn("alert", "none")}>
+          <p
+            className={cn("alert", binDetailData?.complaintCount < 3 && "none")}
+          >
             <Image
               src={"/images/alert.svg"}
               alt="경고"
@@ -157,9 +203,11 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
             <p> {Math.floor(distance) + "m"}</p>
           </div>
         </div>
-        <Toast
-          isgreen
-        >{`저장한 장소에 ${binDetailData?.title}을 추가했습니다`}</Toast>
+        {isSuccessMybookmark && (
+          <Toast
+            isgreen
+          >{`저장한 장소에 ${binDetailData?.title}을 추가했습니다`}</Toast>
+        )}
       </article>
       {isReport && binDetailData.id && (
         <DropReport

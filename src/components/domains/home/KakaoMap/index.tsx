@@ -119,7 +119,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
             fetchedBinData,
             mapRef.current,
             binkMarkerRef,
-            handelClickMarker
+            handleClickMarker
           );
         }
 
@@ -232,7 +232,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
   }, [coordinate, isAddBin, binkMarkerRef]);
 
   //내위치 버튼
-  const handelClickGetmyLocation = async () => {
+  const handleClickGetmyLocation = async () => {
     try {
       const { data: newLocationData } = await locationRefetch();
       if (newLocationData && Array.isArray(newLocationData)) {
@@ -268,7 +268,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
   //   }
   // }, [centerCoordinate, refetchBinData]);
 
-  const handelClickGetAroundBinData = async () => {
+  const handleClickGetAroundBinData = async () => {
     try {
       if (centerCoordinate.x !== 0 && centerCoordinate.y !== 0) {
         binkMarkerRef.current.forEach((marker: any) => marker?.setMap(null));
@@ -291,7 +291,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
             fetchedBinData,
             mapRef.current,
             binkMarkerRef,
-            handelClickMarker
+            handleClickMarker
           );
         }
       }
@@ -306,7 +306,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
     return () => clearTimeout(timer);
   };
 
-  const handelClickMarker = (id: number) => {
+  const handleClickMarker = (id: number) => {
     console.log(id);
     setSelectedBinId(id);
     toggleBinInfoOpen();
@@ -318,11 +318,11 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
         id="map"
         style={{
           width: "100%",
-          height: "100vh",
           zIndex: "0",
           position: "relative",
         }}
         ref={mapRef}
+        className={cn("map")}
       ></div>
     );
   }
@@ -340,8 +340,8 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
         ref={mapRef}
       ></div>
       <AroundBinSearchBtns
-        onClickGetAroundBinData={handelClickGetAroundBinData}
-        onClickGetmyLocation={handelClickGetmyLocation}
+        onClickGetAroundBinData={handleClickGetAroundBinData}
+        onClickGetmyLocation={handleClickGetmyLocation}
         toggleAroundBin={toggleAroundBin}
         toggleMyLocation={toggleMyLocation}
         hasData={!isError && bins?.length > 0}

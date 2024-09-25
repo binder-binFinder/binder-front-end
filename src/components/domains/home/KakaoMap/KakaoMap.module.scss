@@ -2,6 +2,9 @@
   // position: relative;
   width: 100%;
 }
+.map {
+  height: calc(100vh - 8rem);
+}
 
 .btn-search-link {
   border-radius: 1rem;
