@@ -59,7 +59,6 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
     queryFn: getLocation,
     gcTime: 3000,
   });
-  console.log("bins", bins);
 
   const fetchBinsWithId = async (
     id: BinItemType["id"] | "isBookmarked" | null
@@ -323,7 +322,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
         id="map"
         style={{
           width: "100%",
-          height: "calc(100vh - 8rem)",
+          height: "calc(100vh - 7.4rem)",
           zIndex: "0",
           position: "relative",
         }}
@@ -338,7 +337,7 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
         id="map"
         style={{
           width: "100%",
-          height: "100vh",
+          height: "calc(100vh - 7.4rem)",
           zIndex: "0",
           position: "relative",
         }}
