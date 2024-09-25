@@ -27,13 +27,18 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(true);
   const [isReport, isReportOpen, iseReportClose] = useToggle(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false); // 버튼 비활성화 상태 추가
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const [
     isSuccessMybookmark,
     openSuccessMybookmarkToast,
     closeSuccessMybookmarkToast,
   ] = useToggle(false);
+
+  const onSuccessBookmark = () => {
+    openSuccessMybookmarkToast();
+    setTimeout(() => closeSuccessMybookmarkToast(), 3000);
+  };
 
   const {
     binDetailData,
@@ -44,7 +49,7 @@ export default function DropBinInfo({ closeDropDown, binId, distance }: Props) {
     deleteLikeMutate,
     patchDislikeMutate,
     deletedisLikeMutate,
-  } = useBinActions(binId, openSuccessMybookmarkToast);
+  } = useBinActions(binId, onSuccessBookmark);
 
   const disableButtonTemporarily = () => {
     setIsButtonDisabled(true);

@@ -1,6 +1,6 @@
 .toast {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom) + 8.8rem);
+  bottom: 3rem;
   width: calc(100% - 4rem);
   left: 2rem;
   padding: 1.6rem;
@@ -13,6 +13,7 @@
   font-weight: 400;
   letter-spacing: -0.021rem;
   animation: toast-slide 2.5s ease-in-out forwards;
+  z-index: 10;
 
   &.green {
     background: rgba(11, 183, 109, 0.8);
