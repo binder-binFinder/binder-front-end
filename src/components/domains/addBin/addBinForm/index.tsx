@@ -65,7 +65,7 @@ export default function AddBinForm({
   };
 
   useEffect(() => {
-    if (binDetail && binDetail.binInfoForMember?.isOwner) {
+    if (binDetail && (binDetail.binInfoForMember?.isOwner || isAdmin)) {
       setValue("address", binDetail.address || "");
       setValue("binType", binDetail.type || "");
       setValue("title", binDetail.title || "");

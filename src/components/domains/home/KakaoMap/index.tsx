@@ -318,11 +318,11 @@ export default function KakaoMap({ isAddBin }: { isAddBin: boolean }) {
         id="map"
         style={{
           width: "100%",
+          height: "calc(100vh - 8rem)",
           zIndex: "0",
           position: "relative",
         }}
         ref={mapRef}
-        className={cn("map")}
       ></div>
     );
   }
