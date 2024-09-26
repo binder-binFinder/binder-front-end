@@ -6,7 +6,7 @@
     gap: 1.7rem;
   }
   & > span {
-    color: #515f58;
+    color: var(--card-address);
     font-size: 1.7rem;
     font-weight: 600;
     line-height: 37px;
@@ -18,7 +18,7 @@
   align-items: center;
   margin-top: 7.1rem;
   gap: 1.1rem;
-  color: #515f58;
+  color: var(--card-address);
   font-size: 1.7rem;
   font-weight: 600;
   line-height: 37px;

@@ -3,7 +3,7 @@
 .itemsWrap {
   width: 100%;
   height: calc(100vh - 13.1rem - 8.3rem + 4.7rem);
-  background: $white;
+  background: var(--white);
   overflow-y: auto;
-  border-top: 6px solid #f4f6f5;
+  border-top: 6px solid var(--cart-text);
 }

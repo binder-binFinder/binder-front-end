@@ -3,13 +3,13 @@
   width: 100%;
 
   padding: 2rem 1.7rem;
-  background: #f4f6f5;
+  background: var(--cart-text);
   line-height: 2.6rem;
 }
 .detailTitle {
   font-size: 1.9rem;
   font-weight: 700;
-  color: #06130d;
+  color: var(--green90);
 }
 .detailIitle-btn {
   text-align: right;
@@ -18,7 +18,7 @@
   font-weight: 400;
   letter-spacing: -0.014rem;
   text-decoration-line: underline;
-  color: #a6adab;
+  color: var(--card-title);
 
   &-wrapper {
     @include flexbox(end);
@@ -29,14 +29,14 @@
   width: 100%;
   height: calc(100vh - 7.5rem - 7.6rem - 6.6rem);
   padding: 1.3rem 2.6rem;
-  background-color: $white;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
   overflow-y: scroll;
 }
 .detail {
-  color: #4d4d4d;
+  color: var(--btn-selected);
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
@@ -47,17 +47,17 @@
   flex-direction: column;
   gap: 0.7rem;
   & span {
-    color: #a5a5a5;
+    color: var(--btn-color);
     font-size: 1.3rem;
     line-height: 26px;
   }
 }
 .detailItemTitle {
-  color: #6b7772;
+  color: var(--detail-title);
   font-size: 1.6rem;
   line-height: 25px;
   border-radius: 1rem;
-  background: #f4f6f5;
+  background: var(--cart-text);
   padding: 1rem 1.4rem;
 }
 
@@ -71,8 +71,8 @@
   width: 48%;
   height: 4.4rem;
   border-radius: 1rem;
-  background: #f4f6f5;
-  color: #6b7772;
+  background: var(--cart-text);
+  color: var(--detail-title);
   font-size: 1.6rem;
   line-height: 25px;
   display: flex;
@@ -80,8 +80,8 @@
   justify-content: center;
 }
 .detailSelectItem {
-  border: 1px solid #d9d9d9;
-  background: $white;
+  border: 1px solid var(--d9d9d9);
+  background: var(--white);
 }
 .detailBtn {
   display: flex;
@@ -94,29 +94,29 @@
   width: 17.4rem;
   height: 4.4rem;
   border-radius: 1rem;
-  background: #0bb76d;
+  background: var(--primary-green);
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: $white;
+  color: var(--white);
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 20px;
   cursor: pointer;
 }
 .detailReject {
-  border: 1px solid #0bb76d;
-  color: #3b4943;
-  background: $white;
+  border: 1px solid var(--primary-green);
+  color: var(--btn-edit);
+  background: var(--white);
 }
 .detailRejectReport {
-  border: 1px solid #ff3232;
-  color: #3b4943;
-  background: $white;
+  border: 1px solid var(--error-red);
+  color: var(--btn-edit);
+  background: var(--white);
 }
 .detailAcceptReport {
-  background: #ff3232;
+  background: var(--error-red);
 }
 
 .imgBox {

@@ -1,6 +1,6 @@
 // SCSS 변수 선언 (이 부분은 최상단에 위치해야 함)
 $white: #fff;
-$black: #000;
+$black: var(--black);
 $gray20: #d1dbd6;
 
 $primary-green: #0bb76d;
@@ -16,7 +16,7 @@ $error-red: #ff3232;
 // 라이트 모드와 다크 모드에 따라 CSS 커스텀 속성 선언
 // :root[theme="light"] {
 //   --white: #fff;
-//   --black: #000;
+//   --black: var(--black);
 //   --gray20: #d1dbd6;
 //   --primary-green: #0bb76d;
 //   --green90: #06130d;
@@ -29,7 +29,7 @@ $error-red: #ff3232;
 // }
 
 // :root[theme="dark"] {
-//   --white: #000;
+//   --white: var(--black);
 //   --black: #fff;
 //   --gray20: #d1dbd6;
 //   --primary-green: #0bb76d;

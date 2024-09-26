@@ -11,13 +11,13 @@
   }
 }
 .cancelText {
-  color: #4d4d4d;
+  color: var(--btn-selected);
 }
 .cancelTextRed {
-  color: #ff3232;
+  color: var(--error-red);
 }
 .cancelTextGreen {
-  color: #0bb76d;
+  color: var(--primary-green);
 }
 .cancelTextInput,
 .cancelTextInputRed,
@@ -25,7 +25,7 @@
   width: 100%;
   height: 4.4rem;
   border-radius: 10px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--d9d9d9);
   padding: 1rem 1.4rem;
   font-size: 1.6rem;
   @include respondTo(small) {
@@ -33,10 +33,10 @@
   }
 }
 .cancelTextInputRed {
-  border-color: #ff3232;
+  border-color: var(--error-red);
 }
 .cancelTextInputGreen {
-  border-color: #0bb76d;
+  border-color: var(--primary-green);
 }
 .inputWrap {
   position: relative;

@@ -4,7 +4,7 @@
   left: 50%;
 
   transform: translateX(-50%);
-  background: #06130d;
+  background: var(--green90);
   color: white;
   border-radius: 1.7rem;
   padding: 0.6rem 2.4rem;
@@ -19,14 +19,14 @@
 
     border-width: 1rem;
     border-style: solid;
-    border-color: #06130d transparent transparent transparent;
+    border-color: var(--green90) transparent transparent transparent;
     border-radius: 0 0 0.3rem 0.3rem;
   }
 }
 
 .toast-text {
   @include flexbox();
-  color: #f7f7f7;
+  color: var(--toast);
   text-align: center;
   font-size: 1.3rem;
   line-height: 1;

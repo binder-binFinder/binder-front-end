@@ -2,6 +2,7 @@ import Gnb from "@/components/commons/Gnb";
 import Splash from "@/components/commons/Splash";
 import { onBoardingAtom, themeColor } from "@/lib/atoms/atom";
 import "@/styles/base/index.scss";
+import "@/styles/global.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useAtom } from "jotai";

@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $white;
+  background-color: var(--white);
   position: absolute;
   top: 0;
   z-index: 99;
@@ -14,14 +14,14 @@
   animation: fadeOut 4s;
 
   & p {
-    color: #5e786c;
+    color: var(--splash-text);
     text-align: center;
     font-size: 1.4rem;
     line-height: 20px;
   }
 }
 .version {
-  color: #a5a5a5;
+  color: var(--btn-color);
   text-align: center;
   font-size: 1.4rem;
   line-height: 20px;

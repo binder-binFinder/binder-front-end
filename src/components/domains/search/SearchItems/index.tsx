@@ -7,6 +7,7 @@ import {
 import { searchChoice } from "@/lib/atoms/userAtom";
 import classNames from "classnames/bind";
 import { useAtom } from "jotai";
+import { useRouter } from "next/router";
 import SearchDetail from "../SearchDetail";
 import SearchItem from "../SearchItem";
 import styles from "./SearchItem.module.scss";
@@ -23,6 +24,12 @@ export default function SearchItems({ setPrevSearchPick }: searchProps) {
   const [, setChoice] = useAtom(searchChoice);
   const [bookmarks] = useAtom(searchBookmark);
   const [btnState] = useAtom(searchToggle);
+  const router = useRouter();
+
+  const handleDetail = (item: any) => {
+    setChoice(item);
+    router.push("/");
+  };
 
   return (
     <div className={cn("itemsWrap")}>
@@ -32,7 +39,7 @@ export default function SearchItems({ setPrevSearchPick }: searchProps) {
             <div
               key={index}
               onClick={() => {
-                setChoice(item);
+                handleDetail(item);
               }}
             >
               <SearchDetail item={item} />

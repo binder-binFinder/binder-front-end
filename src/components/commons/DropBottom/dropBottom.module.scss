@@ -20,7 +20,7 @@
   border-radius: 1.4rem 1.4rem 0 0;
   padding: 2rem 1.7rem;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
-  background-color: $white;
+  background-color: var(--white);
   position: absolute;
   bottom: 0;
   animation: slide-up 0.3s ease-out;
@@ -34,7 +34,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #06130d;
+  color: var(--green90);
   font-size: 2rem;
   font-weight: 800;
   @include respondTo(small) {
@@ -59,7 +59,7 @@
   // min-width: 35.6rem;
   height: 4.4rem;
   border-radius: 1rem;
-  color: $white;
+  color: var(--white);
   font-size: 1.6rem;
   font-weight: 500;
   display: flex;
@@ -67,11 +67,11 @@
   align-items: center;
 }
 .dropBtn {
-  background: #94ccb4;
+  background: var(--btn-primary);
 }
 .dropBtnOn {
   width: 100%;
-  background: #0bb76d;
+  background: var(--primary-green);
   cursor: pointer;
 }
 .cancle {
@@ -91,19 +91,19 @@
   }
   & > .dropBtnCancel {
     border-radius: 10px;
-    border: 1px solid #e9aead;
-    background: $white;
-    color: #3b4943;
+    border: 1px solid var(--card-reject);
+    background: var(--white);
+    color: var(--btn-edit);
     font-size: 1.5rem;
     font-weight: 500;
     line-height: 20px;
     cursor: pointer;
   }
   & > .dropBtn {
-    background-color: #e9aead;
+    background-color: var(--card-reject);
   }
   & > .dropBtnOn {
-    background-color: #ff3232;
+    background-color: var(--error-red);
   }
 }
 .editProfile {
@@ -123,9 +123,9 @@
   }
   & > .dropBtnEdit {
     border-radius: 10px;
-    border: 1px solid #0bb76d;
-    background: $white;
-    color: #3b4943;
+    border: 1px solid var(--primary-green);
+    background: var(--white);
+    color: var(--btn-edit);
     font-size: 1.5rem;
     font-weight: 500;
     line-height: 20px;

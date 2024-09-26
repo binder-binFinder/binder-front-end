@@ -363,7 +363,7 @@ body .swiper-pagination-bullet {
 }
 
 body .swiper-pagination-bullet-active {
-  background-color: #0bb76d; /* 활성화된 점의 색상 */
+  background-color: var(--primary-green); /* 활성화된 점의 색상 */
 }
 body #onBoarding .swiper-pagination {
   position: absolute;

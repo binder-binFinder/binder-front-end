@@ -53,7 +53,8 @@ export default function SearchDetail({ item, savePlace }: DetailProp) {
     },
   });
 
-  const handleBookmark = () => {
+  const handleBookmark = (e: any) => {
+    e.stopPropagation();
     if (isBookmark) {
       handleDelete();
     } else {
@@ -68,7 +69,7 @@ export default function SearchDetail({ item, savePlace }: DetailProp) {
         alt={"북마크 이미지"}
         width={16}
         height={19}
-        onClick={handleBookmark}
+        onClick={(e) => handleBookmark(e)}
       />
 
       <div className={cn("detailMain")}>

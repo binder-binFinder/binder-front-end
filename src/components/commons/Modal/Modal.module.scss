@@ -19,7 +19,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.9rem;
-  background-color: $white;
+  background-color: var(--white);
   border-radius: 14px;
   position: absolute;
   left: 50%;
@@ -34,7 +34,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.9rem;
-  background-color: $white;
+  background-color: var(--white);
   border-radius: 14px;
   position: absolute;
   left: 50%;
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #ff3232;
+  border: 2px solid var(--error-red);
   border-radius: 100px;
   margin-top: -2rem;
 }
@@ -58,7 +58,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #0bb76d;
+  border: 2px solid var(--primary-green);
   border-radius: 100px;
   margin-top: -2rem;
 }
@@ -68,7 +68,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #34423d;
+  border: 2px solid var(--modal-title);
   border-radius: 100px;
   margin-top: -2rem;
 }
@@ -79,21 +79,21 @@
 }
 
 .modalTitle {
-  color: #ff3232;
+  color: var(--error-red);
   text-align: center;
   font-size: 2rem;
   font-weight: 800;
   line-height: 37px;
 }
 .modalTitleAccess {
-  color: #0bb76d;
+  color: var(--primary-green);
   text-align: center;
   font-size: 2rem;
   font-weight: 800;
   line-height: 37px;
 }
 .modalTitleAudit {
-  color: #34423d;
+  color: var(--modal-title);
   text-align: center;
   font-size: 2rem;
   font-weight: 800;
@@ -101,7 +101,7 @@
 }
 
 .modalText {
-  color: #515f58;
+  color: var(--card-address);
   font-size: 1.6rem;
   text-align: center;
   line-height: 23px;
@@ -111,7 +111,7 @@
 }
 
 .modalClose {
-  color: #a5a5a5;
+  color: var(--btn-color);
   text-align: center;
   font-size: 1.3rem;
   position: absolute;
@@ -121,7 +121,7 @@
 }
 
 .modalMoreInfo {
-  color: #515f58;
+  color: var(--card-address);
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 2.3rem; /* 143.75% */

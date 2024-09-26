@@ -19,18 +19,18 @@
   padding: 0.4rem 1rem 0.4rem 0.4rem;
   flex-shrink: 0;
   white-space: nowrap;
-  background-color: $white;
-  color: #676767;
+  background-color: var(--white);
+  color: var(--state-btn);
   font-size: 1.3rem;
   font-weight: 400;
   line-height: 2.5rem; /* 192.308% */
   letter-spacing: -0.013rem;
   border-radius: 1.95rem;
-  background: var(--naver-text, $white);
+  background: var(--naver-text, var(--white));
   box-shadow: 0px 1px 6px 0px #c8d0cd;
 
   &.selected {
-    border: 1px solid #0bb76d;
+    border: 1px solid var(--primary-green);
     box-shadow: 0px 1px 6px 0px #c8d0cd;
   }
 }

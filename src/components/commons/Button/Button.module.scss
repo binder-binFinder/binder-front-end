@@ -1,9 +1,9 @@
 .button {
   border-radius: 1rem;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--d9d9d9);
   padding: 1.1rem 1.4rem;
 
-  color: #a5a5a5;
+  color: var(--btn-color);
   text-align: center;
   font-size: 1.6rem;
   font-weight: 400;
@@ -11,8 +11,8 @@
   line-height: 1.1;
 
   &.selected {
-    color: #4d4d4d;
-    border: 1px solid #a5a5a5;
+    color: var(--btn-selected);
+    border: 1px solid var(--btn-color);
   }
 
   &.alert,
@@ -26,25 +26,25 @@
     padding: 1.4rem;
 
     border: none;
-    color: $white;
+    color: var(--white);
   }
 
   &.alert {
-    background-color: #ff3232;
+    background-color: var(--error-red);
     &:disabled {
-      background-color: #e9aead;
+      background-color: var(--card-reject);
     }
   }
 
   &.primary {
     background-color: $primary-green;
     &:disabled {
-      background-color: #94ccb4;
+      background-color: var(--btn-primary);
     }
   }
 
   &.edit {
-    background-color: #3b4943;
+    background-color: var(--btn-edit);
     font-size: 1.5rem;
   }
 }
@@ -57,11 +57,11 @@
   line-height: 2rem; /* 133.333% */
   letter-spacing: -0.0225rem;
   flex-grow: 1;
-  border: 1px solid #3b4943;
-  color: #3b4943;
+  border: 1px solid var(--btn-edit);
+  color: var(--btn-edit);
 }
 
 .editComplete {
-  background: #3b4943;
-  color: $white;
+  background: var(--btn-edit);
+  color: var(--white);
 }

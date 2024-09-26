@@ -17,10 +17,10 @@
   }
   &.naver {
     background-color: $naver-bg;
-    color: $white;
+    color: var(--white);
   }
   &.google {
-    background-color: $white;
+    background-color: var(--white);
     color: $google-text;
     border: 1px solid $google-boder;
   }

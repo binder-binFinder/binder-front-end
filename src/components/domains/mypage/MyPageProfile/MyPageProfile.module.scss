@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $white;
+  background-color: var(--white);
   position: relative;
   //   gap: 0.7rem;
 }
@@ -32,7 +32,7 @@
 .profileEdit {
   width: 3rem;
   height: 3rem;
-  background-color: $white;
+  background-color: var(--white);
   border-radius: 100px;
   filter: drop-shadow(0px 1px 2px #b8c4c0);
   display: flex;
@@ -58,7 +58,7 @@
   gap: 1.8rem;
 }
 .profileName {
-  color: #06130d;
+  color: var(--green90);
   font-size: 2rem;
   font-weight: 800;
   line-height: 37px;
@@ -71,7 +71,7 @@
 }
 
 .profileStar {
-  color: #3b866b;
+  color: var(--profile-star);
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 25px;

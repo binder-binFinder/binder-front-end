@@ -2,7 +2,7 @@
   font-size: 1.7rem;
   font-weight: 700;
   letter-spacing: -0.0085rem;
-  color: #06130d;
+  color: var(--green90);
 }
 .address {
   @include flexbox(start);
@@ -10,7 +10,7 @@
   margin: 1rem 0 2rem;
   font-size: 1.6rem;
   letter-spacing: -0.016rem;
-  color: #515f58;
+  color: var(--card-address);
 }
 
 .form {
@@ -35,14 +35,14 @@
     position: relative;
     cursor: pointer;
     font-size: 1.6rem;
-    color: #515f58;
+    color: var(--card-address);
 
     .check-mark {
       width: 2.5rem;
       height: 2.5rem;
       flex-shrink: 0;
       border-radius: 0.7rem;
-      border: 1px solid #d9d9d9;
+      border: 1px solid var(--d9d9d9);
       background-color: white;
     }
   }

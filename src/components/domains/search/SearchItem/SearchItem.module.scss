@@ -9,14 +9,14 @@
   gap: 1rem;
 }
 .itemTitle {
-  color: #515f58;
+  color: var(--card-address);
   font-size: 1.6rem;
   line-height: 25px;
   cursor: pointer;
   flex: 1;
 }
 .itemDate {
-  color: #a4b7ad;
+  color: var(--createat);
   font-size: 1.4rem;
   line-height: 37px;
 }

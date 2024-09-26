@@ -3,7 +3,7 @@
 .findWrap {
   width: 100%;
   height: calc(100vh - 4.1rem - 21.1rem - 7.6rem);
-  background-color: #f4f6f5;
+  background-color: var(--cart-text);
   padding: 1.9rem 1.7rem;
 }
 .findWrap2 {
@@ -13,7 +13,7 @@
   overflow-y: scroll;
 }
 .findTitle {
-  color: #06130d;
+  color: var(--green90);
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 26px;

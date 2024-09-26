@@ -8,7 +8,7 @@
     min-width: 39rem;
     padding: 1.8rem 2rem 11rem;
     transition: color 0.3s ease;
-    background-color: $white;
+    background-color: var(--white);
 
     > div {
       @include flexbox(start, start);
@@ -48,7 +48,7 @@
     width: 100%;
     cursor: pointer;
 
-    color: #4d4d4d;
+    color: var(--btn-selected);
 
     &.error {
       color: $error-red;
@@ -59,12 +59,12 @@
     width: 100%;
     border-radius: 1rem;
     letter-spacing: -0.024rem;
-    color: #4d4d4d;
-    border: 1px solid #d9d9d9;
-    background: $white;
+    color: var(--btn-selected);
+    border: 1px solid var(--d9d9d9);
+    background: var(--white);
 
     &::placeholder {
-      color: #a5a5a5;
+      color: var(--btn-color);
     }
 
     &:focus {
@@ -91,13 +91,13 @@
     text-align: center;
     gap: 1.2rem;
     border-radius: 1rem;
-    background-color: #f2f2f2;
+    background-color: var(--addbin-img);
     overflow: hidden;
 
     &-text {
       font-size: 1.4rem;
       letter-spacing: -0.021rem;
-      color: #a5a5a5;
+      color: var(--btn-color);
     }
   }
 }
@@ -113,7 +113,7 @@
   font-size: 1.3rem;
   margin-left: 0.3rem;
   letter-spacing: -0.013rem;
-  color: #a5a5a5;
+  color: var(--btn-color);
 }
 
 .error-message {
@@ -141,8 +141,8 @@
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 26px;
-  background: #f4f6f5;
-  color: #06130d;
+  background: var(--cart-text);
+  color: var(--green90);
 }
 
 .edit-btnWrapper {

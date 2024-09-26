@@ -7,7 +7,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $white;
+  background-color: var(--white);
   @include respondTo(small) {
     height: 10rem;
   }
@@ -16,7 +16,7 @@
     cursor: pointer;
   }
   & > div {
-    color: #06130d;
+    color: var(--green90);
     font-size: 1.9rem;
     font-weight: 800;
     line-height: 37px;

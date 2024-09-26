@@ -3,7 +3,7 @@
 $toggleBar: 7.5rem;
 .toggleWrap {
   padding-left: 2.7rem;
-  background-color: $white;
+  background-color: var(--white);
 }
 .toggleBar,
 .toggleBar2 {
@@ -11,7 +11,7 @@ $toggleBar: 7.5rem;
   height: 0.4rem;
   flex-shrink: 0;
   border-radius: 5rem;
-  background-color: #0bb76d;
+  background-color: var(--primary-green);
   transition: all 0.5s;
 }
 .toggleBar2 {
@@ -20,7 +20,7 @@ $toggleBar: 7.5rem;
 .toggleItemOn,
 .toggleItem {
   width: 7.5rem;
-  color: #06130d;
+  color: var(--green90);
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 37px;
@@ -31,7 +31,7 @@ $toggleBar: 7.5rem;
   }
 }
 .toggleItem {
-  color: #a4b7ad;
+  color: var(--createat);
   font-weight: 400;
 }
 .toggle {

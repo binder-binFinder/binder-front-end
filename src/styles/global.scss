@@ -1,0 +1,112 @@
+// styles/globals.scss (글로벌 파일)
+:root[theme="light"] {
+  --white: #fff;
+  --black: #000;
+  --gray20: #d1dbd6;
+  --primary-green: #0bb76d;
+  --green90: #06130d;
+  --naver-bg: #03c75a;
+  --kakao-text: rgba(0, 0, 0, 0.85);
+  --kakao-bg: #fee500;
+  --google-text: #262200;
+  --google-border: #d1dbd6;
+  --error-red: #ff3232;
+
+  --cart-text: #f4f6f5;
+  --cart-text2: #e1f4ed;
+  --card-reject: #e9aead;
+
+  --green: #75968a;
+  --d9d9d9: #d9d9d9;
+  --card-address: #515f58;
+  --createat: #a4b7ad;
+
+  --btn-color: #a5a5a5;
+  --btn-selected: #4d4d4d;
+  --btn-primary: #94ccb4;
+  --btn-edit: #3b4943;
+
+  --card-title: #a6adab;
+
+  --c4c4c4: #c4c4c4;
+
+  --state-btn: #676767;
+  --info-alert: #787c8b;
+
+  --detail-title: #6b7772;
+
+  --modal-title: #34423d;
+
+  --splash-text: #5e786c;
+
+  --addbin-img: #f2f2f2;
+
+  --btn-search-link: #88a297;
+
+  --noti-date: #96a9a0;
+
+  --profile-star: #3b866b;
+
+  --detail-address: #96a9a0;
+
+  --toast: #f7f7f7;
+
+  --card-disabled: #e0e3e2;
+  --card-approve: #3cc58a;
+}
+
+:root[theme="dark"] {
+  --white: #2b2e2d;
+  --black: #fff;
+  --gray20: #d1dbd6;
+  --primary-green: #0bb76d;
+  --green90: #f6fcf9;
+  --naver-bg: #03c75a;
+  --kakao-text: rgba(0, 0, 0, 0.85);
+  --kakao-bg: #fee500;
+  --google-text: #262200;
+  --google-border: #d1dbd6;
+  --error-red: #ff3232;
+
+  --cart-text: #252826;
+  --cart-text2: #e1f4ed;
+  --card-reject: #e9aead;
+
+  --green: #75968a;
+  --d9d9d9: #6b7772;
+  --card-address: #6b7772;
+  --createat: #a4b7ad;
+
+  --btn-color: #a5a5a5;
+  --btn-selected: #4d4d4d;
+  --btn-primary: #94ccb4;
+  --btn-edit: #3b4943;
+
+  --card-title: #a6adab;
+
+  --c4c4c4: #c4c4c4;
+
+  --state-btn: #676767;
+  --info-alert: #787c8b;
+
+  --detail-title: #6b7772;
+
+  --modal-title: #34423d;
+
+  --splash-text: #5e786c;
+
+  --addbin-img: #f2f2f2;
+
+  --btn-search-link: #88a297;
+
+  --noti-date: #96a9a0;
+
+  --profile-star: #3b866b;
+
+  --detail-address: #96a9a0;
+
+  --toast: #f7f7f7;
+
+  --card-disabled: #202221;
+  --card-approve: #3cc58a;
+}

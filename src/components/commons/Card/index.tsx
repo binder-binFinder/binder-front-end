@@ -83,7 +83,9 @@ export default function Card({ ...item }: CardProps) {
                   }
                 >
                   {item.isDeleted
-                    ? "삭제 됨"
+                    ? item.status === "REJECTED"
+                      ? `${tagName} ${statusText}`
+                      : "삭제 됨"
                     : tagName
                       ? `${tagName} ${statusText}`
                       : statusText}

@@ -2,7 +2,7 @@
 
 .toggleWrap {
   padding: 0 1.7rem 1.6rem;
-  background-color: $white;
+  background-color: var(--white);
   display: flex;
   gap: 0.5rem;
 }
@@ -19,10 +19,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #a4b7ad;
+  color: var(--createat);
   cursor: pointer;
 }
 .toggleBtnOn {
-  color: $white;
-  background: #0bb76d;
+  color: var(--white);
+  background: var(--primary-green);
 }
