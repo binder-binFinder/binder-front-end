@@ -91,7 +91,8 @@
 .detailReject,
 .detailRejectReport,
 .detailAcceptReport {
-  width: 17.4rem;
+  width: 100%;
+  min-width: 17.4rem;
   height: 4.4rem;
   border-radius: 1rem;
   background: var(--primary-green);

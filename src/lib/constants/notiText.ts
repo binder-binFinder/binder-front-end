@@ -16,6 +16,10 @@ export const notiText = (item: string) => {
       return "좋아요";
     case "BIN_DISLIKED":
       return "싫어요";
+    case "BIN_MODIFIED":
+      return "이(가) 수정되었습니다.";
+    case "BIN_DELETED":
+      return "이(가) 삭제되었습니다.";
     default:
       break;
   }

@@ -1,6 +1,7 @@
 import close from "@/../public/images/close.svg";
 import { deleteNoti } from "@/lib/apis/noti";
 import { binType } from "@/lib/constants/binType";
+import { dateSet } from "@/lib/constants/date";
 import { notiText } from "@/lib/constants/notiText";
 import { useMutation } from "@tanstack/react-query";
 import classNames from "classnames/bind";
@@ -16,12 +17,8 @@ interface NotiItemProps {
 export default function NotiItem({ item, setNotis }: NotiItemProps) {
   const binText = notiText(item?.notificationType);
 
-  const binTypes = binType(item.binType);
-  const date = [
-    item.createdAt.slice(0, 4),
-    item.createdAt.slice(5, 7),
-    item.createdAt.slice(8, 10),
-  ];
+  const binTypes = binType(item?.binType);
+  const date = dateSet(item?.createdAt);
 
   const { mutate: deleteNotis } = useMutation({
     mutationFn: () => deleteNoti(item.notificationId),
@@ -37,7 +34,7 @@ export default function NotiItem({ item, setNotis }: NotiItemProps) {
   return (
     <div className={cn("notiItemWrap")}>
       <div className={cn("notiItemDate")}>
-        {date[0] + ". " + date[1] + ". " + date[2]}{" "}
+        {date}
         {!item.isRead && <div className={cn("notiItemNew")}></div>}
       </div>
       <div className={cn("notiItemTitle")}>
