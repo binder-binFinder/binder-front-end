@@ -78,7 +78,9 @@ export default function Card({ ...item }: CardProps) {
                 <span
                   className={
                     item.isDeleted
-                      ? cn("card-tag", "DELETE")
+                      ? item.status === "REJECTED"
+                        ? cn("card-tag", item.status)
+                        : cn("card-tag", "DELETE")
                       : cn("card-tag", item.status)
                   }
                 >

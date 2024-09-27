@@ -32,7 +32,7 @@ export default function SearchItems({ setPrevSearchPick }: searchProps) {
   };
 
   return (
-    <div className={cn("itemsWrap")}>
+    <div className={detail > 0 ? cn("itemsWrapDetail") : cn("itemsWrap")}>
       {/* <div onClick={() => a([])}>sdf</div> */}
       {detail.length > 0
         ? detail?.map((item: any, index: number) => (

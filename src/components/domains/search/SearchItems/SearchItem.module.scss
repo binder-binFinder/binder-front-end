@@ -1,8 +1,15 @@
 @import "@/styles/main.scss";
 
-.itemsWrap {
+.itemsWrapDetail {
   width: 100%;
   height: calc(100vh - 13.1rem - 8.3rem + 4.7rem);
+  background: var(--white);
+  overflow-y: auto;
+  border-top: 6px solid var(--cart-text);
+}
+.itemsWrap {
+  width: 100%;
+  height: calc(100vh - 13.1rem - 8.9rem);
   background: var(--white);
   overflow-y: auto;
   border-top: 6px solid var(--cart-text);

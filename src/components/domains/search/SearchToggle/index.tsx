@@ -16,6 +16,7 @@ export default function SearchToggle() {
   const { data: bookmarkData, isSuccess } = useQuery({
     queryKey: ["bookmarkDatas", btnState],
     queryFn: () => getMyBookmark(coordinate.x, coordinate.y),
+    enabled: !!coordinate,
   });
 
   if (isSuccess) {
