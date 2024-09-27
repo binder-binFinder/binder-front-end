@@ -101,7 +101,8 @@ export default function Card({ ...item }: CardProps) {
             })}
           >
             {item.admin && !isReport ? (
-              <p>{item.nickname?.slice(0, 16)}</p>
+              // <p>{item.nickname?.slice(0, 16)}</p>
+              <></>
             ) : (
               <>
                 {isReport ? (

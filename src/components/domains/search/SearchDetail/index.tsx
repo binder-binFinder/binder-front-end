@@ -1,9 +1,11 @@
 import bookmark from "@/../public/images/bookmark.svg";
 import bookmarkOn from "@/../public/images/bookmarkOn.svg";
 import { deleteMyBookmark, postMyBookmark } from "@/lib/apis/bookmarks";
+import { loginState } from "@/lib/atoms/userAtom";
 import { binType } from "@/lib/constants/binType";
 import { useMutation } from "@tanstack/react-query";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./SearchDetail.module.scss";
@@ -23,9 +25,15 @@ interface DetailProp {
     binId?: number;
   };
   savePlace?: boolean;
+  setLoginModal?: any;
 }
 
-export default function SearchDetail({ item, savePlace }: DetailProp) {
+export default function SearchDetail({
+  item,
+  savePlace,
+  setLoginModal,
+}: DetailProp) {
+  const [login] = useAtom(loginState);
   const distances = Math.floor(item.distance).toLocaleString();
   const bin = binType(item.type);
 
@@ -55,6 +63,13 @@ export default function SearchDetail({ item, savePlace }: DetailProp) {
 
   const handleBookmark = (e: any) => {
     e.stopPropagation();
+    if (!login) {
+      setLoginModal(true);
+      setTimeout(() => {
+        setLoginModal(false);
+      }, 3000);
+      return;
+    }
     if (isBookmark) {
       handleDelete();
     } else {

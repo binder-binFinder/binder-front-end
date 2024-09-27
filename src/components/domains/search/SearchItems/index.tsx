@@ -1,3 +1,4 @@
+import BookmarkNoti from "@/components/commons/Modal/Share/BookmarkNoti";
 import {
   searchBookmark,
   searchDetailList,
@@ -8,6 +9,7 @@ import { searchChoice } from "@/lib/atoms/userAtom";
 import classNames from "classnames/bind";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import SearchDetail from "../SearchDetail";
 import SearchItem from "../SearchItem";
 import styles from "./SearchItem.module.scss";
@@ -24,6 +26,7 @@ export default function SearchItems({ setPrevSearchPick }: searchProps) {
   const [, setChoice] = useAtom(searchChoice);
   const [bookmarks] = useAtom(searchBookmark);
   const [btnState] = useAtom(searchToggle);
+  const [loginModal, setLoginModal] = useState(false);
   const router = useRouter();
 
   const handleDetail = (item: any) => {
@@ -32,30 +35,33 @@ export default function SearchItems({ setPrevSearchPick }: searchProps) {
   };
 
   return (
-    <div className={detail > 0 ? cn("itemsWrapDetail") : cn("itemsWrap")}>
-      {/* <div onClick={() => a([])}>sdf</div> */}
-      {detail.length > 0
-        ? detail?.map((item: any, index: number) => (
-            <div
-              key={index}
-              onClick={() => {
-                handleDetail(item);
-              }}
-            >
-              <SearchDetail item={item} />
-            </div>
-          ))
-        : btnState === "최근 검색"
-          ? prevSearch?.map((item: any, index: number) => (
-              <div key={index} onClick={() => setPrevSearchPick(item.title)}>
-                <SearchItem item={item} num={index} />
+    <>
+      <div className={detail > 0 ? cn("itemsWrapDetail") : cn("itemsWrap")}>
+        {/* <div onClick={() => a([])}>sdf</div> */}
+        {detail.length > 0
+          ? detail?.map((item: any, index: number) => (
+              <div
+                key={index}
+                onClick={() => {
+                  handleDetail(item);
+                }}
+              >
+                <SearchDetail item={item} setLoginModal={setLoginModal} />
               </div>
             ))
-          : bookmarks?.map((item, index) => (
-              <div key={index}>
-                <SearchDetail item={item} savePlace={true} />
-              </div>
-            ))}
-    </div>
+          : btnState === "최근 검색"
+            ? prevSearch?.map((item: any, index: number) => (
+                <div key={index} onClick={() => setPrevSearchPick(item.title)}>
+                  <SearchItem item={item} num={index} />
+                </div>
+              ))
+            : bookmarks?.map((item, index) => (
+                <div key={index}>
+                  <SearchDetail item={item} savePlace={true} />
+                </div>
+              ))}
+      </div>
+      {loginModal && <BookmarkNoti />}
+    </>
   );
 }

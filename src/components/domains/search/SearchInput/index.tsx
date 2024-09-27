@@ -66,7 +66,11 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
   }, [searchInput]);
 
   // 리액트 쿼리 사용해서 데이터 요청
-  const { data: addresses = [], isFetching: isSearching } = useQuery({
+  const {
+    data: addresses = [],
+    isFetching: isSearching,
+    isSuccess: addressSuccess,
+  } = useQuery({
     queryKey: ["searchAddresses", debouncedSearchInput],
     queryFn: () => getSearch(debouncedSearchInput),
     enabled: !!debouncedSearchInput,
@@ -123,6 +127,16 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
             value={searchInput}
             onChange={(e) => setSearchData(e.target.value)}
             // ref={ref}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                if (addresses.length > 0) {
+                  handleChoice(addresses[0]);
+                  handleClickOutside();
+                  handleSubmit(onSubmit)();
+                }
+              }
+            }}
             autoComplete="off"
           />
         </div>
