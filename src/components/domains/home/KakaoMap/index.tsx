@@ -293,7 +293,7 @@ export default function KakaoMap({
         hasData={!isError && (bins?.length > 0 || choice.id !== 0)}
         isCardHidden={isCardHidden}
       />
-      {!isCardHidden && (bins[0]?.id || choice.id !== 0) && (
+      {!isCardHidden && (bins[0]?.id || (isSearch && choice.id !== 0)) && (
         <RecommendCard
           setIsCardHidden={setIsCardHidden}
           isCardHidden={isCardHidden}
