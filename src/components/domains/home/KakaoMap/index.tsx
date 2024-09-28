@@ -30,7 +30,7 @@ import RecommendCard from "../RecommendCard";
 
 export default function KakaoMap({
   isAddBin,
-  isSearch,
+  isSearch = false,
 }: {
   isAddBin: boolean;
   isSearch?: boolean;

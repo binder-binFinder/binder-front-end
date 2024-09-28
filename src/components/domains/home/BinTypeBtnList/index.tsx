@@ -16,8 +16,8 @@ export default function BinTypeBtnList({ onClick, binType }: Props) {
       <li>
         <BinTypeBtn binType={binType} onClick={onClick} type={"isBookmarked"} />
       </li>
-      {btnInputValues.map((type) => (
-        <li>
+      {btnInputValues.map((type, index) => (
+        <li key={index}>
           <BinTypeBtn binType={binType} type={type} onClick={onClick} />
         </li>
       ))}

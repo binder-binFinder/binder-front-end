@@ -5,12 +5,13 @@ import { addMyLocationMarker, updateMarkers } from "./markers";
 
 // isSearch가 true일 때의 지도 초기화 로직
 const initSearchMap = (
+  isSearch: boolean,
   choice: any,
   map: any,
   handleClickMarker: (id: number) => void,
   binkMarkerRef: MutableRefObject<any>
 ) => {
-  if (choice) {
+  if (isSearch) {
     updateMarkers([choice], map, handleClickMarker, binkMarkerRef);
   }
 };
@@ -30,7 +31,7 @@ export const initializeMap = (
     );
 
     if (isSearch && handleClickMarker) {
-      initSearchMap(choice, map, handleClickMarker, binkMarkerRef!);
+      initSearchMap(isSearch, choice, map, handleClickMarker, binkMarkerRef!);
     } else {
       const myLocationMarker = addMyLocationMarker(
         map,
