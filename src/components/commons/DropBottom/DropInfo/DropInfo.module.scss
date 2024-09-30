@@ -38,7 +38,6 @@
 }
 .detail {
   color: var(--btn-selected);
-  font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -55,6 +54,7 @@
   & > img {
     object-fit: cover;
     border-radius: 1rem;
+    width: 100%;
   }
 }
 .detailItemTitle {

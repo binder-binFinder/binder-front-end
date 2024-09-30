@@ -11,6 +11,8 @@ export interface InputProps
   errorMessage?: string;
   required?: boolean;
   id: string;
+  mapCenter?: { x?: number; y?: number };
+
   onClickDelete?: (name: string) => void;
 }
 

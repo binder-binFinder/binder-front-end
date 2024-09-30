@@ -10,6 +10,7 @@ const cn = classNames.bind(styles);
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
+      mapCenter,
       label,
       id,
       onClickDelete,
@@ -37,7 +38,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <Link
           href={{
             pathname: "/",
-            query: { addBin: true },
+            query: {
+              addBin: true,
+              latitude: mapCenter?.x,
+              longitude: mapCenter?.y,
+            },
           }}
         >
           <button className={cn("addbin-input-delete-button")}>

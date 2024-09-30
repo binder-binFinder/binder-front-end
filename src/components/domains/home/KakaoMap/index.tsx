@@ -22,6 +22,7 @@ import {
 } from "@/lib/mapUtills";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDebounceCallback } from "usehooks-ts";
 import AroundBinSearchBtns from "../AroundBinSearchBtns";
@@ -56,8 +57,7 @@ export default function KakaoMap({
     useToggle(false);
   const [toggleBinInfo, toggleBinInfoOpen, toggleBinInfoClose] =
     useToggle(false);
-  console.log("ccc", choice);
-
+  const { query } = useRouter();
   const {
     data: binData,
     refetch: refetchBinData,
@@ -72,6 +72,12 @@ export default function KakaoMap({
   });
 
   useEffect(() => {
+    if (!!query.latitude && !!query.longitude) {
+      return setCoordinate({
+        x: Number(query.latitude),
+        y: Number(query.longitude),
+      });
+    }
     if (isSearch && (choice.latitude !== 0, choice.longitude !== 0)) {
       return setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
     }
@@ -80,7 +86,7 @@ export default function KakaoMap({
       setCenterCoordinate(locationData[0]);
       setNewAddCoordinate(locationData[0]);
     }
-  }, [locationData, isSearch]);
+  }, [locationData, isSearch, query]);
 
   useEffect(() => {
     if (showToast) {
@@ -262,10 +268,9 @@ export default function KakaoMap({
         id="map"
         style={{
           width: "100%",
-          height: "calc(100vh - 7.4rem)",
+          height: "calc(100vh - 8.32rem)",
           zIndex: "0",
           position: "relative",
-          overflow: "hidden",
         }}
         ref={mapRef}
       ></div>
@@ -278,10 +283,9 @@ export default function KakaoMap({
         id="map"
         style={{
           width: "100%",
-          height: "calc(100vh - 7.4rem)",
+          height: "calc(100vh - 8.32rem)",
           zIndex: "0",
           position: "relative",
-          overflow: "hidden",
         }}
         ref={mapRef}
       ></div>
@@ -290,7 +294,9 @@ export default function KakaoMap({
         onClickGetmyLocation={handleClickGetmyLocation}
         toggleAroundBin={toggleAroundBin}
         toggleMyLocation={toggleMyLocation}
-        hasData={!isError && (bins?.length > 0 || choice.id !== 0)}
+        hasData={
+          !isError && (bins?.length > 0 || (isSearch && choice.id !== 0))
+        }
         isCardHidden={isCardHidden}
       />
       {!isCardHidden && (bins[0]?.id || (isSearch && choice.id !== 0)) && (

@@ -55,7 +55,7 @@ export const useKakaoMap = (
         binkMarkerRef.current = [];
       }
     };
-  }, [coordinate, mapRef, isAddBin, isSearch]);
+  }, [coordinate, isAddBin, isSearch]);
 
   return { mapRef, myMarkerRef, binkMarkerRef };
 };

@@ -5,10 +5,14 @@
 
     font-size: 1.6rem;
     width: 100%;
-    min-width: 39rem;
     padding: 1.8rem 2rem 11rem;
     transition: color 0.3s ease;
+    height: calc(100vh - 7.6rem - 8.2rem);
+
     background-color: var(--white);
+    @include respondTo(small) {
+      height: calc(100vh - 8.32rem - 8.2rem);
+    }
 
     > div {
       @include flexbox(start, start);

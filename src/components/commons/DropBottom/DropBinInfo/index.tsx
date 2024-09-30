@@ -2,6 +2,7 @@ import { useDrag } from "@/lib/hooks/useDrag";
 import { useToggle } from "@/lib/hooks/useToggle";
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
@@ -160,7 +161,7 @@ export default function DropBinInfo({
             </p>
           </div>
           <div>
-            {/* {binDetailData?.binInfoForMember.isOwner && (
+            <Link href={`/mypage/edit/${binId}`}>
               <button>
                 <Image
                   src={"/images/icon-edit-pen-btn.svg"}
@@ -169,7 +170,8 @@ export default function DropBinInfo({
                   height={41}
                 />
               </button>
-            )} */}
+            </Link>
+
             <button className={cn("report-btn")} onClick={isReportOpen}>
               <Image
                 src={"/images/icon-report-btn.svg"}
