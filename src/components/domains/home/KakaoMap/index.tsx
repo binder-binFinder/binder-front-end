@@ -69,18 +69,18 @@ export default function KakaoMap({
 
   useEffect(() => {
     if (!!query.latitude && !!query.longitude) {
-      return setCoordinate({
+      setNewAddAddress({ roadAddress: "", address: "" });
+      setNewAddCoordinate({ x: 0, y: 0 });
+      setCoordinate({
         x: Number(query.latitude),
         y: Number(query.longitude),
       });
-    }
-    if (isSearch && (choice.latitude !== 0, choice.longitude !== 0)) {
-      return setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
-    }
-    if (locationData && Array.isArray(locationData)) {
-      setNewAddCoordinate({ x: 0, y: 0 });
+    } else if (isSearch && (choice.latitude !== 0, choice.longitude !== 0)) {
+      setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
+    } else if (locationData && Array.isArray(locationData)) {
+      setNewAddAddress({ roadAddress: "", address: "" });
       setCoordinate(locationData[0]);
-      return setCenterCoordinate(locationData[0]);
+      setCenterCoordinate(locationData[0]);
     }
   }, [locationData, isSearch, query]);
 
@@ -142,7 +142,6 @@ export default function KakaoMap({
     const latlng = mouseEvent.latLng;
     const newCoordinate = { x: latlng.getLat(), y: latlng.getLng() };
     setNewAddCoordinate(newCoordinate);
-
     fetchAddressFromCoords(newCoordinate, setNewAddAddress);
 
     addClickMarker(
@@ -285,7 +284,10 @@ export default function KakaoMap({
             left: "2rem",
             bottom: "3rem",
           }}
-          onClick={router.back}
+          onClick={() => {
+            setCoordinate({ x: 0, y: 0 });
+            router.back();
+          }}
           disabled={AddCoordinate.x === 0}
           status="primary"
         >

@@ -12,7 +12,6 @@ const getAddressFromCoords = (
     (result: any, status: any) => {
       if (status === kakao.maps.services.Status.OK) {
         const getAddress = result[0];
-        console.log("address", getAddress);
         callback(getAddress);
       } else {
         console.error("역지오코딩 실패", status);

@@ -45,6 +45,7 @@ export default function AddBinForm({
   const [address] = useAtom(userAddress);
   const [newAddress, setNewAddress] = useAtom(newAddAddress);
   const [newCoordinate, setNewCoordinate] = useAtom(newAddCoordinate);
+
   const {
     register,
     handleSubmit,
@@ -67,6 +68,7 @@ export default function AddBinForm({
 
   useEffect(() => {
     if (!!binDetail) {
+      console.log("detail", binDetail);
       setValue("address", binDetail.address || "");
       setValue("binType", binDetail.type || "");
       setValue("title", binDetail.title || "");
@@ -75,10 +77,6 @@ export default function AddBinForm({
         btnInputValues.find((item) => item.id === binDetail.type)?.id || ""
       );
       setImg(binDetail.imageUrl || "");
-      setEditPostData({
-        latitude: binDetail.latitude,
-        longitude: binDetail.longitude,
-      });
     } else if (address?.roadAddress || address?.address) {
       setValue("address", address.roadAddress || address.address);
     }
@@ -86,6 +84,8 @@ export default function AddBinForm({
     if (newAddress?.roadAddress || newAddress?.address) {
       setValue("address", newAddress.roadAddress || newAddress.address);
     }
+    console.log("dddd", newAddress);
+    console.log(binDetail);
   }, [address, setValue, binDetail]);
 
   const handleBlurBtn: FocusEventHandler<HTMLButtonElement> = () => {
@@ -115,12 +115,15 @@ export default function AddBinForm({
     const postData: PostAddbinValues = {
       ...data,
       type: data.binType,
+      registrationId: binDetail?.registrationId || null,
+      modificationId: binDetail?.modificationId || null,
     };
 
     if (!!binDetail) {
       postData.latitude = newCoordinate?.x || binDetail.latitude;
       postData.longitude = newCoordinate?.y || binDetail.longitude;
       setEditPostData(postData);
+      console.log(postData);
     } else {
       postData.latitude = newCoordinate?.x || coordinate?.x;
       postData.longitude = newCoordinate?.y || coordinate?.y;
@@ -279,7 +282,10 @@ export default function AddBinForm({
                 ? MODAL_CONTENTS.editbin
                 : MODAL_CONTENTS.requestFixBin
           }
-          modalClose={Router.back}
+          modalClose={() => {
+            !!toggleIsEdit && toggleIsEdit();
+            Router.back();
+          }}
           moreInfo={reason}
         />
       )}
