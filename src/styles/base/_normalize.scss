@@ -400,3 +400,25 @@ body #tutorial .swiper-pagination {
     ); /* small 사이즈에서 동적 vh 사용 */
   }
 }
+
+/* 웹킷 브라우저(크롬, 사파리 등)용 스크롤바 스타일 */
+* {
+  &::-webkit-scrollbar {
+    width: 0.6rem; /* 스크롤바 너비 */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #fff; /* 스크롤바 트랙(배경) */
+    // border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #787c8b; /* 스크롤바 핸들 */
+    border-radius: 10px;
+    border: 2px solid #787c8b; /* 핸들 외곽선 */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #888; /* 스크롤바 핸들 호버 시 색상 */
+  }
+}

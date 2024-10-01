@@ -18,48 +18,59 @@ const cn = classNames.bind(styles);
 
 interface searchProps {
   setPrevSearchPick: any;
+  target: any;
 }
 
-export default function SearchItems({ setPrevSearchPick }: searchProps) {
+export default function SearchItems({
+  setPrevSearchPick,
+  target,
+}: searchProps) {
   const [prevSearch] = useAtom(searchPrev);
-  const [detail, a] = useAtom(searchDetailList);
+  const [detail] = useAtom(searchDetailList);
   const [, setChoice] = useAtom(searchChoice);
   const [bookmarks] = useAtom(searchBookmark);
   const [btnState] = useAtom(searchToggle);
   const [loginModal, setLoginModal] = useState(false);
+
   const router = useRouter();
 
   const handleClickItem = (item: any) => {
     setChoice(item);
     return router.push(`search/${item.id}`);
   };
-
+  console.log(bookmarks);
   return (
     <>
-      <div className={detail > 0 ? cn("itemsWrapDetail") : cn("itemsWrap")}>
-        {/* <div onClick={() => a([])}>sdf</div> */}
-        {detail.length > 0
-          ? detail?.map((item: any, index: number) => (
-              <div
-                key={index}
-                onClick={() => {
-                  handleClickItem(item);
-                }}
-              >
-                <SearchDetail item={item} setLoginModal={setLoginModal} />
+      <div className={cn("itemsWrap")}>
+        {detail && Array.isArray(detail) && detail.length === 0 ? (
+          <div className={cn("searchNo")}>연관된 장소가 없습니다</div>
+        ) : detail !== null && btnState === "" ? (
+          detail?.map((item: any, index: number) => (
+            <div
+              key={index}
+              onClick={() => {
+                handleClickItem(item);
+              }}
+            >
+              <SearchDetail item={item} setLoginModal={setLoginModal} />
+            </div>
+          ))
+        ) : btnState === "최근 검색" ? (
+          prevSearch?.map((item: any, index: number) => (
+            <div key={index} onClick={() => setPrevSearchPick(item.title)}>
+              <SearchItem item={item} num={index} />
+            </div>
+          ))
+        ) : (
+          <>
+            {bookmarks?.pages[0]?.map((item: any, index: number) => (
+              <div key={index}>
+                <SearchDetail item={item} savePlace={true} />
               </div>
-            ))
-          : btnState === "최근 검색"
-            ? prevSearch?.map((item: any, index: number) => (
-                <div key={index} onClick={() => setPrevSearchPick(item.title)}>
-                  <SearchItem item={item} num={index} />
-                </div>
-              ))
-            : bookmarks?.map((item, index) => (
-                <div key={index}>
-                  <SearchDetail item={item} savePlace={true} />
-                </div>
-              ))}
+            ))}
+            <div ref={target} className={cn("refBox")}></div>
+          </>
+        )}
       </div>
       {loginModal && <BookmarkNoti />}
     </>

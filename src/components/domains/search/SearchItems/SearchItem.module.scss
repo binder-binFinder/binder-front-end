@@ -16,4 +16,20 @@
   background: var(--white);
   // overflow-y: auto;
   border-top: 6px solid var(--cart-text);
+  position: relative;
+}
+
+.searchNo {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  color: var(--card-address);
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.refBox {
+  // height: 1px;
+  margin-top: -5rem;
 }

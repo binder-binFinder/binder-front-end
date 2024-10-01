@@ -36,7 +36,6 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
   const [coordinate] = useAtom(userCoordinate);
   const [debouncedSearchInput, setDebouncedSearchInput] = useState(searchInput);
   const [choicePlace, setChoicePlace] = useState<any>();
-
   const { register, handleSubmit } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {

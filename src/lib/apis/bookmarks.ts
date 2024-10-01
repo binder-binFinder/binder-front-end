@@ -20,18 +20,21 @@ export const deleteMyBookmark = async (id: number | string) => {
   }
 };
 
-export const getMyBookmark = async (
-  x: number,
-  y: number,
-  radius: number = 500
-) => {
+export const getMyBookmark = async (x: number, y: number, id: number = -1) => {
   try {
-    const res = await instance.get(
-      `/bookmarks/nearby?longitude=${y}&latitude=${x}&radius=${radius}`
-    );
-    return res.data;
-  } catch (err) {
-    console.error(err);
-    throw err;
+    if (id !== -1) {
+      const res = await instance.get(
+        `/bookmarks/all?longitude=${y}&latitude=${x}&lastId=${id}`
+      );
+      return res.data;
+    } else {
+      const res = await instance.get(
+        `/bookmarks/all?longitude=${y}&latitude=${x}`
+      );
+      return res.data;
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
