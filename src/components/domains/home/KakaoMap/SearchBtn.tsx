@@ -44,7 +44,7 @@ export default function BtnField({ isAddBin }: { isAddBin?: boolean }) {
   };
   if (isAddBin) {
     return (
-      <section className={cn("btn-field")}>
+      <article className={cn("btn-field")}>
         <button onClick={handleClickBack} className={cn("btn-addbin-link")}>
           <Image
             src={"/images/icon-back-circle-btn.svg"}
@@ -54,13 +54,13 @@ export default function BtnField({ isAddBin }: { isAddBin?: boolean }) {
           />
         </button>
         <SearchBtn />
-      </section>
+      </article>
     );
   }
   return (
-    <section className={cn("btn-field")}>
+    <article className={cn("btn-field")}>
       <SearchBtn />
       <AddBinBtn />
-    </section>
+    </article>
   );
 }
