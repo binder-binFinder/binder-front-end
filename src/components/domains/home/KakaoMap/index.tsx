@@ -69,6 +69,8 @@ export default function KakaoMap({
 
   useEffect(() => {
     if (!!query.latitude && !!query.longitude) {
+      setNewAddAddress({ roadAddress: "", address: "" });
+      setNewAddCoordinate({ x: 0, y: 0 });
       return setCoordinate({
         x: Number(query.latitude),
         y: Number(query.longitude),
@@ -78,9 +80,9 @@ export default function KakaoMap({
       return setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
     }
     if (locationData && Array.isArray(locationData)) {
-      setNewAddCoordinate({ x: 0, y: 0 });
+      setNewAddAddress({ roadAddress: "", address: "" });
       setCoordinate(locationData[0]);
-      return setCenterCoordinate(locationData[0]);
+      setCenterCoordinate(locationData[0]);
     }
   }, [locationData, isSearch, query]);
 

@@ -4,22 +4,23 @@ import AdminDetail from "@/components/domains/mypage/Admin/AdminDetail";
 import AdminPageBar from "@/components/domains/mypage/Admin/AdminPageBar";
 import { postAccept } from "@/lib/apis/ask";
 import { binDetail } from "@/lib/atoms/binAtom";
+import { editStatus } from "@/lib/atoms/editAtom";
 import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 export default function AskDetail() {
   const router = useRouter();
   const { id } = router.query;
   const [askDetail] = useAtom(binDetail);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useAtom(editStatus);
   const [isOpenModal, openModal, closeModal] = useToggle(false);
   const [isOpenErrorModal, openErrorModal, closeErrorModal] = useToggle(false);
 
   const handleCloseModal = () => {
+    setIsEdit(false);
     router.back();
   };
 
@@ -36,6 +37,7 @@ export default function AskDetail() {
     },
   });
 
+  console.log("askDetail", askDetail);
   return (
     <>
       <AdminPageBar />

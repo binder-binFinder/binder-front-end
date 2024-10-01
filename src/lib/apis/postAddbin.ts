@@ -6,7 +6,6 @@ export const postAddbin = async (data: PostAddbinValues) => {
     const res = await instance.post("/bins", data, {
       headers: { "Content-Type": "application/json" },
     });
-    console.log(res);
     return res;
   } catch (error) {
     console.error("Error posting bin data:", error);
