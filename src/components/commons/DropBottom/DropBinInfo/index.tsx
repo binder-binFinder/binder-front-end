@@ -252,6 +252,13 @@ export default function DropBinInfo({
             <p> {Math.floor(distance) + "m"}</p>
           </div>
         </div>
+        <div className={cn("comment-title-feild")}>
+          <h6 className={cn("comment-title")}>댓글</h6>
+          <div>
+            <button className={cn("comment-sort-btn")}>추천순</button>
+            <button className={cn("comment-sort-btn")}>최신순 </button>
+          </div>
+        </div>
         {isSuccessMybookmark && (
           <Toast
             isgreen

@@ -4,9 +4,9 @@ export const binType = (item: string) => {
       return "일반 쓰레기통";
     case "RECYCLE":
       return "분리수거함";
-    case "drink":
+    case "BEVERAGE":
       return "음료 쓰레기통";
-    case "cigarette":
+    case "CIGAR":
       return "담배꽁초 수거함";
     default:
       return "일반 쓰레기통";

@@ -166,3 +166,25 @@
     transform: translateY(100%);
   }
 }
+
+.comment-title {
+  &-feild {
+    @include flexbox(between);
+    width: 100%;
+  }
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 2.6rem; /* 136.842% */
+  letter-spacing: -0.019rem;
+  color: var(--green90);
+}
+
+.comment-sort-btn {
+  color: var(--btn-color);
+  font-size: 1.3rem;
+  line-height: 2rem;
+  letter-spacing: -0.0195rem;
+  &:first-child {
+    margin-right: 2rem;
+  }
+}
