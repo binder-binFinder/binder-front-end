@@ -1,7 +1,7 @@
-import classNames from "classnames/bind";
-import styles from "./MyPageToggle.module.scss";
 import arrowRight from "@/../public/images/arrowRight.svg";
+import classNames from "classnames/bind";
 import Image from "next/image";
+import styles from "./MyPageToggle.module.scss";
 
 const cn = classNames.bind(styles);
 

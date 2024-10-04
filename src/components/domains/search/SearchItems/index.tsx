@@ -42,6 +42,9 @@ export default function SearchItems({
     setChoice(item);
     return router.push(`/search/${item.id}`);
   };
+  const handlePickPrev = (data: any) => {
+    setPrevSearchPick(data);
+  };
   const {
     data: prevSearchData,
     fetchNextPage,
@@ -96,14 +99,14 @@ export default function SearchItems({
     mutationFn: (id: number) => deleteSearch(id),
   });
 
-  const deleteItem = (id: number) => {
-    handleDelete(id); // 전달된 id를 이용해 삭제 처리
+  const deleteItem = (id: number, e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    handleDelete(id);
     setPrevSearchList((prev: any) =>
       prev.filter((prevItem: { id: number }) => prevItem.id !== id)
     );
   };
 
-  console.log(prevSearchData);
   return (
     <>
       <div className={cn("itemsWrap")}>
@@ -123,11 +126,13 @@ export default function SearchItems({
         ) : btnState === "최근 검색" ? (
           <>
             {prevSearchList?.map((item: any, index: number) => (
-              <div key={index} onClick={() => setPrevSearchPick(item.keyword)}>
+              <div key={index} onClick={() => handlePickPrev(item.keyword)}>
                 <SearchItem
                   item={item}
                   num={index}
-                  removeItem={() => deleteItem(item.id)}
+                  removeItem={(e: { stopPropagation: () => void }) =>
+                    deleteItem(item.id, e)
+                  }
                 />
               </div>
             ))}

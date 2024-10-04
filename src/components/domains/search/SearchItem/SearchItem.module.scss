@@ -2,10 +2,11 @@
 
 .itemWrap {
   display: flex;
+  max-height: 6.3rem;
   justify-content: space-between;
   align-items: center;
-  padding: 1.9rem 2.9rem;
-  border: 0.1rem solid #efefef;
+  padding: 2rem 2.9rem;
+  border-bottom: 0.1rem solid #efefef;
   gap: 1rem;
 }
 .itemTitle {
