@@ -1,7 +1,6 @@
 import closeImg from "@/../public/images/close.svg";
 import locationImg from "@/../public/images/location.svg";
 import searchImg from "@/../public/images/search.svg";
-import { dateSet } from "@/lib/constants/date";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import styles from "./SearchItem.module.scss";
@@ -9,7 +8,7 @@ import styles from "./SearchItem.module.scss";
 const cn = classNames.bind(styles);
 
 export default function SearchItem({ item, num, removeItem }: any) {
-  const date = dateSet(item.createdAt);
+  const date = item.createdAt.slice(5, 7) + ". " + item.createdAt.slice(8, 10);
   return (
     <div className={cn("itemWrap")}>
       <Image
