@@ -13,6 +13,9 @@
     @include flexbox(between);
     width: 100%;
   }
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 .tag {
   width: 7rem;
@@ -29,6 +32,10 @@
   &.none {
     background-color: var(--card-reject);
   }
+
+  @include respondTo(small) {
+    font-size: 1.6rem;
+  }
 }
 .detailInner {
   width: 100%;
@@ -38,7 +45,7 @@
 }
 .detail {
   color: var(--btn-selected);
-  font-size: 16px;
+  font-size: 1.6rem;
   font-style: normal;
   font-weight: 500;
   line-height: 26px; /* 162.5% */
@@ -56,14 +63,24 @@
     border-radius: 1rem;
     width: 100%;
   }
+
+  @include respondTo(small) {
+    font-size: 1.8rem;
+    & span {
+      font-size: 1.5rem;
+    }
+  }
 }
 .detailItemTitle {
   color: var(--detail-title);
   font-size: 1.6rem;
-  line-height: 25px;
+  line-height: 2.5rem;
   border-radius: 1rem;
   background: var(--cart-text);
   padding: 1rem 1.4rem;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 
 .detailSelect {
@@ -83,6 +100,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 .detailSelectItem {
   border: 1px solid var(--d9d9d9);

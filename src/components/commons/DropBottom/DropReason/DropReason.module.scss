@@ -13,4 +13,7 @@
   resize: none;
   word-break: keep-all;
   overflow-wrap: break-word;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }

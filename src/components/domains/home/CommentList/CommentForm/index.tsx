@@ -73,7 +73,7 @@ export default function CommentForm({
             required: "댓글을 입력해 주세요",
             maxLength: {
               value: 60,
-              message: "댓글은 60자까지 입력할 수 있습니다",
+              message: `${charCount} / 60자`,
             },
           })}
           rows={1}
@@ -94,7 +94,7 @@ export default function CommentForm({
         {errors.content ? (
           <p className={cn("error-message")}>{errors.content.message}</p>
         ) : (
-          <p className={cn("charCount")}>{charCount}/60자</p>
+          <p className={cn("charCount")}>{charCount} / 60자</p>
         )}
         <Button
           type={isCancelFix ? "button" : "submit"}

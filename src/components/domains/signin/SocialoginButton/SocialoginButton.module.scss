@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 2.1rem;
 
   border-radius: 1rem;
   width: 100%;
@@ -14,14 +14,48 @@
   &.kakao {
     background-color: $kakao-bg;
     color: $kakao-text;
+    > div {
+      position: relative;
+      width: 1.8rem;
+      height: 1.68rem;
+      @include respondTo(small) {
+        width: 1.9rem;
+        height: 1.8rem;
+      }
+    }
   }
   &.naver {
     background-color: $naver-bg;
     color: var(--white);
+    > div {
+      position: relative;
+      width: 1.6rem;
+      height: 1.6rem;
+      @include respondTo(small) {
+        width: 1.7rem;
+        height: 1.7rem;
+      }
+    }
   }
   &.google {
     background-color: var(--white);
     color: $google-text;
     border: 1px solid $google-boder;
+    > div {
+      position: relative;
+      width: 1.8rem;
+      height: 1.8rem;
+      margin-left: -1.2rem;
+      @include respondTo(small) {
+        width: 1.9rem;
+        height: 1.9rem;
+      }
+    }
+  }
+
+  @include respondTo(small) {
+    padding: 1.7rem 0;
+    gap: 2.1rem;
+    font-size: 1.7rem;
   }
 }

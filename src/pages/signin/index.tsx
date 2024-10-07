@@ -25,12 +25,7 @@ export default function Signin() {
   return (
     <section className={cn("wrapper")}>
       <button className={cn("back-btn")} onClick={router.back}>
-        <Image
-          src={"/images/icon-left-arrow.svg"}
-          alt="뒤로가기"
-          width={8}
-          height={16}
-        />
+        <Image src={"/images/icon-left-arrow.svg"} alt="뒤로가기" fill />
       </button>
       <div>
         <article className={cn("title-box")}>

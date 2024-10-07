@@ -1,6 +1,6 @@
+import classNames from "classnames/bind";
 import Image from "next/image";
 import styles from "./SocialoginButton.module.scss";
-import classNames from "classnames/bind";
 
 const cn = classNames.bind(styles);
 
@@ -24,8 +24,15 @@ const logos = {
 
 export default function SocialoginButton({ onClick, label, testId }: Props) {
   return (
-    <button onClick={onClick} type="button" className={cn("btn", label)} data-cy={testId}>
-      <Image src={logos[label].src} alt={logos[label].alt} width={16} height={16} />
+    <button
+      onClick={onClick}
+      type="button"
+      className={cn("btn", label)}
+      data-cy={testId}
+    >
+      <div>
+        <Image src={logos[label].src} alt={logos[label].alt} fill />
+      </div>
       <p className={cn("btn-text")}>{links[label]}로 로그인</p>
     </button>
   );

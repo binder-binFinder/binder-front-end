@@ -30,6 +30,10 @@
     &.error {
       border: 0.1rem solid var(--error-red);
     }
+
+    @include respondTo(small) {
+      font-size: 1.8rem;
+    }
   }
 
   & .btn-field {
@@ -38,7 +42,16 @@
     > button {
       max-width: 5.9rem;
       text-wrap: nowrap;
+
+      @include respondTo(small) {
+        font-size: 1.8rem;
+        height: 5.03rem;
+      }
     }
+  }
+  @include respondTo(small) {
+    gap: 1rem;
+    height: 13.4rem;
   }
 }
 .comment-label {
@@ -50,6 +63,10 @@
   &.error {
     color: var(--error-red);
   }
+
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 
 .charCount {
@@ -58,6 +75,10 @@
   top: 2rem;
   font-size: 1.4rem;
   color: var(--d9d9d9);
+
+  @include respondTo(small) {
+    font-size: 1.6rem;
+  }
 }
 .error-message {
   position: absolute;
@@ -69,6 +90,10 @@
   line-height: 2.6rem; /* 185.714% */
   letter-spacing: -0.014rem;
   color: var(--error-red);
+
+  @include respondTo(small) {
+    font-size: 1.6rem;
+  }
 }
 .delete-input-btn {
   position: absolute;

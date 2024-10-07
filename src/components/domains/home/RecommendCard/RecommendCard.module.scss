@@ -41,6 +41,14 @@
   font-weight: 800;
   letter-spacing: -0.01rem;
   color: var(--green90);
+  > span {
+    position: relative;
+    width: 0.7rem;
+    height: 0.7rem;
+    > img {
+      filter: brightness(40%);
+    }
+  }
 }
 
 .address-box {

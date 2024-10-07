@@ -44,12 +44,13 @@ export default function BinTypeBtn({ binType, type, onClick }: Props) {
       )}
       onClick={handleClick}
     >
-      <Image
-        src={getBinImage(type !== "isBookmarked" ? type.id : undefined)}
-        alt={`${type !== "isBookmarked" ? type.label : "저장한 장소"} 이미지`}
-        width={24.5}
-        height={25}
-      />
+      <div>
+        <Image
+          src={getBinImage(type !== "isBookmarked" ? type.id : undefined)}
+          alt={`${type !== "isBookmarked" ? type.label : "저장한 장소"} 이미지`}
+          fill
+        />
+      </div>
       <p>{type !== "isBookmarked" ? type.label : "저장한 장소"}</p>
     </button>
   );

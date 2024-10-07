@@ -36,6 +36,13 @@
   &-glitter {
     font-size: 2rem;
   }
+
+  @include respondTo(small) {
+    font-size: 1.5rem;
+    &-glitter {
+      font-size: 2.2rem;
+    }
+  }
 }
 
 @keyframes slideIn {

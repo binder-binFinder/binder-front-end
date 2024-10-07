@@ -13,6 +13,9 @@
   line-height: 2.6rem;
   letter-spacing: -0.019rem;
   color: var(--green90);
+  @include respondTo(small) {
+    font-size: 2.1rem;
+  }
 }
 
 .comment-sort-btn {
@@ -26,6 +29,9 @@
   &.selected {
     color: var(--card-address);
     font-weight: 600;
+  }
+  @include respondTo(small) {
+    font-size: 1.5rem;
   }
 }
 
@@ -41,4 +47,7 @@
   font-size: 1.6rem;
   line-height: 2.5rem;
   letter-spacing: -0.016rem;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }

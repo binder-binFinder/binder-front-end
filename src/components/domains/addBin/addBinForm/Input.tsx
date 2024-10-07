@@ -60,12 +60,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn("addbin-input-delete-button")}
           onClick={() => onClickDelete(name!)}
         >
-          <Image
-            src={"/images/inputX.svg"}
-            alt="입력값 지우기"
-            width={17}
-            height={17}
-          />
+          <div>
+            <Image src={"/images/inputX.svg"} alt="입력값 지우기" fill />
+          </div>
         </button>
       )}
       {errorMessage && <p className={cn("error-message")}>{errorMessage}</p>}

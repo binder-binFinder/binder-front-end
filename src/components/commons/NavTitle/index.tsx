@@ -25,8 +25,7 @@ export default function NavTitle({ children }: Props) {
         <Image
           src={"/images/icon-left-arrow.svg"}
           alt="전 페이지로 이동"
-          width={8}
-          height={16}
+          fill
         />
       </button>
       <h2 className={cn("nav-title")}>{children}</h2>

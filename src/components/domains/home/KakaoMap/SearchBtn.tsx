@@ -5,8 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./KakaoMap.module.scss";
-import { useQuery } from "@tanstack/react-query";
-import { getMembers } from "@/lib/apis/members";
 
 const cn = classNames.bind(styles);
 
@@ -39,7 +37,7 @@ function SearchBtn() {
   );
 }
 
-function AddBinBtn() {
+function AddBinBtn({ isLogin }: { isLogin: boolean }) {
   const handleAddBin = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "add_bin_click", {
@@ -51,46 +49,38 @@ function AddBinBtn() {
   };
   return (
     <Link
-      href={"/addbin"}
+      href={isLogin ? "/addbin" : "/signin"}
       className={cn("btn-addbin-link")}
       onClick={handleAddBin}
     >
-      <button>
-        <Image
-          src={"/images/icon-plus.svg"}
-          alt="신규 쓰레기통 등록하기"
-          width={49}
-          height={49}
-        />
-      </button>
+      <Image src={"/images/icon-plus.svg"} alt="신규 쓰레기통 등록하기" fill />
     </Link>
   );
 }
 
 export default function BtnField({ isAddBin }: { isAddBin?: boolean }) {
   const router = useRouter();
+  const [isLogin] = useAtom(loginState);
   const handleClickBack = () => {
     return router.back();
   };
   if (isAddBin) {
     return (
-      <article className={cn("btn-field")}>
+      <article className={cn("btn-field", { isAddBin: isAddBin })}>
         <button onClick={handleClickBack} className={cn("btn-addbin-link")}>
           <Image
             src={"/images/icon-back-circle-btn.svg"}
             alt="뒤로 가기"
-            width={49}
-            height={49}
+            fill
           />
         </button>
-        <SearchBtn />
       </article>
     );
   }
   return (
     <article className={cn("btn-field")}>
       <SearchBtn />
-      <AddBinBtn />
+      <AddBinBtn isLogin={isLogin} />
     </article>
   );
 }

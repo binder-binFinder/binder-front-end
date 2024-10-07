@@ -324,6 +324,7 @@ export default function KakaoMap({
           isCardHidden={isCardHidden}
           binDataId={bins[0]?.id || choice.id || choice.binId!}
           distance={bins[0]?.distance || choice.distance}
+          handleClickMarker={handleClickMarker}
         />
       )}
       {showToast && <Toast>근처 쓰레기통이 없습니다</Toast>}

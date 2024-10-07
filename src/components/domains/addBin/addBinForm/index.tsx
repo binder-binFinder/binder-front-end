@@ -197,6 +197,7 @@ export default function AddBinForm({
         <Input
           id="address"
           label="쓰레기통 주소"
+          readOnly
           mapCenter={{ x: binDetail?.latitude, y: binDetail?.longitude }}
           placeholder="주소를 입력하세요"
           {...register("address", { required: "주소는 필수입니다." })}

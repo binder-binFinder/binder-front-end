@@ -20,6 +20,9 @@
     gap: 1rem;
     cursor: text;
   }
+  @include respondTo(small) {
+    font-size: 1.7rem;
+  }
 }
 
 .btn-field {
@@ -31,8 +34,20 @@
   max-width: 60rem;
   gap: 1rem;
   z-index: 3;
+  &.isAddBin {
+    justify-content: start;
+  }
 }
 
+.btn-addbin-link {
+  position: relative;
+  width: 5.2rem;
+  height: 5.2rem;
+  @include respondTo(small) {
+    width: 4.9rem;
+    height: 4.9rem;
+  }
+}
 .add-location-btn {
   z-index: 4;
 }

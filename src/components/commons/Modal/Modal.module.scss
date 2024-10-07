@@ -84,6 +84,9 @@
   font-size: 2rem;
   font-weight: 800;
   line-height: 37px;
+  @include respondTo(small) {
+    font-size: 2.2rem;
+  }
 }
 .modalTitleAccess {
   color: var(--primary-green);
@@ -91,6 +94,9 @@
   font-size: 2rem;
   font-weight: 800;
   line-height: 37px;
+  @include respondTo(small) {
+    font-size: 2.2rem;
+  }
 }
 .modalTitleAudit {
   color: var(--modal-title);
@@ -98,6 +104,9 @@
   font-size: 2rem;
   font-weight: 800;
   line-height: 37px;
+  @include respondTo(small) {
+    font-size: 2.2rem;
+  }
 }
 
 .modalText {
@@ -108,6 +117,9 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: keep-all;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 
 .modalClose {
@@ -118,6 +130,9 @@
   bottom: 0;
   margin-bottom: 1.6rem;
   cursor: pointer;
+  @include respondTo(small) {
+    font-size: 1.5rem;
+  }
 }
 
 .modalMoreInfo {
@@ -126,4 +141,7 @@
   font-weight: 600;
   line-height: 2.3rem; /* 143.75% */
   text-decoration-line: underline;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }

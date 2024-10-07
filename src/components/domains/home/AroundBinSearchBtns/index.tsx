@@ -57,8 +57,7 @@ export default function AroundBinSearchBtns({
         <Image
           src={"/images/icon-my-lovcationBtn.svg"}
           alt="내 위치 다시 가져오기"
-          width={49}
-          height={49}
+          fill
         />
       </button>
     </article>

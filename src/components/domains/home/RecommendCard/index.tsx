@@ -13,6 +13,7 @@ interface Props {
   distance: number;
   isCardHidden: boolean;
   setIsCardHidden: (value: SetStateAction<boolean>) => void;
+  handleClickMarker: (id: number) => void;
 }
 
 export default function RecommendCard({
@@ -20,6 +21,7 @@ export default function RecommendCard({
   distance,
   isCardHidden,
   setIsCardHidden,
+  handleClickMarker,
 }: Props) {
   const { data: binDetailData, isLoading } = useQuery({
     queryKey: ["bindetail", binDataId],
@@ -54,7 +56,9 @@ export default function RecommendCard({
         <span className={cn("recommend")}>추천</span>
         <p className={cn("card-title")}>
           {binDetailData.title}
-          <span></span>
+          <span onClick={() => handleClickMarker(Number(binDataId))}>
+            <Image src={"/images/arrowRight.svg"} alt="자세히 보기" fill />
+          </span>
         </p>
         <div className={cn("address-box")}>
           <Image

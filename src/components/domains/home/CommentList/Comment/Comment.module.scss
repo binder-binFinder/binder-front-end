@@ -23,12 +23,22 @@
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
+    @include respondTo(small) {
+      font-size: 1.7rem;
+      margin-right: 0.7rem;
+      width: 5.6rem;
+      height: 2.3rem;
+    }
   }
   & .name {
     margin-right: 1rem;
     color: var(--green90);
     font-size: 1.5rem;
     font-weight: 600;
+    @include respondTo(small) {
+      font-size: 1.7rem;
+      margin-right: 1.2rem;
+    }
   }
 
   & .date {
@@ -36,6 +46,9 @@
     font-size: 1.3rem;
     font-weight: 400;
     letter-spacing: -0.0195rem;
+    @include respondTo(small) {
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -44,6 +57,9 @@
   font-weight: 400;
   letter-spacing: -0.016rem;
   color: var(--card-address);
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 
 .btn-field {
@@ -63,6 +79,9 @@
   font-size: 1.2rem;
   font-style: normal;
   letter-spacing: -0.018rem;
+  @include respondTo(small) {
+    font-size: 1.4rem;
+  }
 
   > img {
     filter: invert(100%) sepia(0%) saturate(6462%) hue-rotate(50deg)
@@ -93,5 +112,9 @@
   > button {
     color: var(--noti-date);
     text-decoration-line: underline;
+  }
+  @include respondTo(small) {
+    font-size: 1.5rem;
+    gap: 2.1rem;
   }
 }

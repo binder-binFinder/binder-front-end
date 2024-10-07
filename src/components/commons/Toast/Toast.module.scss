@@ -18,6 +18,9 @@
   &.green {
     background: rgba(11, 183, 109, 0.8);
   }
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 
 @keyframes toast-slide {

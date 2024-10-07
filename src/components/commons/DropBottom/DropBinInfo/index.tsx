@@ -177,12 +177,7 @@ export default function DropBinInfo({
         <div className={cn("title-box")}>
           {cardHeight === "100%" && (
             <button className={cn("back-btn")} onClick={handleClose}>
-              <Image
-                src={"/images/icon-left-arrow.svg"}
-                alt="뒤로 가기"
-                width={8}
-                height={16}
-              />
+              <Image src={"/images/icon-left-arrow.svg"} alt="뒤로 가기" fill />
             </button>
           )}
           <div className={cn("title-text")}>

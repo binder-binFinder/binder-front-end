@@ -9,6 +9,14 @@
 
 .back-btn {
   margin: 8.3rem 2rem 0;
+  position: relative;
+  height: 1.6rem;
+  width: 0.8rem;
+
+  @include respondTo(small) {
+    width: 0.9rem;
+    height: 1.8rem;
+  }
 }
 .description {
   color: var(--card-address);
@@ -16,12 +24,18 @@
   font-weight: 500;
   line-height: 2.5rem; /* 156.25% */
   letter-spacing: -0.024rem;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 
 .title-box {
   @include column-flexbox();
 
   gap: 0.7rem;
+  @include respondTo(small) {
+    gap: 1.45rem;
+  }
 }
 
 .wrapper {
@@ -37,7 +51,6 @@
     padding: 0 2rem;
 
     width: 100%;
-    max-width: 39rem;
     top: 60%;
     left: 50%;
     transform: translate(-50%, -60%);

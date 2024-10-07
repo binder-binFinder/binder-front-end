@@ -1,8 +1,8 @@
 .overlay {
   position: fixed;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   @include flexbox();
   background: rgba(0, 0, 0, 0.5);
   z-index: 90;
@@ -22,6 +22,10 @@
     font-weight: 800;
     line-height: 3.7rem;
     letter-spacing: -0.019rem;
+
+    @include respondTo(small) {
+      font-size: 2.1rem;
+    }
   }
 
   &-text {
@@ -30,6 +34,16 @@
 
     line-height: 2.5rem; /* 156.25% */
     letter-spacing: -0.016rem;
+
+    @include respondTo(small) {
+      font-size: 1.8rem;
+    }
+  }
+
+  @include respondTo(small) {
+    padding: 4.5rem;
+    width: calc(100% - 4rem);
+    max-width: 56rem;
   }
 }
 
@@ -37,6 +51,10 @@
   @include flexbox(between);
   margin-top: 2.9rem;
   width: 100%;
+  @include respondTo(small) {
+    margin-top: 4.5rem;
+    max-width: 30rem;
+  }
 }
 
 .buttons-gap {
@@ -50,10 +68,15 @@
   padding: 1rem 2rem;
   text-wrap: nowrap;
   width: 45%;
+
   color: var(--primary-green);
   text-align: center;
   font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: -0.0195rem;
   flex-shrink: 0;
+
+  @include respondTo(small) {
+    font-size: 1.5rem;
+  }
 }

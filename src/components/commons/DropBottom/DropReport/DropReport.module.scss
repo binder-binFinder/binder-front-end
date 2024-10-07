@@ -11,6 +11,9 @@
   font-size: 1.6rem;
   letter-spacing: -0.016rem;
   color: var(--card-address);
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
 }
 
 .form {
@@ -44,6 +47,9 @@
       border-radius: 0.7rem;
       border: 1px solid var(--d9d9d9);
       background-color: white;
+    }
+    @include respondTo(small) {
+      font-size: 1.6rem;
     }
   }
 
