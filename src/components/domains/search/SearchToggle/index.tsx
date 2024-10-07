@@ -39,11 +39,11 @@ export default function SearchToggle({ target }: any) {
         ? notificationDetails[notificationDetails.length - 1].bookmarkId
         : undefined;
     },
-    enabled: !!coordinate,
+    enabled: !!coordinate && !!login,
   });
 
   useEffect(() => {
-    if (!target.current || !bookmarkData?.pages) return; // target 또는 데이터가 없을 때 리턴
+    if (!target.current || !bookmarkData?.pages) return;
 
     const observer = new IntersectionObserver(
       (entries) => {

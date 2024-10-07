@@ -1,7 +1,10 @@
 import SearchInput from "@/components/domains/search/SearchInput";
 import SearchItems from "@/components/domains/search/SearchItems";
 import SearchToggle from "@/components/domains/search/SearchToggle";
+import { getMembers } from "@/lib/apis/members";
 import { searchDetailList, searchToggle } from "@/lib/atoms/atom";
+import { loginState } from "@/lib/atoms/userAtom";
+import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 
@@ -11,6 +14,21 @@ export default function Search() {
   const target = useRef<HTMLDivElement>(null);
   const [btnState] = useAtom(searchToggle);
   const prevSearchRef = useRef<HTMLDivElement>(null);
+
+  const { data: memberData } = useQuery({
+    queryKey: ["memberDatas"],
+    queryFn: () => getMembers(),
+  });
+
+  const [, setLoginState] = useAtom(loginState);
+  useEffect(() => {
+    if (memberData !== null) {
+      setLoginState(true);
+    } else {
+      setLoginState(false);
+    }
+  }, [memberData]);
+
   useEffect(() => {
     setDetail(null);
   }, []);

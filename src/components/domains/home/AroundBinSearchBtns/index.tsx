@@ -20,12 +20,24 @@ export default function AroundBinSearchBtns({
   hasData,
   isCardHidden,
 }: Props) {
+  const handleSearchClick = () => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "nearby_search_click", {
+        event_category: "Navigation",
+        event_label: "Nearby Search Button",
+        value: 1,
+      });
+    }
+  };
   return (
     <article
       className={cn("btns-wrapper", !isCardHidden && hasData ? "hasBin" : "")}
     >
       <button
-        onClick={onClickGetAroundBinData}
+        onClick={() => {
+          onClickGetAroundBinData();
+          handleSearchClick();
+        }}
         className={cn("search-around-bin-btn", toggleAroundBin && "on")}
       >
         <Image

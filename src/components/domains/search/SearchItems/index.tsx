@@ -3,9 +3,10 @@ import { deleteSearch, prevSearch } from "@/lib/apis/search";
 import {
   searchBookmark,
   searchDetailList,
+  searchPrev,
   searchToggle,
 } from "@/lib/atoms/atom";
-import { searchChoice } from "@/lib/atoms/userAtom";
+import { loginState, searchChoice } from "@/lib/atoms/userAtom";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import { useAtom } from "jotai";
@@ -28,6 +29,7 @@ export default function SearchItems({
   target,
   prevSearchRef,
 }: searchProps) {
+  const [prevSearchNologin] = useAtom(searchPrev);
   const [detail] = useAtom(searchDetailList);
   const [, setChoice] = useAtom(searchChoice);
   const [bookmarks] = useAtom(searchBookmark);
@@ -35,6 +37,7 @@ export default function SearchItems({
   const [loginModal, setLoginModal] = useState<boolean>(false);
   const [prevSearchList, setPrevSearchList] = useState<any[]>([]);
   const [lastId, setLastId] = useState<number>(0);
+  const [loginStates] = useAtom(loginState);
 
   const router = useRouter();
 
@@ -60,20 +63,25 @@ export default function SearchItems({
         ? notificationDetails[notificationDetails.length - 1].id
         : undefined;
     },
+    enabled: !!loginStates,
   });
 
   useEffect(() => {
-    setPrevSearchList([]);
-  }, []);
+    if (!loginStates) {
+      setPrevSearchList(prevSearchNologin);
+    } else {
+      setPrevSearchList([]);
+    }
+  }, [loginStates]);
+
   useEffect(() => {
     if (!prevSearchRef.current || !prevSearchData?.pages) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        console.log(prevSearchData);
         if (entries[0].isIntersecting && prevSearchData?.pages?.length > 0) {
           const lastPage = prevSearchData.pages[0];
-          console.log(prevSearchData);
+
           if (lastPage?.length >= 10) {
             setLastId(lastPage[9].id);
           }
@@ -91,8 +99,10 @@ export default function SearchItems({
   }, [prevSearchRef, prevSearchData, fetchNextPage]);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && prevSearchList !== null) {
       setPrevSearchList((prev) => [...prev, ...prevSearchData.pages.flat()]);
+    } else if (isSuccess) {
+      setPrevSearchList(prevSearchData.pages);
     }
   }, [isSuccess, prevSearchData, setPrevSearchList]);
 

@@ -135,6 +135,7 @@ export default function AddBinForm({
       openModal();
       setNewAddress({ roadAddress: "", address: "" });
       setNewCoordinate({ x: 0, y: 0 });
+      handleAddBinFinish();
     },
   });
 
@@ -176,7 +177,15 @@ export default function AddBinForm({
       isAdmin ? patchBinAdminMutate(editPostData) : submitEditbin(editPostData);
     }
   }, [editPostData]);
-
+  const handleAddBinFinish = () => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "add_bin_form_submit_click", {
+        event_category: "Navigation",
+        event_label: "Add Bin Form Submit Button",
+        value: 1,
+      });
+    }
+  };
   return (
     <>
       {!!binDetail && (

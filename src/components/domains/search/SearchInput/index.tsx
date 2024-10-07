@@ -54,18 +54,16 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
     });
   };
 
-  // 디바운스 적용
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchInput(searchInput);
-    }, 300); // 300ms 디바운스 적용
+    }, 300);
 
     return () => {
-      clearTimeout(handler); // 검색어 변경 시 이전 타이머 취소
+      clearTimeout(handler);
     };
   }, [searchInput]);
 
-  // 리액트 쿼리 사용해서 데이터 요청
   const {
     data: addresses = [],
     isFetching: isSearching,
@@ -74,15 +72,13 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
     queryKey: ["searchAddresses", debouncedSearchInput],
     queryFn: () => getSearch(debouncedSearchInput),
     enabled: !!debouncedSearchInput,
-    staleTime: 300000, // 5분 동안 캐시 유지
-    refetchOnWindowFocus: false, // 포커스 시 재요청 막기
+    staleTime: 300000,
+    refetchOnWindowFocus: false,
   });
 
   const handleClickOutside = () => {
     setSearchData("");
   };
-
-  // useOnClickOutside(ref, handleClickOutside);
 
   const { data: searchAddress, isSuccess } = useQuery({
     queryKey: ["searchAddress", coordinate, choicePlace],
