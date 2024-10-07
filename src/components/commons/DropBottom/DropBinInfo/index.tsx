@@ -235,78 +235,82 @@ export default function DropBinInfo({
             </button>
           </div>
         </div>
-        <ImgField imageUrl={binDetailData?.imageUrl} />
-        <div className={cn("btn-box")}>
-          <button
-            className={cn(
-              "state-btn",
-              binDetailData?.binInfoForMember?.isBookMarked && "selected"
-            )}
-            onClick={handleClickBookmark}
-          >
-            <Image
-              src={"/images/icon-gray-star.svg"}
-              width={16}
-              height={16}
-              alt="즐겨찾기"
-            />
-            {binDetailData?.bookmarkCount}
-          </button>
-          <button
-            className={cn(
-              "state-btn",
-              binDetailData?.binInfoForMember?.isLiked && "selected"
-            )}
-            onClick={handleClickLike}
-          >
-            <Image
-              src={"/images/thumb-up.svg"}
-              width={16}
-              height={16}
-              alt="좋아요"
-            />
-            {binDetailData?.likeCount}
-          </button>
-          <button
-            className={cn(
-              "state-btn",
-              binDetailData?.binInfoForMember?.isDisliked && "selected"
-            )}
-            onClick={handleClickDisLike}
-          >
-            <Image
-              src={"/images/thumb-down.svg"}
-              width={16}
-              height={16}
-              alt="싫어요"
-            />
-            {binDetailData?.dislikeCount}
-          </button>
-        </div>
-        <div className={cn("info-box")}>
-          <p
-            className={cn("alert", binDetailData?.complaintCount < 3 && "none")}
-          >
-            <Image
-              src={"/images/alert.svg"}
-              alt="경고"
-              width={13}
-              height={13}
-            />
-            누적된 신고가 많은 쓰레기통입니다
-          </p>
-          <div className={cn("distance")}>
-            <Image
-              src={"/images/icon-location-green-pin.svg"}
-              alt="위치 표시 핀"
-              width={12}
-              height={15}
-            />
-            <p> {Math.floor(distance) + "m"}</p>
+        <div className={cn("detail-wrapper")}>
+          <ImgField imageUrl={binDetailData?.imageUrl} />
+          <div className={cn("btn-box")}>
+            <button
+              className={cn(
+                "state-btn",
+                binDetailData?.binInfoForMember?.isBookMarked && "selected"
+              )}
+              onClick={handleClickBookmark}
+            >
+              <Image
+                src={"/images/icon-gray-star.svg"}
+                width={16}
+                height={16}
+                alt="즐겨찾기"
+              />
+              {binDetailData?.bookmarkCount}
+            </button>
+            <button
+              className={cn(
+                "state-btn",
+                binDetailData?.binInfoForMember?.isLiked && "selected"
+              )}
+              onClick={handleClickLike}
+            >
+              <Image
+                src={"/images/thumb-up.svg"}
+                width={16}
+                height={16}
+                alt="좋아요"
+              />
+              {binDetailData?.likeCount}
+            </button>
+            <button
+              className={cn(
+                "state-btn",
+                binDetailData?.binInfoForMember?.isDisliked && "selected"
+              )}
+              onClick={handleClickDisLike}
+            >
+              <Image
+                src={"/images/thumb-down.svg"}
+                width={16}
+                height={16}
+                alt="싫어요"
+              />
+              {binDetailData?.dislikeCount}
+            </button>
           </div>
+          <div className={cn("info-box")}>
+            <p
+              className={cn(
+                "alert",
+                binDetailData?.complaintCount < 3 && "none"
+              )}
+            >
+              <Image
+                src={"/images/alert.svg"}
+                alt="경고"
+                width={13}
+                height={13}
+              />
+              누적된 신고가 많은 쓰레기통입니다
+            </p>
+            <div className={cn("distance")}>
+              <Image
+                src={"/images/icon-location-green-pin.svg"}
+                alt="위치 표시 핀"
+                width={12}
+                height={15}
+              />
+              <p> {Math.floor(distance) + "m"}</p>
+            </div>
+          </div>
+          <CommentList binId={binId} isFill={cardHeight === "100%"} />
         </div>
-        <CommentList binId={binId} isFill={cardHeight === "100%"} />
-
         {isSuccessMybookmark && (
           <Toast
             isgreen

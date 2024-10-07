@@ -30,9 +30,17 @@
     animation: slide-down 0.3s ease-out forwards;
   }
 
+  .detail-wrapper {
+    @include column-flexbox(start);
+    gap: 1.4rem;
+    width: calc(100% + 2rem);
+    padding-right: 2rem;
+    border: none;
+    overflow-y: scroll;
+  }
+
   &.isFill {
     border-radius: 0;
-    overflow: scroll;
     height: 100% !important;
 
     & .back-btn {
