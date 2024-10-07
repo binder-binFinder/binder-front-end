@@ -33,6 +33,7 @@
   &.isFill {
     border-radius: 0;
     overflow: scroll;
+    height: 100% !important;
 
     & .back-btn {
       display: inline-block;

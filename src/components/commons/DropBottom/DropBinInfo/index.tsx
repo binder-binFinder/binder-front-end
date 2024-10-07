@@ -53,10 +53,13 @@ export default function DropBinInfo({
   ] = useToggle(false);
 
   const onDragEnd = (deltaY: number) => {
+    if (cardHeight === "100%") {
+      return;
+    }
     if (deltaY < -100) {
       setCardHeight("100%");
     } else {
-      setCardHeight(400);
+      setCardHeight(460);
     }
   };
 

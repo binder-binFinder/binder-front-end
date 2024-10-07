@@ -1,3 +1,7 @@
+.wrapper {
+  display: block;
+}
+
 .comment-title {
   &-feild {
     @include flexbox(between);
