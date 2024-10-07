@@ -55,6 +55,7 @@ export default function CommentList({ binId, isFill }: Props) {
 
   const bestLikeCount = commentsListData
     ? Math.max(
+        0,
         ...commentsListData.pages.flatMap((page) =>
           page.commentDetails.map((comment: any) => comment.likeCount)
         )
@@ -116,7 +117,9 @@ export default function CommentList({ binId, isFill }: Props) {
               key={comment.commentId}
               commentData={comment}
               refetchComments={refetchComments}
-              isBest={comment.likeCount === bestLikeCount}
+              isBest={
+                comment.likeCount === bestLikeCount && comment.likeCount !== 0
+              }
               onClickFixState={handleClickFixState}
             />
           ))

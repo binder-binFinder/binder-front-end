@@ -63,8 +63,11 @@ export default function DropBinInfo({
     }
   };
 
-  const { ref, handleDragStart, handleDrag, handleDragEnd } =
-    useDrag(onDragEnd);
+  const { ref, handleDragStart, handleDrag, handleDragEnd } = useDrag(
+    onDragEnd,
+    false,
+    cardHeight
+  );
 
   const onSuccessBookmark = () => {
     openSuccessMybookmarkToast();
