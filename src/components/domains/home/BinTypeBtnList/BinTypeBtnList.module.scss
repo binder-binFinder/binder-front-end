@@ -37,10 +37,10 @@
   > div {
     position: relative;
     width: 2.45rem;
-    height: 25rem;
+    height: 2.5rem;
     @include respondTo(small) {
       width: 2.8243rem;
-      height: 2.9006rem;
+      height: 2.9rem;
     }
   }
   @include respondTo(small) {
