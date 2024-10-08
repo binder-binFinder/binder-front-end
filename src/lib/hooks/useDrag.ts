@@ -7,6 +7,7 @@ export const useDrag = (
 ) => {
   const [startY, setStartY] = useState(0);
   const [currentY, setCurrentY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const handleDragStart = (e: React.TouchEvent) => {
@@ -15,19 +16,29 @@ export const useDrag = (
     }
     const clientY = e.touches[0].clientY;
     setStartY(clientY);
+    setIsDragging(false);
   };
 
   useEffect(() => {
     const handleDrag = (e: TouchEvent) => {
-      e.preventDefault(); // 기본 스크롤 동작 방지
-      e.stopPropagation(); // 이벤트 버블링 방지
       if (cardHeight === "100%") {
         return;
       }
-      if (ref.current) {
-        const clientY = e.touches[0].clientY;
-        const deltaY = clientY - startY;
+      const clientY = e.touches[0].clientY;
+      const deltaY = clientY - startY;
 
+      if (Math.abs(deltaY) > 10) {
+        setIsDragging(true);
+      }
+
+      if (!isDragging) {
+        return;
+      }
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (ref.current) {
         if (noUp && deltaY < 0) {
           return;
         }
@@ -40,9 +51,10 @@ export const useDrag = (
     const handleTouchEnd = () => {
       if (ref.current) {
         ref.current.style.transform = `translateY(0)`;
+        onDragEnd(currentY);
       }
-      onDragEnd(currentY);
       setCurrentY(0);
+      setIsDragging(false);
     };
 
     window.addEventListener("touchmove", handleDrag, { passive: false });
