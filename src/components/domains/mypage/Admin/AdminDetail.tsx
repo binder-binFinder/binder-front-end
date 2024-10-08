@@ -1,4 +1,5 @@
 import Button from "@/components/commons/Button";
+import { ImgField } from "@/components/commons/DropBottom/DropBinInfo";
 import DropInfo from "@/components/commons/DropBottom/DropInfo";
 import DropReason from "@/components/commons/DropBottom/DropReason";
 import Modal from "@/components/commons/Modal/TrashHow";
@@ -11,10 +12,8 @@ import { MODAL_CONTENTS } from "@/lib/constants/modalContents";
 import { useToggle } from "@/lib/hooks/useToggle";
 import { useMutation } from "@tanstack/react-query";
 import classNames from "classnames/bind";
-import Image from "next/image";
 import Router from "next/router";
 import { useState } from "react";
-import NoneImgInput from "../../addBin/addBinForm/NoneImgInput";
 import styles from "./AdminDetail.module.scss";
 import AdminDetailItem from "./AdminDetailItem";
 
@@ -223,18 +222,8 @@ export default function DefaultForm({
           <h4>
             쓰레기통 사진<span> (선택)</span>
           </h4>
-          {binDetail?.imageUrl ? (
-            <div className={cn("imgBox")}>
-              <Image
-                src={binDetail.imageUrl}
-                alt="이미지"
-                fill
-                objectFit="cover"
-              />
-            </div>
-          ) : (
-            <NoneImgInput disabled={true} />
-          )}
+
+          <ImgField imageUrl={binDetail?.imageUrl && binDetail.imageUrl} />
         </article>
         {state === "수정" && (
           <AdminDetailItem

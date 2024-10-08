@@ -13,6 +13,7 @@
   resize: none;
   word-break: keep-all;
   overflow-wrap: break-word;
+  background-color: var(--input-bg);
   @include respondTo(small) {
     font-size: 1.8rem;
   }

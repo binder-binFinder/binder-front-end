@@ -9,10 +9,12 @@
   font-weight: 400;
   letter-spacing: -0.016rem;
   line-height: 1.1;
+  background-color: var(--white);
 
   &.selected {
     color: var(--btn-selected);
     border: 1px solid var(--btn-color);
+    background-color: var(--input-bg);
   }
 
   &.alert,
@@ -26,7 +28,7 @@
     padding: 1.4rem;
 
     border: none;
-    color: var(--white);
+    color: $white;
   }
 
   &.alert {
@@ -66,6 +68,7 @@
   letter-spacing: -0.0225rem;
   flex-grow: 1;
   border: 1px solid var(--btn-edit);
+  background-color: $white;
   color: var(--btn-edit);
   @include respondTo(small) {
     font-size: 1.8rem;
@@ -75,5 +78,5 @@
 
 .editComplete {
   background: var(--btn-edit);
-  color: var(--white);
+  color: $white;
 }

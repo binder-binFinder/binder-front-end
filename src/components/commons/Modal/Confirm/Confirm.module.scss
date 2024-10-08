@@ -60,7 +60,7 @@
 .buttons-gap {
   width: 0.1rem;
   height: 1.6rem;
-  background: #efefef;
+  background: var(--comment-modal-bg);
 }
 
 .cancel-button,

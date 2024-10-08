@@ -55,7 +55,7 @@
     width: 100%;
     cursor: pointer;
 
-    color: var(--btn-selected);
+    color: var(--input-text);
 
     &.error {
       color: $error-red;
@@ -68,7 +68,7 @@
     letter-spacing: -0.024rem;
     color: var(--btn-selected);
     border: 1px solid var(--d9d9d9);
-    background: var(--white);
+    background-color: var(--input-bg);
 
     &::placeholder {
       color: var(--btn-color);

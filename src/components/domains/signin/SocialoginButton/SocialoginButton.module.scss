@@ -38,7 +38,7 @@
     }
   }
   &.google {
-    background-color: var(--white);
+    background-color: $white;
     color: $google-text;
     border: 1px solid $google-boder;
     > div {

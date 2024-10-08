@@ -1,4 +1,6 @@
+import { themeColor } from "@/lib/atoms/atom";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import styles from "./AroundBinSearchBtns.module.scss";
 
@@ -20,6 +22,8 @@ export default function AroundBinSearchBtns({
   hasData,
   isCardHidden,
 }: Props) {
+  const [themeMode] = useAtom(themeColor);
+
   const handleSearchClick = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "nearby_search_click", {
@@ -54,11 +58,19 @@ export default function AroundBinSearchBtns({
         )}
         onClick={onClickGetmyLocation}
       >
-        <Image
-          src={"/images/icon-my-lovcationBtn.svg"}
-          alt="내 위치 다시 가져오기"
-          fill
-        />
+        {themeMode === "다크 모드" ? (
+          <Image
+            src={"/images/icon-my-locationBtn-dark.svg"}
+            alt="내 위치 다시 가져오기"
+            fill
+          />
+        ) : (
+          <Image
+            src={"/images/icon-my-locationBtn.svg"}
+            alt="내 위치 다시 가져오기"
+            fill
+          />
+        )}
       </button>
     </article>
   );

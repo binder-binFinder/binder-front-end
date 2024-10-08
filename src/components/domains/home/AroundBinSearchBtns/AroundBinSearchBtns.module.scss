@@ -40,6 +40,7 @@
   position: relative;
   width: 4.9rem;
   height: 4.9rem;
+
   @include respondTo(small) {
     width: 5rem;
     height: 5rem;

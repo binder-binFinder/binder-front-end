@@ -1,7 +1,9 @@
 import LoginToast from "@/components/domains/signin/LoginToast";
 import SocialoginButton from "@/components/domains/signin/SocialoginButton";
+import { themeColor } from "@/lib/atoms/atom";
 import { SOCIAL_LOGIN_URL } from "@/lib/constants/urls";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "./signin.module.scss";
@@ -9,6 +11,8 @@ import styles from "./signin.module.scss";
 const cn = classNames.bind(styles);
 
 export default function Signin() {
+  const [themeMode] = useAtom(themeColor);
+
   const router = useRouter();
   const handleClickKakaoSignIn = () => {
     window.location.href = SOCIAL_LOGIN_URL + "/kakao";
@@ -31,6 +35,7 @@ export default function Signin() {
         <article className={cn("title-box")}>
           <Image
             alt="logo"
+            className={cn({ darkLogo: themeMode === "다크 모드" })}
             src={"/images/logo.svg"}
             objectFit="fit"
             width={120}

@@ -5,12 +5,16 @@
   --gray20: #d1dbd6;
   --primary-green: #0bb76d;
   --green90: #06130d;
+  --toast-bg: #06130d;
   --naver-bg: #03c75a;
   --kakao-text: rgba(0, 0, 0, 0.85);
   --kakao-bg: #fee500;
   --google-text: #262200;
   --google-border: #d1dbd6;
   --error-red: #ff3232;
+
+  --box-shadow: #c8d0cd;
+  --date-text: #c8d0cd;
 
   --cart-text: #f4f6f5;
   --cart-text2: #e1f4ed;
@@ -19,18 +23,24 @@
   --green: #75968a;
   --d9d9d9: #d9d9d9;
   --card-address: #515f58;
+  --comment-text: #515f58;
+  --comment-modal-bg: #efefef;
+
   --createat: #a4b7ad;
 
   --btn-color: #a5a5a5;
   --btn-selected: #4d4d4d;
   --btn-primary: #94ccb4;
   --btn-edit: #3b4943;
+  --distance: #3b4943;
 
   --card-title: #a6adab;
 
   --c4c4c4: #c4c4c4;
 
   --state-btn: #676767;
+  --home-bin-type-btn: #676767;
+
   --info-alert: #787c8b;
 
   --detail-title: #6b7772;
@@ -53,6 +63,9 @@
 
   --card-disabled: #e0e3e2;
   --card-approve: #3cc58a;
+  --input-bg: #fff;
+  --input-text: #4d4d4d;
+  --mypage-toggle-border: #d1dad6;
 }
 
 :root[theme="dark"] {
@@ -61,6 +74,7 @@
   --gray20: #d1dbd6;
   --primary-green: #0bb76d;
   --green90: #f6fcf9;
+  --toast-bg: #3b4240;
   --naver-bg: #03c75a;
   --kakao-text: rgba(0, 0, 0, 0.85);
   --kakao-bg: #fee500;
@@ -68,6 +82,8 @@
   --google-border: #d1dbd6;
   --error-red: #ff3232;
 
+  --box-shadow: #222424;
+  --date-text: #a1b0aa;
   --cart-text: #252826;
   --cart-text2: #e1f4ed;
   --card-reject: #e9aead;
@@ -75,18 +91,23 @@
   --green: #75968a;
   --d9d9d9: #6b7772;
   --card-address: #6b7772;
+  --comment-text: #eaf2ee;
+  --comment-modal-bg: #3e3f3f;
+
   --createat: #a4b7ad;
 
   --btn-color: #a5a5a5;
-  --btn-selected: #4d4d4d;
+  --btn-selected: #dfe9e5;
   --btn-primary: #94ccb4;
   --btn-edit: #3b4943;
+  --distance: #0bb76d;
 
   --card-title: #a6adab;
 
   --c4c4c4: #c4c4c4;
 
   --state-btn: #676767;
+  --home-bin-type-btn: #eee;
   --info-alert: #787c8b;
 
   --detail-title: #6b7772;
@@ -95,7 +116,7 @@
 
   --splash-text: #5e786c;
 
-  --addbin-img: #f2f2f2;
+  --addbin-img: #3a3e3d;
 
   --btn-search-link: #88a297;
 
@@ -109,4 +130,7 @@
 
   --card-disabled: #202221;
   --card-approve: #3cc58a;
+  --input-bg: #383b3a;
+  --input-text: #899590;
+  --mypage-toggle-border: #3e3f3f;
 }

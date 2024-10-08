@@ -28,7 +28,9 @@
     font-size: 1.8rem;
   }
 }
-
+.darkLogo {
+  filter: brightness(999);
+}
 .title-box {
   @include column-flexbox();
 

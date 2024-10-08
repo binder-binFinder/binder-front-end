@@ -4,8 +4,8 @@
   left: 50%;
 
   transform: translateX(-50%);
-  background: var(--green90);
-  color: white;
+  background: var(--toast-bg);
+  color: var(--toast);
   border-radius: 1.7rem;
   padding: 0.6rem 2.4rem;
   animation: slideIn 0.5s forwards;
@@ -19,7 +19,7 @@
 
     border-width: 1rem;
     border-style: solid;
-    border-color: var(--green90) transparent transparent transparent;
+    border-color: var(--toast-bg) transparent transparent transparent;
     border-radius: 0 0 0.3rem 0.3rem;
   }
 }

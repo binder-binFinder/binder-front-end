@@ -27,7 +27,7 @@
     margin-right: 2rem;
   }
   &.selected {
-    color: var(--card-address);
+    color: var(--comment-text);
     font-weight: 600;
   }
   @include respondTo(small) {

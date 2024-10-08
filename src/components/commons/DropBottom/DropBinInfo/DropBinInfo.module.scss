@@ -133,7 +133,7 @@
     gap: 0.6rem;
     font-size: 1.6rem;
     letter-spacing: -0.016rem;
-    color: var(--card-address);
+    color: var(--comment-text);
     @include respondTo(small) {
       font-size: 1.8rem;
     }
@@ -149,8 +149,8 @@
   height: 14.3rem;
   border-radius: 1rem;
   overflow: hidden;
-  background: center/ 2.4rem 3.2rem url("/images/icon-add-img.svg") no-repeat
-    #f2f2f2;
+  background: center/ 2.4rem 3.2rem url("/images/icon-none-img.svg") no-repeat
+    var(--addbin-img);
   > img {
     object-fit: cover;
   }
@@ -183,13 +183,12 @@
     line-height: 2.5rem; /* 156.25% */
     letter-spacing: -0.024rem;
     border-radius: 1rem;
-    box-shadow: 0px 1px 4px 0px #c8d0cd;
+    box-shadow: 0px 1px 4px 0px var(--box-shadow);
     flex-grow: 1;
     color: var(--state-btn);
 
     &.selected {
       border: 1px solid var(--primary-green);
-      box-shadow: 0px 1px 4px 0px #c8d0cd;
       & img {
         filter: invert(49%) sepia(100%) saturate(562%) hue-rotate(110deg)
           brightness(90%) contrast(91%);
@@ -240,7 +239,7 @@
   line-height: 2.5rem; /* 156.25% */
   letter-spacing: -0.024rem;
   border-radius: 1rem;
-  background: var(--btn-edit);
+  background: var(--distance);
   color: $white;
   > img {
     filter: brightness(999);

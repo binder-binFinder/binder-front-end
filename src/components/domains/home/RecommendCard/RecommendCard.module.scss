@@ -86,7 +86,7 @@
   flex-shrink: 0;
   border-radius: 1rem;
   overflow: hidden;
-  background: url("/images/icon-add-img.svg") no-repeat #f2f2f2;
+  background: url("/images/icon-none-img.svg") no-repeat var(--addbin-img);
   background-size: 7rem 7rem;
   background-position: left 60% center;
 
@@ -101,8 +101,8 @@
     bottom: 0rem;
     width: 100%;
     z-index: 4;
-    background: var(--btn-edit);
-    color: var(--white);
+    background: var(--distance);
+    color: $white;
     font-size: 1.5rem;
     font-weight: 400;
     line-height: 2.5rem; /* 166.667% */
