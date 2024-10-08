@@ -67,7 +67,7 @@ export default function DropBinInfo({
     }
   };
 
-  const { ref, handleDragStart, handleDrag, handleDragEnd } = useDrag(
+  const { ref, handleDragStart, handleDragEnd } = useDrag(
     onDragEnd,
     false,
     cardHeight
@@ -167,7 +167,6 @@ export default function DropBinInfo({
         })}
         ref={ref}
         onTouchStart={handleDragStart}
-        onTouchMove={handleDrag}
         onTouchEnd={handleDragEnd}
         style={{ height: cardHeight }}
       >
