@@ -45,13 +45,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             },
           }}
         >
-          <button className={cn("addbin-input-delete-button")}>
-            <Image
-              src={"/images/search.svg"}
-              alt="검색으로 이동하기"
-              width={17}
-              height={17}
-            />
+          <button className={cn("addbin-input-search-button")}>
+            <div>
+              <Image src={"/images/search.svg"} alt="검색으로 이동하기" fill />
+            </div>
           </button>
         </Link>
       )}

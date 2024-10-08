@@ -186,6 +186,7 @@
     box-shadow: 0px 1px 4px 0px var(--box-shadow);
     flex-grow: 1;
     color: var(--state-btn);
+    background-color: var(--info-btn);
 
     &.selected {
       border: 1px solid var(--primary-green);
@@ -218,8 +219,8 @@
     padding: 0.9rem;
     border-radius: 1rem;
     flex-grow: 2;
-    background: #e9e9e9;
-    color: var(--info-alert);
+    background: var(--info-alert-bg);
+    color: #8e9994;
     font-size: 1.2rem;
     line-height: 1.8rem; /* 150% */
     letter-spacing: -0.012rem;

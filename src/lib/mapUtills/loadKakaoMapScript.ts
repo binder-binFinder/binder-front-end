@@ -1,5 +1,5 @@
 export const loadKakaoMapScript = (callback: () => void) => {
-  if (window.kakao && window.kakao.maps) {
+  if (!!window.kakao && !!window.kakao.maps) {
     callback();
   } else {
     const kakaoMapScript = document.createElement("script");

@@ -1,9 +1,12 @@
 import close from "@/../public/images/dropClose.svg";
+import closeDark from "@/../public/images/dropClose-dark.svg";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import styles from "./dropBottom.module.scss";
+import { useAtom } from "jotai";
+import { themeColor } from "@/lib/atoms/atom";
 
 const cn = classNames.bind(styles);
 
@@ -28,6 +31,7 @@ export default function DropWrap({
 }: DropProps) {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [themeMode] = useAtom(themeColor);
 
   const handleClose = () => {
     setIsVisible(false);
@@ -88,7 +92,12 @@ export default function DropWrap({
         <div className={cn("dropTitle")}>
           <div>{title}</div>
           <div className={cn("dropClose")} onClick={handleClose}>
-            <Image src={close} fill alt="닫기" sizes="35px" />
+            <Image
+              src={themeMode === "다크 모드" ? closeDark : close}
+              fill
+              alt="닫기"
+              sizes="35px"
+            />
           </div>
         </div>
         <div className={cn("dropChildren")}>{children}</div>

@@ -27,7 +27,7 @@
   font-weight: 500;
   line-height: 2.6rem;
   background-color: var(--error-red);
-  color: var(--white);
+  color: $white;
 
   &.none {
     background-color: var(--card-reject);
@@ -76,7 +76,7 @@
   font-size: 1.6rem;
   line-height: 2.5rem;
   border-radius: 1rem;
-  background: var(--cart-text);
+  background-color: var(--addbin-img);
   padding: 1rem 1.4rem;
   @include respondTo(small) {
     font-size: 1.8rem;
@@ -93,7 +93,7 @@
   width: 48%;
   height: 4.4rem;
   border-radius: 1rem;
-  background: var(--cart-text);
+  background: var(--addbin-img);
   color: var(--detail-title);
   font-size: 1.6rem;
   line-height: 25px;
@@ -105,6 +105,7 @@
   }
 }
 .detailSelectItem {
-  border: 1px solid var(--d9d9d9);
+  border: 1px solid var(--btn-none-selected-b);
+  color: var(--btn-none-selected);
   background: var(--white);
 }

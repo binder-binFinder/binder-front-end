@@ -29,7 +29,7 @@
   }
 
   &-text {
-    color: #515f58;
+    color: var(--comment-text);
     font-size: 1.6rem;
 
     line-height: 2.5rem; /* 156.25% */

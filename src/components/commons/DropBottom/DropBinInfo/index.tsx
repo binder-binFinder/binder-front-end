@@ -1,8 +1,10 @@
 import CommentList from "@/components/domains/home/CommentList";
+import { themeColor } from "@/lib/atoms/atom";
 import { binType } from "@/lib/constants/binType";
 import { useDrag } from "@/lib/hooks/useDrag";
 import { useToggle } from "@/lib/hooks/useToggle";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -43,7 +45,7 @@ export default function DropBinInfo({
   const [isReport, isReportOpen, iseReportClose] = useToggle(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [cardHeight, setCardHeight] = useState<number | string>(460);
-
+  const [themeMode] = useAtom(themeColor);
   const router = useRouter();
 
   const [
@@ -205,7 +207,11 @@ export default function DropBinInfo({
             >
               <button>
                 <Image
-                  src={"/images/icon-edit-pen-btn.svg"}
+                  src={
+                    themeMode === "다크 모드"
+                      ? "/images/icon-edit-pen-btn-dark.svg"
+                      : "/images/icon-edit-pen-btn.svg"
+                  }
                   alt="수정하기 버튼"
                   width={41}
                   height={41}
@@ -222,7 +228,11 @@ export default function DropBinInfo({
               }}
             >
               <Image
-                src={"/images/icon-report-btn.svg"}
+                src={
+                  themeMode === "다크 모드"
+                    ? "/images/icon-report-btn-dark.svg"
+                    : "/images/icon-report-btn.svg"
+                }
                 alt="신고하기 버튼"
                 width={41}
                 height={41}

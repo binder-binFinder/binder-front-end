@@ -1,11 +1,7 @@
-import classNames from "classnames/bind";
-import Portal from "./Portal";
-import styles from "./Modal.module.scss";
-import wrong from "@/../public/images/modalWrong.svg";
-import access from "@/../public/images/modalAccess.svg";
-import audit from "@/../public/images/modalAudit.svg";
-import Image from "next/image";
 import { ModalContent } from "@/lib/constants/modalContents";
+import classNames from "classnames/bind";
+import styles from "./Modal.module.scss";
+import Portal from "./Portal";
 
 const cn = classNames.bind(styles);
 
@@ -15,20 +11,11 @@ interface IModalProps {
   modalClose: () => void;
 }
 
-export default function Modal({ modalState, modalClose, moreInfo }: IModalProps) {
-  const getImageSrc = () => {
-    switch (modalState.status) {
-      case "red":
-        return wrong;
-      case "green":
-        return access;
-      case "basic":
-        return audit;
-      default:
-        return audit;
-    }
-  };
-
+export default function Modal({
+  modalState,
+  modalClose,
+  moreInfo,
+}: IModalProps) {
   return (
     <Portal>
       <section className={cn("modal")}>
@@ -42,9 +29,7 @@ export default function Modal({ modalState, modalClose, moreInfo }: IModalProps)
                   : cn("modalImgWrapAudit")
             }
           >
-            <div className={cn("modalImg")}>
-              <Image src={getImageSrc()} alt="상태이미지" sizes="40px" />
-            </div>
+            !
           </div>
 
           <div
@@ -66,7 +51,9 @@ export default function Modal({ modalState, modalClose, moreInfo }: IModalProps)
               </span>
             ))}
           </div>
-          {modalState.ismore && <div className={cn("modalMoreInfo")}>{moreInfo}</div>}
+          {modalState.ismore && (
+            <div className={cn("modalMoreInfo")}>{moreInfo}</div>
+          )}
 
           <div className={cn("modalClose")} onClick={modalClose}>
             닫기

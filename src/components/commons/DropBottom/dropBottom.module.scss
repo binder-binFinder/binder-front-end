@@ -59,7 +59,7 @@
   // min-width: 35.6rem;
   height: 4.4rem;
   border-radius: 1rem;
-  color: var(--white);
+  color: $white;
   font-size: 1.6rem;
   font-weight: 500;
   display: flex;
@@ -93,7 +93,7 @@
     border-radius: 10px;
     border: 1px solid var(--card-reject);
     background: var(--white);
-    color: var(--btn-edit);
+    color: var(--comment-text);
     font-size: 1.5rem;
     font-weight: 500;
     line-height: 20px;
