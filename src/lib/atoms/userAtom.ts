@@ -12,7 +12,10 @@ export const userImg = atom<string>("");
 export const loginState = atomWithStorage<boolean>("loginState", false);
 
 //user 위치, 초기 위치 (0,0)
-export const userCoordinate = atomWithStorage("coordinate", { x: 0, y: 0 });
+export const userCoordinate = atomWithStorage("coordinate", {
+  x: 37.5665,
+  y: 126.978,
+});
 export const userAddress = atomWithStorage<{
   roadAddress: null | string;
   address: string;
