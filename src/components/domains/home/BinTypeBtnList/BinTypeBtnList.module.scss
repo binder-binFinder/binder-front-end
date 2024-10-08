@@ -7,10 +7,14 @@
   left: calc(50%);
   transform: translateX(-50%);
   gap: 1rem;
-  overflow: scroll;
+  overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   z-index: 4;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .bin-type-btn {
