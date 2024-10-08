@@ -60,6 +60,8 @@ export default function DropBinInfo({
     }
     if (deltaY < -100) {
       setCardHeight("100%");
+    } else if (deltaY > 100) {
+      handleClose();
     } else {
       setCardHeight(460);
     }
