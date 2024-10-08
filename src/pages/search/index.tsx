@@ -57,7 +57,7 @@ export default function Search() {
         ref={prevSearchRef}
         style={{
           height: "1px",
-          marginTop: "-5rem",
+          // marginTop: "-5rem",
           display: btnState === "최근 검색" ? "block" : "none",
         }}
       ></div>

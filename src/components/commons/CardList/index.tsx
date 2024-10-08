@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import CardSkel from "../../Skeleton/CardSkel";
 import Card from "../Card";
-import CardSkel from "../Card/CardSkel";
 import styles from "./CardList.module.scss";
 
 const cn = classNames.bind(styles);

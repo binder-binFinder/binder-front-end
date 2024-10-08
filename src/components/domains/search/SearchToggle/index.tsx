@@ -100,7 +100,7 @@ export default function SearchToggle({ target }: any) {
 
   // 최근 검색 및 저장한 장소 버튼 로직
   useEffect(() => {
-    if (detail?.length > 0) {
+    if (detail?.length >= 0) {
       setBtnState("");
     } else if (btnState === "최근 검색" || btnState === "저장한 장소") {
       setDetail(null);

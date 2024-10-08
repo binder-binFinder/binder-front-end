@@ -33,7 +33,7 @@ export default function SearchItems({
   const [detail] = useAtom(searchDetailList);
   const [, setChoice] = useAtom(searchChoice);
   const [bookmarks] = useAtom(searchBookmark);
-  const [btnState] = useAtom(searchToggle);
+  const [btnState, setBtnState] = useAtom(searchToggle);
   const [loginModal, setLoginModal] = useState<boolean>(false);
   const [prevSearchList, setPrevSearchList] = useState<any[]>([]);
   const [lastId, setLastId] = useState<number>(0);
@@ -49,6 +49,7 @@ export default function SearchItems({
   const handlePickPrev = (data: any) => {
     setPrevSearchPick(data);
   };
+
   const {
     data: prevSearchData,
     fetchNextPage,
@@ -65,6 +66,18 @@ export default function SearchItems({
     },
     enabled: !!loginStates,
   });
+
+  const { mutate: handleDelete } = useMutation({
+    mutationFn: (id: number) => deleteSearch(id),
+  });
+
+  const deleteItem = (id: number, e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    handleDelete(id);
+    setPrevSearchList((prev: any) =>
+      prev.filter((prevItem: { id: number }) => prevItem.id !== id)
+    );
+  };
 
   useEffect(() => {
     if (!loginStates) {
@@ -106,22 +119,13 @@ export default function SearchItems({
     }
   }, [isSuccess, prevSearchData, setPrevSearchList]);
 
-  const { mutate: handleDelete } = useMutation({
-    mutationFn: (id: number) => deleteSearch(id),
-  });
-
-  const deleteItem = (id: number, e: { stopPropagation: () => void }) => {
-    e.stopPropagation();
-    handleDelete(id);
-    setPrevSearchList((prev: any) =>
-      prev.filter((prevItem: { id: number }) => prevItem.id !== id)
-    );
-  };
-
   return (
     <>
       <div className={cn("itemsWrap")}>
-        {detail && Array.isArray(detail) && detail.length === 0 ? (
+        {detail &&
+        Array.isArray(detail) &&
+        detail.length === 0 &&
+        btnState === "" ? (
           <div className={cn("searchNo")}>연관된 장소가 없습니다</div>
         ) : detail !== null && btnState === "" ? (
           detail?.map((item: any, index: number) => (
