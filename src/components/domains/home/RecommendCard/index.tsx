@@ -35,10 +35,7 @@ export default function RecommendCard({
     }
   };
 
-  const { ref, handleDragStart, handleDrag, handleDragEnd } = useDrag(
-    onDragEnd,
-    true
-  );
+  const { ref, handleDragStart, handleDragEnd } = useDrag(onDragEnd, true);
 
   if (isLoading || !binDetailData) {
     return null;
@@ -48,7 +45,6 @@ export default function RecommendCard({
     <div
       ref={ref}
       onTouchStart={handleDragStart}
-      onTouchMove={handleDrag}
       onTouchEnd={handleDragEnd}
       className={cn("card-wrapper", { hidden: isCardHidden })}
     >
