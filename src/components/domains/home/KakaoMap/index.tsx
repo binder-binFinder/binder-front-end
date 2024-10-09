@@ -52,12 +52,17 @@ export default function KakaoMap({
 
   const [centerCoordinate, setCenterCoordinate] = useAtom(mapCenterCoordinate);
   const [showToast, toggleToastOpen, toggletoastClose] = useToggle(false);
-  const [toggleMyLocation, toggleMyLocationOpen, toggleMyLocationClose] =
-    useToggle(false);
+  const [
+    toggleMyLocation,
+    toggleMyLocationOpen,
+    toggleMyLocationClose,
+    toggleMyLocationToggle,
+  ] = useToggle(false);
   const [toggleAroundBin, toggleAroundBinOpen, toggleAroundBinClose] =
     useToggle(false);
   const [toggleBinInfo, toggleBinInfoOpen, toggleBinInfoClose] =
     useToggle(false);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const router = useRouter();
   const { query } = router;
 
@@ -114,7 +119,7 @@ export default function KakaoMap({
       ) {
         setCenterCoordinate(newCenterCoordinate);
         toggleAroundBinClose();
-        toggleMyLocationClose();
+        // toggleMyLocationClose();
       }
     }
   }, 500);
@@ -257,7 +262,6 @@ export default function KakaoMap({
 
         const newCoordinate = newLocationData[0];
         setCoordinate(newCoordinate);
-        toggleMyLocationOpen();
 
         panToCoordinate(mapRef.current, {
           latitude: newLocationData[0].x,
@@ -268,6 +272,7 @@ export default function KakaoMap({
       }
     } catch (error) {
       console.error("데이터 다시 불러오기 실패:", error);
+      toggleMyLocationClose();
     }
   };
 
@@ -304,6 +309,27 @@ export default function KakaoMap({
       </>
     );
   }
+
+  useEffect(() => {
+    if (toggleMyLocation) {
+      handleClickGetmyLocation();
+
+      const id = setInterval(() => {
+        handleClickGetmyLocation();
+      }, 5000);
+
+      setIntervalId(id);
+    } else if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [toggleMyLocation]);
   return (
     <>
       <BinTypeBtnList binType={binType!} onClick={handleClickSearchBintype} />
@@ -322,6 +348,7 @@ export default function KakaoMap({
         onClickGetmyLocation={handleClickGetmyLocation}
         toggleAroundBin={toggleAroundBin}
         toggleMyLocation={toggleMyLocation}
+        toggleMyLocationToggle={toggleMyLocationToggle}
         hasData={
           !isError && (bins?.length > 0 || (isSearch && choice.id !== 0))
         }

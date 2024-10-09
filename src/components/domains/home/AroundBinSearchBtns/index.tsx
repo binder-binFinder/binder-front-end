@@ -12,6 +12,7 @@ interface Props {
   toggleMyLocation: boolean;
   hasData: boolean;
   isCardHidden: boolean;
+  toggleMyLocationToggle: () => void;
 }
 
 export default function AroundBinSearchBtns({
@@ -19,6 +20,7 @@ export default function AroundBinSearchBtns({
   onClickGetmyLocation,
   toggleAroundBin,
   toggleMyLocation,
+  toggleMyLocationToggle,
   hasData,
   isCardHidden,
 }: Props) {
@@ -33,6 +35,7 @@ export default function AroundBinSearchBtns({
       });
     }
   };
+
   return (
     <article
       className={cn("btns-wrapper", !isCardHidden && hasData ? "hasBin" : "")}
@@ -56,7 +59,7 @@ export default function AroundBinSearchBtns({
         className={cn(
           !toggleMyLocation ? "my-location-btn" : "my-location-btn-on"
         )}
-        onClick={onClickGetmyLocation}
+        onClick={toggleMyLocationToggle}
       >
         {themeMode === "다크 모드" ? (
           <Image
