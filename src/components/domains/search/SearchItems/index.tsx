@@ -112,10 +112,11 @@ export default function SearchItems({
   }, [prevSearchRef, prevSearchData, fetchNextPage]);
 
   useEffect(() => {
-    if (isSuccess && prevSearchList !== null) {
+    if (isSuccess && prevSearchList !== null && lastId !== 0) {
       setPrevSearchList((prev) => [...prev, ...prevSearchData.pages.flat()]);
     } else if (isSuccess) {
-      setPrevSearchList(prevSearchData.pages);
+      console.log(prevSearchData);
+      setPrevSearchList(prevSearchData.pages[0]);
     }
   }, [isSuccess, prevSearchData, setPrevSearchList]);
 
