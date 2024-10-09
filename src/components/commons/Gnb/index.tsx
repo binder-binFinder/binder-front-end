@@ -80,7 +80,7 @@ export default function Gnb() {
   };
   return (
     <>
-      <div className={cn("gnbWrap")}>
+      <nav className={cn("gnbWrap")}>
         {router.asPath === "/mypage" && (
           <Link href={"/addbin"} className={cn("more")} onClick={handleAddBin}>
             <Image src={more} alt={"쓰레기통 작성"} fill sizes="52px" />
@@ -121,7 +121,7 @@ export default function Gnb() {
           </Link>
           <span>마이</span>
         </div>
-      </div>
+      </nav>
     </>
   );
 }
