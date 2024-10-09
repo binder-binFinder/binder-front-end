@@ -4,12 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 export default function EditBinsPage() {
-  const { query } = useRouter();
+  const router = useRouter();
 
   const { data: binDetailData } = useQuery({
-    queryKey: ["get-bin-detail", query?.id],
-    queryFn: () => getBinsId(query.id),
+    queryKey: ["get-bin-detail", router.query?.id],
+    queryFn: () => getBinsId(router.query.id),
   });
 
-  return <AddBinForm binDetail={binDetailData} />;
+  return <AddBinForm binDetail={binDetailData} toggleIsEdit={router.back} />;
 }
