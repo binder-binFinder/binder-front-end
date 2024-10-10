@@ -1,0 +1,10 @@
+.map-wrapper {
+  // position: relative;
+  width: 100%;
+  overscroll-behavior-y: none;
+  overflow: hidden;
+  height: calc(100vh - 7.6rem);
+  @include respondTo(small) {
+    height: calc(100vh - 8.32rem);
+  }
+}

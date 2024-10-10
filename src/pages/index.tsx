@@ -1,15 +1,11 @@
-import KakaoMap from "@/components/domains/home/KakaoMap";
-import styles from "@/components/domains/home/KakaoMap/KakaoMap.module.scss";
-import BtnField from "@/components/domains/home/KakaoMap/SearchBtn";
+import HomeLayOut from "@/components/domains/home/HomeLayOut";
 import Tutorial from "@/components/domains/home/Tutorial";
 import OnBoardingSlide from "@/components/domains/onboarding/OnBoardingSlide";
 import { onBoardingAtom, tutorialAtom } from "@/lib/atoms/atom";
-import classNames from "classnames/bind";
 import { useAtom } from "jotai";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useEffect } from "react";
 
-const cn = classNames.bind(styles);
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
@@ -44,10 +40,7 @@ export default function Home({
     <>
       {tutorial !== true && <Tutorial />}
       {onBoard !== true && <OnBoardingSlide />}
-      <section className={cn("map-wrapper")}>
-        <BtnField isAddBin={isAddBin} />
-        <KakaoMap isAddBin={isAddBin} isSearch={isSearch} />
-      </section>
+      <HomeLayOut isAddBin={isAddBin} isSearch={isSearch} />
     </>
   );
 }

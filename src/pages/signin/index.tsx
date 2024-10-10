@@ -12,8 +12,8 @@ const cn = classNames.bind(styles);
 
 export default function Signin() {
   const [themeMode] = useAtom(themeColor);
-
   const router = useRouter();
+
   const handleClickKakaoSignIn = () => {
     window.location.href = SOCIAL_LOGIN_URL + "/kakao";
   };

@@ -29,6 +29,7 @@ import { useDebounceCallback } from "usehooks-ts";
 import AroundBinSearchBtns from "../AroundBinSearchBtns";
 import BinTypeBtnList from "../BinTypeBtnList";
 import RecommendCard from "../RecommendCard";
+import classNames from "classnames/bind";
 
 export default function KakaoMap({
   isAddBin,
@@ -283,7 +284,7 @@ export default function KakaoMap({
           id="map"
           style={{
             width: "100%",
-            height: "calc(100vh - 8.32rem)",
+            height: "calc(100vh - 7.3rem)",
             zIndex: "0",
             position: "relative",
           }}
@@ -337,7 +338,7 @@ export default function KakaoMap({
         id="map"
         style={{
           width: "100%",
-          height: "calc(100vh - 8.32rem)",
+          height: "100%",
           zIndex: "0",
           position: "relative",
         }}
