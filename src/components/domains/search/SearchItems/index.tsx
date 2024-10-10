@@ -11,7 +11,7 @@ import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SearchDetail from "../SearchDetail";
 import SearchItem from "../SearchItem";
 import styles from "./SearchItem.module.scss";
@@ -49,13 +49,15 @@ export default function SearchItems({
   const handlePickPrev = (data: any) => {
     setPrevSearchPick(data);
   };
-
+  const btnStateBox = useMemo(() => {
+    return btnState + new Date();
+  }, [btnState]);
   const {
     data: prevSearchData,
     fetchNextPage,
     isSuccess,
   } = useInfiniteQuery({
-    queryKey: ["searchPrev", lastId],
+    queryKey: ["searchPrev", lastId, btnStateBox],
     queryFn: () => prevSearch(lastId),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
