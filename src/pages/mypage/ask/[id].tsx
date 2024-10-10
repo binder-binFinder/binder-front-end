@@ -38,7 +38,7 @@ export default function AskDetail() {
   });
 
   return (
-    <>
+    <section>
       <AdminPageBar />
       {isEdit ? (
         <AddBinForm
@@ -66,6 +66,6 @@ export default function AskDetail() {
           modalState={MODAL_CONTENTS.processingCompleted}
         />
       )}
-    </>
+    </section>
   );
 }

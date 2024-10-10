@@ -62,7 +62,7 @@ export default function MyPageSetting() {
     }
   }, [share]);
   return (
-    <div className={cn("findWrap")}>
+    <figure className={cn("findWrap")}>
       <SettingWrap
         handleDropShare={handleDropShare}
         logout={logout}
@@ -80,6 +80,6 @@ export default function MyPageSetting() {
       {dropShare && <Share modalClose={handleDropShare} setShare={setShare} />}
       {share && <ShareNoti />}
       {deleteModal && <DeleteMemberModal modalClose={deleteModalClose} />}
-    </div>
+    </figure>
   );
 }

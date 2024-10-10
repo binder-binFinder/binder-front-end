@@ -34,7 +34,7 @@ export default function Search() {
   }, []);
 
   return (
-    <>
+    <section>
       <SearchInput prevSearchPick={prevSearchPick} />
       <SearchToggle target={target} />
 
@@ -61,6 +61,6 @@ export default function Search() {
           display: btnState === "최근 검색" ? "block" : "none",
         }}
       ></div>
-    </>
+    </section>
   );
 }

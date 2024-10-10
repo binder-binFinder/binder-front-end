@@ -29,7 +29,6 @@ import { useDebounceCallback } from "usehooks-ts";
 import AroundBinSearchBtns from "../AroundBinSearchBtns";
 import BinTypeBtnList from "../BinTypeBtnList";
 import RecommendCard from "../RecommendCard";
-import classNames from "classnames/bind";
 
 export default function KakaoMap({
   isAddBin,
@@ -310,6 +309,14 @@ export default function KakaoMap({
       </>
     );
   }
+  // const mapDrag = getSwLatlng();
+  // const [prevMapDrag, setPrevMapDrag] = useState();
+  // console.log(mapDrag);
+  // useEffect(() => {
+  //   if (mapDrag !== prevMapDrag) {
+  //     toggleMyLocationClose();
+  //   }
+  // }, [mapDrag]);
 
   useEffect(() => {
     if (toggleMyLocation) {

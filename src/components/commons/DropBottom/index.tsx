@@ -1,12 +1,12 @@
-import close from "@/../public/images/dropClose.svg";
 import closeDark from "@/../public/images/dropClose-dark.svg";
+import close from "@/../public/images/dropClose.svg";
+import { themeColor } from "@/lib/atoms/atom";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import styles from "./dropBottom.module.scss";
-import { useAtom } from "jotai";
-import { themeColor } from "@/lib/atoms/atom";
 
 const cn = classNames.bind(styles);
 

@@ -48,8 +48,8 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
 
   return (
     <>
-      <div className={cn("profileWrap")}>
-        <div className={cn("imgEditWrap")} onClick={handleProfileEdit}>
+      <article className={cn("profileWrap")}>
+        <figure className={cn("imgEditWrap")} onClick={handleProfileEdit}>
           <div className={cn("profileImg")}>
             {image && (
               <Image
@@ -72,7 +72,7 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
               />
             </div>
           </div>
-        </div>
+        </figure>
 
         <div className={cn("profileName")}>
           {nick?.slice(0, 16)}
@@ -101,7 +101,7 @@ export default function MyPageProfile({ memberData }: ProfileProps) {
           height={30}
           onClick={handleNoti}
         />
-      </div>
+      </article>
 
       {profileEdit && (
         <DropProfileEdit

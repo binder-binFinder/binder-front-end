@@ -113,7 +113,7 @@ export default function SearchToggle({ target }: any) {
   };
 
   return (
-    <>
+    <article>
       <div className={cn("toggleWrap")}>
         <div
           className={
@@ -133,6 +133,6 @@ export default function SearchToggle({ target }: any) {
         </div>
       </div>
       {loginplzModal && <BookmarkNoti />}
-    </>
+    </article>
   );
 }

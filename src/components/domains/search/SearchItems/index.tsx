@@ -115,13 +115,12 @@ export default function SearchItems({
     if (isSuccess && prevSearchList !== null && lastId !== 0) {
       setPrevSearchList((prev) => [...prev, ...prevSearchData.pages.flat()]);
     } else if (isSuccess) {
-      console.log(prevSearchData);
       setPrevSearchList(prevSearchData.pages[0]);
     }
   }, [isSuccess, prevSearchData, setPrevSearchList]);
 
   return (
-    <>
+    <article>
       <div className={cn("itemsWrap")}>
         {detail &&
         Array.isArray(detail) &&
@@ -169,6 +168,6 @@ export default function SearchItems({
         )}
       </div>
       {loginModal && <BookmarkNoti />}
-    </>
+    </article>
   );
 }
