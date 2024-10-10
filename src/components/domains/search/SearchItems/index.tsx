@@ -55,7 +55,7 @@ export default function SearchItems({
     fetchNextPage,
     isSuccess,
   } = useInfiniteQuery({
-    queryKey: ["searchPrev", lastId],
+    queryKey: ["searchPrev", lastId, btnState],
     queryFn: () => prevSearch(lastId),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
