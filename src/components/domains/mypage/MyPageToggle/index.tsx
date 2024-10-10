@@ -10,7 +10,7 @@ const cn = classNames.bind(styles);
 export default function MyPageToggle() {
   const [menu, setMenu] = useAtom(myPageSetting);
   return (
-    <>
+    <article>
       <div className={cn("toggleWrap")}>
         <div className={cn("toggle")}>
           <div
@@ -36,6 +36,6 @@ export default function MyPageToggle() {
       </div>
 
       {menu === "활동내역" ? <MyPageFindBin /> : <MyPageSetting />}
-    </>
+    </article>
   );
 }

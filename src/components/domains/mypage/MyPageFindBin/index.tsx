@@ -8,7 +8,7 @@ const cn = classNames.bind(styles);
 export default function MyPageFindBin() {
   const [loginStates] = useAtom(loginState);
   return (
-    <>
+    <figure>
       <div className={cn("findWrap")}>
         {loginStates && (
           <>
@@ -19,6 +19,6 @@ export default function MyPageFindBin() {
           <CardList />
         </div>
       </div>
-    </>
+    </figure>
   );
 }
