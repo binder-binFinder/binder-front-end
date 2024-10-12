@@ -144,9 +144,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  & > img {
-    position: absolute;
-    bottom: 14rem;
+  & .bottomCard {
+    pointer-events: none;
+    & > div {
+      bottom: 12.5rem;
+    }
   }
   & .bubble {
     position: absolute;
