@@ -81,7 +81,7 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
   };
 
   const { data: searchAddress, isSuccess } = useQuery({
-    queryKey: ["searchAddress", coordinate, choicePlace],
+    queryKey: ["searchAddress", coordinate, choicePlace, debouncedSearchInput],
     queryFn: () =>
       getSearchKeyword(
         coordinate.y,
@@ -113,7 +113,7 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
   }, [prevSearchPick]);
 
   return (
-    <>
+    <article>
       <form className={cn("inputWrap")} onSubmit={handleSubmit(onSubmit)}>
         <div className={cn("inputInner")}>
           <button>
@@ -162,6 +162,6 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
           </li>
         ))}
       </ul>
-    </>
+    </article>
   );
 }

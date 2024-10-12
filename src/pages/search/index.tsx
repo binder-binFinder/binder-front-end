@@ -12,7 +12,7 @@ export default function Search() {
   const [detail, setDetail] = useAtom(searchDetailList);
   const [prevSearchPick, setPrevSearchPick] = useState<string>("");
   const target = useRef<HTMLDivElement>(null);
-  const [btnState] = useAtom(searchToggle);
+  const [btnState, setBtnState] = useAtom(searchToggle);
   const prevSearchRef = useRef<HTMLDivElement>(null);
 
   const { data: memberData } = useQuery({
@@ -31,10 +31,11 @@ export default function Search() {
 
   useEffect(() => {
     setDetail(null);
+    setBtnState("최근 검색");
   }, []);
 
   return (
-    <>
+    <section>
       <SearchInput prevSearchPick={prevSearchPick} />
       <SearchToggle target={target} />
 
@@ -61,6 +62,6 @@ export default function Search() {
           display: btnState === "최근 검색" ? "block" : "none",
         }}
       ></div>
-    </>
+    </section>
   );
 }

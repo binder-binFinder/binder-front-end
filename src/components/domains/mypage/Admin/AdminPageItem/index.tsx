@@ -63,7 +63,7 @@ export default function AdminPageItem({ title }: AdminProps) {
   };
 
   return (
-    <>
+    <article>
       <div className={cn("adminWrap")}>
         <div className={cn("adminTitleWrap")}>
           <div className={cn("adminTitle")}>
@@ -97,7 +97,7 @@ export default function AdminPageItem({ title }: AdminProps) {
       </div>
 
       {drop && <AdminFilter closeModal={handleDrop} pageFilter={filter} />}
-    </>
+    </article>
   );
 }
 // function askPageContext() {

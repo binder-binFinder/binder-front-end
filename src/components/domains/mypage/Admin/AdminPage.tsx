@@ -6,9 +6,9 @@ interface AdminPageProps {
 }
 export default function AdminPage({ title }: AdminPageProps) {
   return (
-    <>
+    <section>
       <AdminPageBar />
       <AdminPageItem title={title} />
-    </>
+    </section>
   );
 }

@@ -26,14 +26,14 @@ export default function MyPage() {
   }, [setLoginState, setIsAdmin, memberData]);
 
   return !!memberData ? (
-    <>
+    <section>
       <MyPageProfile memberData={memberData} />
       <MyPageToggle />
-    </>
+    </section>
   ) : (
-    <>
+    <section>
       <MyPageNologin />
       <MyPageToggle />
-    </>
+    </section>
   );
 }
