@@ -10,6 +10,7 @@ import { useToggle } from "@/lib/hooks/useToggle";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function AskDetail() {
   const router = useRouter();
@@ -36,6 +37,10 @@ export default function AskDetail() {
       return alert(error.response.data.message);
     },
   });
+
+  useEffect(() => {
+    setIsEdit(false);
+  }, []);
 
   return (
     <section>
