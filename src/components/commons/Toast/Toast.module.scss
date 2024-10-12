@@ -1,8 +1,9 @@
 .toast {
-  position: absolute;
-  bottom: 1rem;
+  position: fixed;
+  bottom: 9rem;
   width: calc(100% - 4rem);
-  left: 2rem;
+  max-width: 56rem;
+  margin-left: 2rem;
   padding: 1.6rem;
   border-radius: 1rem;
   background: rgba(77, 77, 77, 0.8);
