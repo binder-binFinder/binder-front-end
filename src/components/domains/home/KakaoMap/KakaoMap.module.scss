@@ -22,11 +22,12 @@
 
 .btn-field {
   @include flexbox();
-  position: absolute;
+  position: fixed;
   top: 2rem;
-  left: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: calc(100% - 4rem);
-  max-width: 60rem;
+  max-width: 58rem;
   gap: 1rem;
   z-index: 3;
   &.isAddBin {

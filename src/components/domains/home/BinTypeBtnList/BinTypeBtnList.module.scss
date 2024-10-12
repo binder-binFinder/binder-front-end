@@ -1,7 +1,8 @@
 .list {
   @include flexbox(start);
-  position: absolute;
+  position: fixed;
   width: calc(100% - 4rem);
+  max-width: 58rem;
   padding: 1.6rem 0.2rem;
   top: 7rem;
   left: calc(50%);
