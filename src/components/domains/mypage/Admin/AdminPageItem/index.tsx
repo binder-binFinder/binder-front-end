@@ -1,4 +1,5 @@
 import arrowGary from "@/../public/images/arrowGray.svg";
+import CardSkel from "@/components/Skeleton/CardSkel";
 import Card from "@/components/commons/Card";
 import AdminFilter from "@/components/commons/DropBottom/AdminFilter";
 import { getAdminBins } from "@/lib/apis/ask";
@@ -24,28 +25,34 @@ export default function AdminPageItem({ title }: AdminProps) {
 
   const router = useRouter();
   const filter = router.query.filter || "전체";
+  let isLoading = true;
+
   const binData = (() => {
     switch (router.pathname) {
       case "/mypage/ask":
-        const { data: ask } = useQuery({
+        const { data: ask, isLoading: isLoadingAsk } = useQuery({
           queryKey: ["ask", filter],
           queryFn: () => getAdminBins(filter),
         });
+        isLoading = isLoadingAsk; // 로딩 상태 업데이트
         const askCount = ask?.pendingCount;
         return [askCount, ask?.binRegistrationDetails];
+
       case "/mypage/fix":
-        const { data: fix } = useQuery({
+        const { data: fix, isLoading: isLoadingFix } = useQuery({
           queryKey: ["fix", filter],
           queryFn: () => getAdminBinsFix(filter),
         });
+        isLoading = isLoadingFix; // 로딩 상태 업데이트
         const fixCount = fix?.pendingCount;
         return [fixCount, fix?.binModificationDetails];
 
       default:
-        const { data: report } = useQuery({
+        const { data: report, isLoading: isLoadingReport } = useQuery({
           queryKey: ["report", filter],
           queryFn: () => getAdminBinsReport(filter),
         });
+        isLoading = isLoadingReport; // 로딩 상태 업데이트
         const reportCount = report?.pendingCount;
         return [reportCount, report?.binComplaintDetails];
     }
@@ -77,22 +84,33 @@ export default function AdminPageItem({ title }: AdminProps) {
         </div>
 
         <div className={cn("adminCardList")}>
-          {binData[1]?.map((item: any, index: number) => (
-            <div onClick={() => handleClickCard(item, item.binId)} key={index}>
-              <Card
-                binId={item.binId}
-                title={item.title}
-                address={item.address}
-                type={item.type}
-                status={item.status}
-                createdAt={item.createdAt}
-                nickname={item.nickname}
-                bookmarkCount={0}
-                admin={true}
-                complaintCount={item?.complaintCount}
-              />
-            </div>
-          ))}
+          {isLoading ? (
+            <>
+              {Array.from({ length: 5 }, (_, index) => (
+                <CardSkel key={index} />
+              ))}
+            </>
+          ) : (
+            binData[1]?.map((item: any, index: number) => (
+              <div
+                onClick={() => handleClickCard(item, item.binId)}
+                key={index}
+              >
+                <Card
+                  binId={item.binId}
+                  title={item.title}
+                  address={item.address}
+                  type={item.type}
+                  status={item.status}
+                  createdAt={item.createdAt}
+                  nickname={item.nickname}
+                  bookmarkCount={0}
+                  admin={true}
+                  complaintCount={item?.complaintCount}
+                />
+              </div>
+            ))
+          )}
         </div>
       </div>
 
