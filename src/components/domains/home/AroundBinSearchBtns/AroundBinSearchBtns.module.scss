@@ -1,14 +1,14 @@
 .btns-wrapper {
   @include flexbox(between);
   position: absolute;
-  bottom: 8rem;
+  bottom: 7rem;
   right: 2rem;
   width: calc(100% - 4rem);
   z-index: 6;
   opacity: 1;
 
   &.hasBin {
-    bottom: 20rem;
+    bottom: 18rem;
   }
 }
 

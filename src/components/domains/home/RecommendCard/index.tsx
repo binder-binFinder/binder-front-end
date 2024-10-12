@@ -46,16 +46,17 @@ export default function RecommendCard({
       ref={ref}
       onTouchStart={handleDragStart}
       onTouchEnd={handleDragEnd}
+      onClick={() => handleClickMarker(Number(binDataId))}
       className={cn("card-wrapper", { hidden: isCardHidden })}
     >
       <div className={cn("text-box")}>
         <span className={cn("recommend")}>추천</span>
-        <p className={cn("card-title")}>
-          {binDetailData.title}
-          <span onClick={() => handleClickMarker(Number(binDataId))}>
+        <div className={cn("card-title-box")}>
+          <p className={cn("card-title")}>{binDetailData.title}</p>
+          <span className={cn("card-title-arrow")}>
             <Image src={"/images/arrowRight.svg"} alt="자세히 보기" fill />
           </span>
-        </p>
+        </div>
         <div className={cn("address-box")}>
           <Image
             alt="위치 표시 핀"
