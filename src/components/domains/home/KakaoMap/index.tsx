@@ -338,6 +338,7 @@ export default function KakaoMap({
       }
     };
   }, [toggleMyLocation]);
+
   return (
     <>
       <BinTypeBtnList binType={binType!} onClick={handleClickSearchBintype} />
@@ -350,6 +351,7 @@ export default function KakaoMap({
           position: "relative",
         }}
         ref={mapRef}
+        onClick={() => setIsCardHidden(true)}
       ></div>
       <AroundBinSearchBtns
         onClickGetAroundBinData={handleClickGetAroundBinData}

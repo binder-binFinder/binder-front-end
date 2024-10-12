@@ -1,0 +1,189 @@
+.card-wrapper {
+  position: relative;
+
+  border-radius: 1.4rem;
+  background: var(--white);
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 1rem;
+  padding: 2rem;
+
+  width: 100%;
+  animation: skeleton 2s infinite linear;
+  &:disabled {
+    background: var(--card-disabled);
+    > img {
+      filter: grayscale(0.97) brightness(125%);
+    }
+    & p,
+    h4 {
+      color: var(--card-title) !important;
+    }
+    & .card-tag {
+      opacity: 0.5;
+    }
+  }
+}
+
+.card-text-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  line-height: 1;
+}
+
+.card-title-box {
+  width: 100%;
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-tag {
+  padding: 0.3rem 1.2rem;
+  margin-top: -0.4rem;
+  border-radius: 1.8rem;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: -0.014rem;
+  margin-right: 0.5rem;
+  display: block;
+  width: 150%;
+  height: 2rem;
+  border-radius: 1rem;
+  background-color: var(--black);
+  opacity: 0.6;
+  @include respondTo(small) {
+    font-size: 1.6rem;
+  }
+
+  &.DELETE {
+    background: var(--card-address);
+    color: var(--cart-text);
+  }
+  &.PENDING {
+    background: var(--card-address);
+    color: var(--cart-text);
+  }
+  &.APPROVED {
+    background: var(--card-approve);
+    color: var(--cart-text2);
+  }
+  &.REJECTED {
+    color: var(--cart-text2);
+    background: var(--card-reject);
+  }
+  &.bin {
+    color: var(--d9d9d9);
+    background: var(--white);
+    border: 0.1rem solid var(--d9d9d9);
+  }
+}
+
+.card-title {
+  color: var(--green90);
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.017rem;
+  width: 30%;
+  height: 2rem;
+  border-radius: 1rem;
+  background-color: var(--black);
+  opacity: 0.6;
+
+  @include respondTo(small) {
+    font-size: 1.9rem;
+  }
+}
+
+.card-likes {
+  // width: 25%;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.0225rem;
+  @include respondTo(small) {
+    font-size: 1.7rem;
+  }
+
+  > img {
+    filter: invert(99%) sepia(0%) saturate(0%) hue-rotate(190deg)
+      brightness(90%) contrast(91%);
+  }
+
+  &.mylike {
+    color: var(--green);
+
+    > img {
+      filter: invert(59%) sepia(8%) saturate(765%) hue-rotate(107deg)
+        brightness(94%) contrast(93%);
+    }
+  }
+  & .isReport {
+    filter: none;
+  }
+  &.admin {
+    color: var(--green);
+  }
+
+  color: var(--d9d9d9);
+}
+
+.card-address {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: -0.016rem;
+  color: var(--card-address);
+  width: 40%;
+  height: 2rem;
+  border-radius: 1rem;
+  background-color: var(--black);
+  opacity: 0.6;
+  @include respondTo(small) {
+    font-size: 1.8rem;
+  }
+}
+
+.card-createdAt {
+  // position: absolute;
+  // bottom: 2rem;
+  // right: 2rem;
+  color: var(--createat);
+  text-align: right;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: -0.0195rem;
+  width: 20%;
+  height: 2rem;
+  border-radius: 1rem;
+  background-color: var(--black);
+  opacity: 0.6;
+  @include respondTo(small) {
+    font-size: 1.5rem;
+  }
+}
+.card-bottom {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@keyframes skeleton {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
