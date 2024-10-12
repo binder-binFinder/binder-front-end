@@ -323,7 +323,7 @@ export default function KakaoMap({
       handleClickGetmyLocation();
       const id = setInterval(() => {
         handleClickGetmyLocation();
-      }, 5000);
+      }, 3000);
 
       handleClickGetmyLocation();
       setIntervalId(id);
