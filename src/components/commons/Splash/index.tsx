@@ -20,6 +20,7 @@ export default function Splash() {
       setLoading(false); // 3초 후 로딩 종료
     }, 3000);
     //  }
+
   }, []);
 
   return (
