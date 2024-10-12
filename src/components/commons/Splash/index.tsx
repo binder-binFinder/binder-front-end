@@ -1,4 +1,4 @@
-import logo from "@/../public/images/logo.svg";
+import logo from "@/../public/images/logo-144-full.png";
 import classNames from "classnames/bind";
 import Cookies from "js-cookie";
 import Image from "next/image";
@@ -26,8 +26,8 @@ export default function Splash() {
     loading && (
       <div className={cn("splashWrap")}>
         <div>
-          <Image src={logo} alt="로고" width={120} height={39} />
-          <p>앗! 쓰레기통이다</p>
+          <Image src={logo} alt="로고" width={144} height={144} />
+          {/* <p>앗! 쓰레기통이다</p> */}
         </div>
         <div className={cn("version")}>Ver. 01</div>
       </div>
