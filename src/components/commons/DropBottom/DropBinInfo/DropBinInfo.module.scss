@@ -70,7 +70,7 @@
       z-index: 3;
       gap: 2rem;
       .title {
-        width: calc(100% - 8.2rem);
+        width: calc(100%);
       }
       & .bintype-tag {
         display: none;
@@ -88,6 +88,10 @@
       margin-top: 11rem;
     }
   }
+}
+.title-text {
+  max-width: calc(100% - 4rem - 8.3rem);
+  min-width: calc(100% - 4rem - 8.3rem);
 }
 
 .drag-btn {
