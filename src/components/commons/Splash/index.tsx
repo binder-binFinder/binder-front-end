@@ -15,7 +15,7 @@ export default function Splash() {
 
     if (hasVisited !== "true") {
       setLoading(true); // 처음 방문할 때만 로딩 화면을 보여줌
-      Cookies.set("visited", "true", { expires: 1 }); // 쿠키 설정
+      // Cookies.set("visited", "true", { expires: 1 }); // 쿠키 설정
       setTimeout(() => {
         setLoading(false); // 3초 후 로딩 종료
       }, 3000);
