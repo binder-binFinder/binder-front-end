@@ -12,12 +12,18 @@
   z-index: 99;
   opacity: 0;
   animation: fadeOut 4s;
-
+  & img {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   & p {
     color: var(--splash-text);
     text-align: center;
     font-size: 1.4rem;
     line-height: 20px;
+    margin-top: -3rem;
   }
 }
 .version {
