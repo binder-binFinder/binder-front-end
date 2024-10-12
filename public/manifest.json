@@ -2,7 +2,7 @@
   "name": "쓰레기통 알리미! binder",
   "short_name": "binder",
   "description": "쓰레기통 알리미! binder",
-  "theme_color": "#ffc211",
+  "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
