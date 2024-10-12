@@ -1,17 +1,18 @@
 .card-wrapper {
   @include flexbox(between, start);
-  position: absolute;
+  position: fixed;
   padding: 2.2rem 1.7rem 1.5rem;
   border-radius: 1rem;
   width: calc(100% - 4rem);
-  bottom: 1rem;
+  max-width: 56rem;
+  margin-left: 2rem;
+  bottom: 9rem;
 
-  left: 2rem;
   background-color: var(--white);
   box-shadow: 0px 1px 4px 0px #c8d0cd;
   z-index: 3;
-  transition: transform 0.3s ease;
   transform: translateY(var(--translate-y, 0));
+  transition: transform 0.3s ease;
 
   &.is-dragging {
     transition: none;
