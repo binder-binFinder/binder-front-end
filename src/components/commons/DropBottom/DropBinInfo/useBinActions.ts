@@ -23,7 +23,6 @@ export const useBinActions = (
     enabled: !!binId,
   });
 
-  console.log(binDetailData);
   const { mutate: postBookmarkMutate } = useMutation({
     mutationFn: () => postMyBookmark(binId),
     onSuccess: () => {

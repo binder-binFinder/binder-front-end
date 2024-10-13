@@ -45,7 +45,6 @@ export default function CommentList({ binId, isFill }: Props) {
     },
   });
 
-  console.log("ccc", commentsListData);
   const handleClickSortType = (listSortType: SortType) => {
     setSortType(listSortType);
   };

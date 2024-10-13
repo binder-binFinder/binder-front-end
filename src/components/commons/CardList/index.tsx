@@ -35,7 +35,6 @@ export default function CardList() {
   const handleClickCard = (id: string) => {
     router.push(router.route + "/detail/" + id);
   };
-  console.log(isLoading);
   return (
     <ul className={cn("card-list")}>
       {cardLists === null ? (
