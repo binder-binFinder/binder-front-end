@@ -84,6 +84,7 @@ export default function KakaoMap({
       setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
     } else if (locationData && Array.isArray(locationData)) {
       setNewAddAddress({ roadAddress: "", address: "" });
+      setNewAddCoordinate({ x: 0, y: 0 });
       setCoordinate(locationData[0]);
       setCenterCoordinate(locationData[0]);
     }
