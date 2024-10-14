@@ -11,7 +11,7 @@
 .inputInner {
   width: 100%;
   max-width: 60rem;
-  min-width: 35.6rem;
+  // min-width: 35.6rem;
   height: 4.9rem;
   border-radius: 1rem;
   background: var(--input-bg);
@@ -36,7 +36,7 @@
 .searchList {
   width: calc(100% - 3.4rem);
   max-width: 56.6rem;
-  min-width: 35.6rem;
+  // min-width: 35.6rem;
   max-height: 17.7rem;
   overflow-y: auto;
   background-color: var(--white);
@@ -77,7 +77,7 @@
 .searchListNone {
   width: calc(100% - 3.4rem);
   max-width: 56.6rem;
-  min-width: 35.6rem;
+  // min-width: 35.6rem;
   overflow-y: auto;
   background-color: var(--white);
   position: absolute;
