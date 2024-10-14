@@ -1,7 +1,7 @@
 .detailWrap {
   width: 100%;
   max-width: 60rem;
-  min-width: 39rem;
+  // min-width: 34rem;
   height: 7.6rem;
   padding: 1.8rem 1.7rem;
   border: 1px solid var(--comment-modal-bg);
@@ -14,7 +14,7 @@
   }
 }
 .detailMain {
-  width: 60%;
+  width: 50%;
   flex: 1;
   display: flex;
   flex-direction: column;
