@@ -36,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       </label>
       {id === "address" && (
         <Link
+          className={cn("addbin-input-search-button")}
           href={{
             pathname: "/",
             query: {
@@ -45,11 +46,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             },
           }}
         >
-          <button className={cn("addbin-input-search-button")}>
-            <div>
-              <Image src={"/images/search.svg"} alt="검색으로 이동하기" fill />
-            </div>
-          </button>
+          <div>
+            <Image src={"/images/search.svg"} alt="검색으로 이동하기" fill />
+          </div>
         </Link>
       )}
       {!!onClickDelete && (

@@ -84,6 +84,7 @@ export default function KakaoMap({
       setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
     } else if (locationData && Array.isArray(locationData)) {
       setNewAddAddress({ roadAddress: "", address: "" });
+      setNewAddCoordinate({ x: 0, y: 0 });
       setCoordinate(locationData[0]);
       setCenterCoordinate(locationData[0]);
     }
@@ -113,16 +114,19 @@ export default function KakaoMap({
         x: center.getLat(),
         y: center.getLng(),
       };
+
       if (
         newCenterCoordinate.x !== centerCoordinate.x ||
         newCenterCoordinate.y !== centerCoordinate.y
       ) {
         setCenterCoordinate(newCenterCoordinate);
         toggleAroundBinClose();
-        // toggleMyLocationClose();
       }
     }
-  }, 500);
+  }, 200);
+
+
+
   const handleMarkerClick = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "Marker_click", {
@@ -338,6 +342,7 @@ export default function KakaoMap({
       }
     };
   }, [toggleMyLocation]);
+
   return (
     <>
       <BinTypeBtnList binType={binType!} onClick={handleClickSearchBintype} />
@@ -350,6 +355,7 @@ export default function KakaoMap({
           position: "relative",
         }}
         ref={mapRef}
+        onClick={() => setIsCardHidden(true)}
       ></div>
       <AroundBinSearchBtns
         onClickGetAroundBinData={handleClickGetAroundBinData}

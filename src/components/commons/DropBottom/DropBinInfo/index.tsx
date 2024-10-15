@@ -194,9 +194,7 @@ export default function DropBinInfo({
               />
               {binDetailData?.address}
             </p>
-            <p className={cn("bintype-tag")}>
-              {binType(binDetailData?.binType)}
-            </p>
+            <p className={cn("bintype-tag")}>{binType(binDetailData?.type)}</p>
           </div>
           <div className={cn("title-btn-field")}>
             <Link
