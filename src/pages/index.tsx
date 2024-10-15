@@ -3,29 +3,17 @@ import Tutorial from "@/components/domains/home/Tutorial";
 import OnBoardingSlide from "@/components/domains/onboarding/OnBoardingSlide";
 import { onBoardingAtom, tutorialAtom } from "@/lib/atoms/atom";
 import { useAtom } from "jotai";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const { query } = context;
-  const isAddBin = query.addBin === "true";
-
-  return {
-    props: {
-      isAddBin,
-    },
-  };
-};
-
 export default function Home({
-  isAddBin,
   isSearch = false,
 }: {
   isAddBin: boolean;
   isSearch?: boolean;
 }) {
+  const router = useRouter();
+  const { addBin } = router.query;
   const [tutorial] = useAtom(tutorialAtom);
   const [onBoard] = useAtom(onBoardingAtom);
 
@@ -40,7 +28,7 @@ export default function Home({
     <>
       {tutorial !== true && <Tutorial />}
       {onBoard !== true && <OnBoardingSlide />}
-      <HomeLayOut isAddBin={isAddBin} isSearch={isSearch} />
+      <HomeLayOut isAddBin={addBin === "true"} isSearch={isSearch} />
     </>
   );
 }
