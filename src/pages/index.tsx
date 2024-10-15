@@ -19,14 +19,15 @@ export default function Home({ isSearch = false }: { isSearch?: boolean }) {
     };
   }, []);
 
-  return (
-    <>
-      {tutorial !== true && <Tutorial />}
-      {onBoard !== true && <OnBoardingSlide />}
-      <HomeLayOut
-        isAddBin={!!addBin && addBin === "true"}
-        isSearch={isSearch}
-      />
-    </>
-  );
+  if (!!addBin) {
+    return (
+      <>
+        {tutorial !== true && <Tutorial />}
+        {onBoard !== true && <OnBoardingSlide />}
+        <HomeLayOut isAddBin={false} isSearch={isSearch} />
+      </>
+    );
+  }
+
+  return <HomeLayOut isAddBin={addBin === "true"} isSearch={isSearch} />;
 }
