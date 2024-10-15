@@ -16,6 +16,7 @@ export const initMap = (kakao: any, coordinate: { x: number; y: number }) => {
   //   swLatlng = bounds.getSouthWest();
   // });
 
+
   return map;
 };
 
