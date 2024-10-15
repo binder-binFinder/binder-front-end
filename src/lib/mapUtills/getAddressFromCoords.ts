@@ -3,9 +3,6 @@ const getAddressFromCoords = (
   coordinate: { x: number; y: number },
   callback: (address: string) => void
 ) => {
-  if (!kakao.maps.services && !kakao.maps.services.Geocoder) {
-    console.log("kakao map load 오류");
-  }
   const geocoder = new kakao.maps.services.Geocoder();
   const coord = new kakao.maps.LatLng(coordinate.x, coordinate.y);
 
