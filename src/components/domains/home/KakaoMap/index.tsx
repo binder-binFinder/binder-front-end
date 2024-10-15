@@ -114,6 +114,7 @@ export default function KakaoMap({
         x: center.getLat(),
         y: center.getLng(),
       };
+
       if (
         newCenterCoordinate.x !== centerCoordinate.x ||
         newCenterCoordinate.y !== centerCoordinate.y
@@ -123,7 +124,7 @@ export default function KakaoMap({
         // toggleMyLocationClose();
       }
     }
-  }, 500);
+  }, 50);
   const handleMarkerClick = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "Marker_click", {
