@@ -121,10 +121,9 @@ export default function KakaoMap({
       ) {
         setCenterCoordinate(newCenterCoordinate);
         toggleAroundBinClose();
-        // toggleMyLocationClose();
       }
     }
-  }, 600);
+  }, 200);
 
 
 
