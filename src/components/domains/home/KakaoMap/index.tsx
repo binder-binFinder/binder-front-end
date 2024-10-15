@@ -124,7 +124,7 @@ export default function KakaoMap({
         // toggleMyLocationClose();
       }
     }
-  }, 300);
+  }, 600);
 
   const handleMarkerClick = () => {
     if (typeof window !== "undefined" && window.gtag) {
