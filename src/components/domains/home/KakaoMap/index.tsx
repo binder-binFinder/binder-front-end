@@ -127,6 +127,7 @@ export default function KakaoMap({
   }, 300);
 
 
+
   const handleMarkerClick = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "Marker_click", {
