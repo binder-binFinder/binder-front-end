@@ -6,12 +6,7 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export default function Home({
-  isSearch = false,
-}: {
-  isAddBin: boolean;
-  isSearch?: boolean;
-}) {
+export default function Home({ isSearch = false }: { isSearch?: boolean }) {
   const router = useRouter();
   const { addBin } = router.query;
   const [tutorial] = useAtom(tutorialAtom);
