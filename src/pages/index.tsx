@@ -23,7 +23,10 @@ export default function Home({ isSearch = false }: { isSearch?: boolean }) {
     <>
       {tutorial !== true && <Tutorial />}
       {onBoard !== true && <OnBoardingSlide />}
-      <HomeLayOut isAddBin={addBin === "true"} isSearch={isSearch} />
+      <HomeLayOut
+        isAddBin={!!addBin && addBin === "true"}
+        isSearch={isSearch}
+      />
     </>
   );
 }
