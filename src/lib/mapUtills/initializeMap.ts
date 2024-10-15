@@ -24,7 +24,7 @@ export const initializeMap = (
   handleClickMarker?: (id: number) => void,
   choice?: any
 ) => {
-  if (window.kakao && window.kakao.maps) {
+  if (!!window.kakao && !!window.kakao.maps) {
     const map = initMap(
       window.kakao,
       isSearch ? { x: choice.latitude, y: choice.longitude } : coordinate

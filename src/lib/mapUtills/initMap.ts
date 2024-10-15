@@ -11,10 +11,11 @@ export const initMap = (kakao: any, coordinate: { x: number; y: number }) => {
   map.addOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN);
   map.setMaxLevel(4);
 
-  kakao.maps.event.addListener(map, "bounds_changed", function () {
-    const bounds = map.getBounds();
-    swLatlng = bounds.getSouthWest();
-  });
+  // kakao.maps.event.addListener(map, "bounds_changed", function () {
+  //   const bounds = map.getBounds();
+  //   swLatlng = bounds.getSouthWest();
+  // });
+
 
   return map;
 };
