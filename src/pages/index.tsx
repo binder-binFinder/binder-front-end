@@ -31,4 +31,5 @@ export default function Home({ isSearch = false }: { isSearch?: boolean }) {
 
   return <HomeLayOut isAddBin={addBin === "true"} isSearch={isSearch} />;
 
+
 }
