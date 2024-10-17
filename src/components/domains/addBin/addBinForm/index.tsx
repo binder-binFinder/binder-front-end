@@ -22,7 +22,7 @@ import classNames from "classnames/bind";
 import { useAtom } from "jotai";
 import Router from "next/router";
 import { FocusEventHandler, useEffect, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
 import styles from "./AddBinForm.module.scss";
 import ImgInput from "./ImgInput";
 import Input from "./Input";
@@ -58,13 +58,18 @@ export default function AddBinForm({
     defaultValues: { binType: "", title: "", imageUrl: "" },
   });
 
-  const handleDisabledSubmit = () => {
-    if (errors.address || errors.binType || errors.title) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const watchedFields = useWatch({
+    control,
+    name: ["address", "binType", "title"],
+  });
+
+  const isDisabled =
+    !watchedFields[0] ||
+    !watchedFields[1] ||
+    !watchedFields[2] ||
+    !!errors.address ||
+    !!errors.binType ||
+    !!errors.title;
 
   useEffect(() => {
     if (!!binDetail) {
@@ -114,61 +119,56 @@ export default function AddBinForm({
       type: data.binType,
       registrationId: binDetail?.registrationId || null,
       modificationId: binDetail?.modificationId || null,
+      latitude: newCoordinate?.x || binDetail?.latitude || coordinate?.x,
+      longitude: newCoordinate?.y || binDetail?.longitude || coordinate?.y,
     };
 
-    if (!!binDetail) {
-      postData.latitude = newCoordinate?.x || binDetail.latitude;
-      postData.longitude = newCoordinate?.y || binDetail.longitude;
+    if (binDetail) {
       setEditPostData(postData);
     } else {
-      postData.latitude = newCoordinate?.x || coordinate?.x;
-      postData.longitude = newCoordinate?.y || coordinate?.y;
       submitAddbin(postData);
     }
   };
 
+  const handleSuccess = () => {
+    openModal();
+    setNewAddress({ roadAddress: "", address: "" });
+    setNewCoordinate({ x: 0, y: 0 });
+  };
+
+  const handleError = (error: any) => {
+    alert(error.response?.data?.message || "An error occurred");
+  };
+
   const { mutate: submitAddbin } = useMutation({
     mutationKey: ["post-add-bin"],
-    mutationFn: (data: PostAddbinValues) => postAddbin(data),
-
+    mutationFn: postAddbin,
     onSuccess: () => {
-      openModal();
-      setNewAddress({ roadAddress: "", address: "" });
-      setNewCoordinate({ x: 0, y: 0 });
+      handleSuccess();
       handleAddBinFinish();
     },
   });
 
   const { mutate: submitEditbin } = useMutation({
-    mutationKey: ["petch-edit-bin", binDetail?.id],
+    mutationKey: ["patch-edit-bin", binDetail?.id],
     mutationFn: (data) => patchEditbin(binDetail?.id!, data),
-    onSuccess: () => {
-      closeDropBottom();
-      openModal();
-      setNewAddress({ roadAddress: "", address: "" });
-      setNewCoordinate({ x: 0, y: 0 });
-    },
-    onError: (error: any) => alert(error.response.data.message),
+    onSuccess: handleSuccess,
+    onError: handleError,
   });
 
   const { mutate: patchBinAdminMutate } = useMutation({
-    mutationKey: ["petch-admin-edit-bin", binDetail?.id],
+    mutationKey: ["patch-admin-edit-bin", binDetail?.id],
     mutationFn: (data) =>
       patchBinAdmin(binDetail?.binId || binDetail?.id!, data),
-    onSuccess: () => {
-      closeDropBottom();
-      openModal();
-      setNewAddress({ roadAddress: "", address: "" });
-      setNewCoordinate({ x: 0, y: 0 });
-    },
-    onError: (error: any) => alert(error.response.data.message),
+    onSuccess: handleSuccess,
+    onError: handleError,
   });
 
-  const handleClickEditSubmit = (data: string) => {
-    setReason(data);
-    setEditPostData((prevData: PostAddbinValues) => ({
+  const handleClickEditSubmit = (modificationReason: string) => {
+    setReason(modificationReason);
+    setEditPostData((prevData: any) => ({
       ...prevData,
-      modificationReason: data,
+      modificationReason,
     }));
   };
 
@@ -177,6 +177,7 @@ export default function AddBinForm({
       isAdmin ? patchBinAdminMutate(editPostData) : submitEditbin(editPostData);
     }
   }, [editPostData]);
+
   const handleAddBinFinish = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "add_bin_form_submit_click", {
@@ -186,6 +187,7 @@ export default function AddBinForm({
       });
     }
   };
+
   return (
     <>
       {!!binDetail && (
@@ -264,16 +266,13 @@ export default function AddBinForm({
               status="editComplete"
               type="submit"
               onClick={openDropBottom}
+              disabled={isDisabled}
             >
               수정 완료
             </Button>
           </article>
         ) : (
-          <Button
-            status="primary"
-            type="submit"
-            disabled={handleDisabledSubmit()}
-          >
+          <Button status="primary" type="submit" disabled={isDisabled}>
             위치 등록하기
           </Button>
         )}

@@ -12,7 +12,7 @@
   align-items: center;
   padding: 1.6rem 3.5rem;
   background: var(--white);
-  box-shadow: 0px 0px 10px 0px #b8c4c0;
+  box-shadow: 0px 0px 10px 0px var(--gnb-shadow);
   transform: translateX(-50%);
   z-index: 10;
   @include respondTo(small) {
@@ -36,7 +36,7 @@
   flex-direction: column;
   font-size: 1.2rem;
   font-weight: 500;
-  color: var(--black);
+  color: var(--noti-date);
   @include respondTo(small) {
     font-size: 1.35rem;
   }

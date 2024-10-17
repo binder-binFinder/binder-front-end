@@ -3,21 +3,25 @@ const getAddressFromCoords = (
   coordinate: { x: number; y: number },
   callback: (address: string) => void
 ) => {
-  const geocoder = new kakao.maps.services.Geocoder();
-  const coord = new kakao.maps.LatLng(coordinate.x, coordinate.y);
+  if (!!kakao.maps.services && !!kakao.maps.services.Geocoder) {
+    const geocoder = new kakao.maps.services.Geocoder();
+    const coord = new kakao.maps.LatLng(coordinate.x, coordinate.y);
 
-  geocoder.coord2Address(
-    coord.getLng(),
-    coord.getLat(),
-    (result: any, status: any) => {
-      if (status === kakao.maps.services.Status.OK) {
-        const getAddress = result[0];
-        callback(getAddress);
-      } else {
-        console.error("역지오코딩 실패", status);
+    geocoder.coord2Address(
+      coord.getLng(),
+      coord.getLat(),
+      (result: any, status: any) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const getAddress = result[0];
+          callback(getAddress);
+        } else {
+          console.error("역지오코딩 실패", status);
+        }
       }
-    }
-  );
+    );
+  } else {
+    console.log("can not find geocoder");
+  }
 };
 
 const filterAddress = (address: string) => {

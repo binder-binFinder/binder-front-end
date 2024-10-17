@@ -19,7 +19,7 @@ export interface InputProps
 export interface AddbinFormValues {
   address: string;
   title: string;
-  binType?: string;
+  binType: string;
   imageUrl?: string;
 }
 

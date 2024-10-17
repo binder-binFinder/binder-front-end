@@ -1,15 +1,15 @@
 .button {
   border-radius: 1rem;
-  border: 1px solid var(--d9d9d9);
+  border: 1px solid var(--btn-none-selected-b);
   padding: 1.1rem 1.4rem;
 
-  color: var(--btn-color);
+  color: var(--btn-none-selected);
   text-align: center;
   font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: -0.016rem;
   line-height: 1.1;
-  background-color: var(--white);
+  background-color: var(--input-bg);
 
   &.selected {
     color: var(--btn-selected);
