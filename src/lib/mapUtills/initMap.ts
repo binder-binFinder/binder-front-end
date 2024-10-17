@@ -9,7 +9,7 @@ export const initMap = (kakao: any, coordinate: { x: number; y: number }) => {
     };
 
     const map = new kakao.maps.Map(container, options);
-    map.addOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN);
+    //map.addOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN);
     map.setMaxLevel(4);
 
     // kakao.maps.event.addListener(map, "bounds_changed", function () {
