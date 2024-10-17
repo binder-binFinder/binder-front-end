@@ -3,19 +3,6 @@ import { fetchAddressFromCoords } from "./getAddressFromCoords";
 import { initMap } from "./initMap";
 import { addMyLocationMarker, updateMarkers } from "./markers";
 
-// isSearch가 true일 때의 지도 초기화 로직
-const initSearchMap = (
-  isSearch: boolean,
-  choice: any,
-  map: any,
-  handleClickMarker: (id: number) => void,
-  binkMarkerRef: MutableRefObject<any>
-) => {
-  if (isSearch) {
-    updateMarkers([choice], map, handleClickMarker, binkMarkerRef);
-  }
-};
-
 export const initializeMap = (
   coordinate: { x: number; y: number },
   setAddress: any,
@@ -31,7 +18,7 @@ export const initializeMap = (
     );
 
     if (isSearch && handleClickMarker) {
-      initSearchMap(isSearch, choice, map, handleClickMarker, binkMarkerRef!);
+      updateMarkers([choice], map, handleClickMarker, binkMarkerRef!);
     } else {
       const myLocationMarker = addMyLocationMarker(
         map,
