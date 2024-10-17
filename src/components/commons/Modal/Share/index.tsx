@@ -1,10 +1,13 @@
 import close from "@/../public/images/dropClose.svg";
+import closeDark from "@/../public/images/dropClose-dark.svg";
 import kakao from "@/../public/images/kakao.svg";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { useEffect } from "react";
 import Portal from "../Portal";
 import styles from "./Share.module.scss";
+import { useAtom } from "jotai";
+import { themeColor } from "@/lib/atoms/atom";
 
 const cn = classNames.bind(styles);
 
@@ -14,6 +17,7 @@ interface IModalProps {
 }
 
 export default function Share({ modalClose, setShare }: IModalProps) {
+  const [theme] = useAtom(themeColor);
   const copyURL = () => {
     const currentUrl = "https://www.bin-finder.net/";
     navigator.clipboard
@@ -69,7 +73,12 @@ export default function Share({ modalClose, setShare }: IModalProps) {
         <div className={cn("shareWrap")}>
           <div className={cn("shareTitle")}>Binder 공유하기</div>
           <div className={cn("shareClose")} onClick={modalClose}>
-            <Image src={close} fill alt="닫기" sizes="35px" />
+            <Image
+              src={theme === "라이트 모드" ? close : closeDark}
+              fill
+              alt="닫기"
+              sizes="35px"
+            />
           </div>
 
           <div onClick={handleKakao}>
