@@ -18,7 +18,7 @@
   @include flexbox();
   gap: 0.7rem;
   padding: 1.2rem 2.4rem;
-  color: var(--state-btn);
+  color: var(--home-search-btn);
   font-size: 1.5rem;
   line-height: 2rem; /* 166.667% */
   letter-spacing: -0.015rem;
@@ -30,6 +30,7 @@
   &.on {
     filter: grayscale(0);
     box-shadow: 0px 1px 6px 0px #c8d0cd;
+    color: var(--selected-home-search-btn);
   }
 
   @include respondTo(small) {

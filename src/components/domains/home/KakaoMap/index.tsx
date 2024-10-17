@@ -47,9 +47,7 @@ export default function KakaoMap({
   const [binType, setBinType] = useState<
     null | BinItemType["id"] | "isBookmarked"
   >(null);
-
   const [selectedBinId, setSelectedBinId] = useState<number | null>(null);
-
   const [centerCoordinate, setCenterCoordinate] = useAtom(mapCenterCoordinate);
   const [showToast, toggleToastOpen, toggletoastClose] = useToggle(false);
   const [
@@ -73,22 +71,28 @@ export default function KakaoMap({
   });
 
   useEffect(() => {
-    if (!!query.latitude && !!query.longitude) {
+    if (query.latitude && query.longitude) {
       setNewAddAddress({ roadAddress: "", address: "" });
       setNewAddCoordinate({ x: 0, y: 0 });
       setCoordinate({
         x: Number(query.latitude),
         y: Number(query.longitude),
       });
-    } else if (isSearch && (choice.latitude !== 0, choice.longitude !== 0)) {
+    } else return;
+  }, [query]);
+
+  useEffect(() => {
+    if (isSearch && choice.latitude !== 0 && choice.longitude !== 0) {
       setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
-    } else if (locationData && Array.isArray(locationData)) {
-      setNewAddAddress({ roadAddress: "", address: "" });
-      setNewAddCoordinate({ x: 0, y: 0 });
+    } else return;
+  }, [isSearch, choice]);
+
+  useEffect(() => {
+    if (locationData && Array.isArray(locationData)) {
       setCoordinate(locationData[0]);
       setCenterCoordinate(locationData[0]);
     }
-  }, [locationData, isSearch, query]);
+  }, [locationData]);
 
   const {
     data: binData,
@@ -107,26 +111,6 @@ export default function KakaoMap({
     }
   }, [showToast]);
 
-  const debouncedHandleCenterChanged = useDebounceCallback(() => {
-    if (mapRef.current) {
-      const center = mapRef.current.getCenter();
-      const newCenterCoordinate = {
-        x: center.getLat(),
-        y: center.getLng(),
-      };
-
-      if (
-        newCenterCoordinate.x !== centerCoordinate.x ||
-        newCenterCoordinate.y !== centerCoordinate.y
-      ) {
-        setCenterCoordinate(newCenterCoordinate);
-        toggleAroundBinClose();
-      }
-    }
-  }, 200);
-
-
-
   const handleMarkerClick = () => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "Marker_click", {
@@ -141,6 +125,24 @@ export default function KakaoMap({
     toggleBinInfoOpen();
     handleMarkerClick();
   };
+
+  const debouncedHandleCenterChanged = useDebounceCallback(() => {
+    if (!!mapRef.current) {
+      const center = mapRef.current.getCenter();
+      const newCenterCoordinate = {
+        x: center.getLat(),
+        y: center.getLng(),
+      };
+
+      if (
+        newCenterCoordinate.x !== centerCoordinate.x ||
+        newCenterCoordinate.y !== centerCoordinate.y
+      ) {
+        setCenterCoordinate(newCenterCoordinate);
+        toggleAroundBinClose();
+      }
+    }
+  }, 300);
 
   const { mapRef, myMarkerRef, binkMarkerRef } = useKakaoMap(
     coordinate,
@@ -178,41 +180,36 @@ export default function KakaoMap({
 
   const handleClickGetAroundBinData = async () => {
     try {
-      if (centerCoordinate.x !== 0 && centerCoordinate.y !== 0) {
-        toggleAroundBinOpen();
-        const { data: fetchedBinData } = await refetchBinData();
-        setbins(fetchedBinData);
-        setIsCardHidden(false);
-        if (fetchedBinData.length === 0) {
-          toggleToastOpen();
-        } else if (fetchedBinData.length > 0) {
-          panToCoordinate(mapRef.current, fetchedBinData[0]);
-          resetAndAddMarkers(
-            mapRef.current,
-            binkMarkerRef,
-            fetchedBinData,
-            handleClickMarker
-          );
-        }
+      toggleAroundBinOpen();
+      const { data: fetchedBinData } = await refetchBinData();
+      setbins(fetchedBinData);
+      setIsCardHidden(false);
+      if (fetchedBinData.length === 0) {
+        toggleToastOpen();
+      } else if (fetchedBinData.length > 0) {
+        panToCoordinate(mapRef.current, fetchedBinData[0]);
+        resetAndAddMarkers(
+          mapRef.current,
+          binkMarkerRef,
+          fetchedBinData,
+          handleClickMarker
+        );
       }
     } catch (error) {
       console.error("주변 쓰레기통 데이터를 불러오는 데 실패했습니다:", error);
     }
   };
+
   useEffect(() => {
     const fetchBinData = async () => {
-      if (
-        binType == undefined ||
-        centerCoordinate.x === 0 ||
-        centerCoordinate.y === 0
-      ) {
+      if (binType == undefined) {
         return;
       }
 
       try {
         const { data: fetchedBinData } = await refetchBinData();
         setbins(fetchedBinData);
-
+        console.log(binType);
         if (fetchedBinData?.length === 0) {
           toggleToastOpen();
           if (mapRef.current) {
@@ -226,17 +223,22 @@ export default function KakaoMap({
         }
 
         if (binType === "isBookmarked") {
-          return setbins((prev: any) =>
-            prev?.filter((bin: any) => bin.isBookMarked)
+          console.log("bins", bins);
+          return setbins(
+            (prev: any) => prev?.filter((bin: any) => bin.isBookmarked) || []
           );
         }
 
-        if (fetchedBinData && mapRef.current) {
-          panToCoordinate(mapRef.current, fetchedBinData[0]);
+        if (fetchedBinData && mapRef.current && bins.length !== 0) {
+          const filteredData = fetchedBinData.filter(
+            (item: any) => item.type === binType
+          );
+
+          panToCoordinate(mapRef.current, filteredData[0]);
           return resetAndAddMarkers(
             mapRef.current,
             binkMarkerRef,
-            fetchedBinData,
+            filteredData,
             handleClickMarker
           );
         }

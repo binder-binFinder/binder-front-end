@@ -18,7 +18,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 1.4rem;
-  padding: 2.4rem 1.6rem;
+  padding: 3.3rem;
   z-index: 999;
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@
   // }
 }
 .kakaoText {
-  color: var(--card-address);
+  color: var(--comment-text);
   text-align: center;
   font-size: 1.5rem;
   font-weight: 400;
@@ -101,8 +101,8 @@
     color: var(--detail-title);
     font-size: 1.5rem;
     line-height: 25px;
-    border: 1px #c8d0cd;
-    background: #d1dad6;
+    border: 1px var(--date-text);
+    background: var(--mypage-toggle-border);
     position: absolute;
     right: 0;
     letter-spacing: -0.225px;
@@ -119,8 +119,8 @@
   width: 3.5rem;
   height: 3.5rem;
   position: absolute;
-  right: 1.7rem;
-  top: 1.1rem;
+  right: 3.26rem;
+  top: 3.3rem;
   cursor: pointer;
 }
 .shareNoti,
