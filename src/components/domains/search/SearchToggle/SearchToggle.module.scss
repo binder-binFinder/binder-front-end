@@ -12,17 +12,17 @@
   width: fit-content;
   height: 3.1rem;
   font-size: 1.5rem;
-  font-weight: 600;
   line-height: 37px;
   border-radius: 5rem;
   padding: 0.7rem 1.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--createat);
+  color: var(--toggle-search-none-seleced);
   cursor: pointer;
 }
 .toggleBtnOn {
-  color: var(--white);
+  color: var(--toggle-search-seleced);
+  font-weight: 600;
   background: var(--primary-green);
 }

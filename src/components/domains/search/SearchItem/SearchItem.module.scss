@@ -10,7 +10,7 @@
   gap: 1rem;
 }
 .itemTitle {
-  color: var(--card-address);
+  color: var(--comment-text);
   font-size: 1.6rem;
   line-height: 25px;
   cursor: pointer;
@@ -23,4 +23,5 @@
 }
 .itemClose {
   cursor: pointer;
+  filter: brightness(56%);
 }
