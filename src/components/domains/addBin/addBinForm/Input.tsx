@@ -41,8 +41,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             pathname: "/",
             query: {
               addBin: true,
-              latitude: mapCenter?.x,
-              longitude: mapCenter?.y,
             },
           }}
         >

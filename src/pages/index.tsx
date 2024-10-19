@@ -19,7 +19,7 @@ export default function Home({ isSearch = false }: { isSearch?: boolean }) {
     };
   }, []);
 
-  if (!!addBin) {
+  if (addBin !== "true") {
     return (
       <>
         {tutorial !== true && <Tutorial />}
@@ -29,5 +29,5 @@ export default function Home({ isSearch = false }: { isSearch?: boolean }) {
     );
   }
 
-  return <HomeLayOut isAddBin={addBin === "true"} isSearch={isSearch} />;
+  return <HomeLayOut isAddBin={true} isSearch={false} />;
 }
