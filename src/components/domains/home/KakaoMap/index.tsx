@@ -71,22 +71,28 @@ export default function KakaoMap({
   });
 
   useEffect(() => {
-    if (!!query.latitude && !!query.longitude) {
+    if (query.latitude && query.longitude) {
       setNewAddAddress({ roadAddress: "", address: "" });
       setNewAddCoordinate({ x: 0, y: 0 });
       setCoordinate({
         x: Number(query.latitude),
         y: Number(query.longitude),
       });
-    } else if (isSearch && (choice.latitude !== 0, choice.longitude !== 0)) {
+    } else return;
+  }, [query]);
+
+  useEffect(() => {
+    if (isSearch && choice.latitude !== 0 && choice.longitude !== 0) {
       setCenterCoordinate({ x: choice.latitude, y: choice.longitude });
-    } else if (locationData && Array.isArray(locationData)) {
-      setNewAddAddress({ roadAddress: "", address: "" });
-      setNewAddCoordinate({ x: 0, y: 0 });
+    } else return;
+  }, [isSearch, choice]);
+
+  useEffect(() => {
+    if (locationData && Array.isArray(locationData)) {
       setCoordinate(locationData[0]);
       setCenterCoordinate(locationData[0]);
     }
-  }, [locationData, isSearch, query, isAddBin]);
+  }, [locationData]);
 
   const {
     data: binData,

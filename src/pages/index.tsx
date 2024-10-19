@@ -11,7 +11,6 @@ export default function Home({ isSearch = false }: { isSearch?: boolean }) {
   const { addBin } = router.query;
   const [tutorial] = useAtom(tutorialAtom);
   const [onBoard] = useAtom(onBoardingAtom);
-  console.log(addBin);
 
   useEffect(() => {
     document.body.style.overscrollBehaviorY = "none";
