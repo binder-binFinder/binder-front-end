@@ -12,6 +12,7 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AdminSetting from "../AdminSetting";
+import CopyRight from "../CopyRight";
 import styles from "./MyPageToggle.module.scss";
 import SettingWrap from "./SettingWrap";
 
@@ -72,14 +73,7 @@ export default function MyPageSetting() {
         handleTheme={handleTheme}
       />
       {loginStates && isAdmin === "ROLE_ADMIN" && <AdminSetting />}
-      <div style={{ textAlign: "center", marginTop: "1.4rem" }}>
-        &copy; 2024 Binder. All rights reserved. <br />
-        Designed and developed by the Binder Team.
-        <br />
-        Contact :
-        <a href="mailto:rladbstn1212@gmail.com"> rladbstn1212@gmail.com</a>
-      </div>
-
+      <CopyRight />
       {theme && <DropTheme closeModal={handleTheme} pageFilter={themeMode} />}
       {drop && (
         <DropCancel handleDrop={handleDrop} setDeleteModal={setDeleteModal} />
