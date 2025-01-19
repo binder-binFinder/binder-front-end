@@ -1,13 +1,13 @@
-import close from "@/../public/images/dropClose.svg";
 import closeDark from "@/../public/images/dropClose-dark.svg";
+import close from "@/../public/images/dropClose.svg";
 import kakao from "@/../public/images/kakao.svg";
+import { themeColor } from "@/lib/atoms/atom";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useEffect } from "react";
 import Portal from "../Portal";
 import styles from "./Share.module.scss";
-import { useAtom } from "jotai";
-import { themeColor } from "@/lib/atoms/atom";
 
 const cn = classNames.bind(styles);
 
