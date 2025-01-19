@@ -17,35 +17,31 @@ export const useKakaoMap = (
 
   useEffect(() => {
     loadKakaoMapScript(() => {
-      if (coordinate.x !== 0 && coordinate.y !== 0) {
-        const result = initializeMap(
-          coordinate,
-          setAddress,
-          isSearch,
-          binkMarkerRef,
-          handleClickMarker,
-          choice
-        );
-        if (result) {
-          mapRef.current = result.map;
-          myMarkerRef.current = result.myLocationMarker;
+      const result = initializeMap(
+        coordinate,
+        setAddress,
+        isSearch,
+        binkMarkerRef,
+        handleClickMarker,
+        choice
+      );
+      if (result) {
+        mapRef.current = result.map;
+        myMarkerRef.current = result.myLocationMarker;
 
+        window.kakao.maps.event.addListener(
+          mapRef.current,
+          "center_changed",
+          debouncedHandleCenterChanged
+        );
+
+        if (isAddBin) {
           window.kakao.maps.event.addListener(
             mapRef.current,
-            "center_changed",
-            debouncedHandleCenterChanged
+            "click",
+            handleClickAddMarker
           );
-
-          if (isAddBin) {
-            window.kakao.maps.event.addListener(
-              mapRef.current,
-              "click",
-              handleClickAddMarker
-            );
-          }
         }
-      } else {
-        console.error("Invalid coordinates or Kakao Map API not loaded.");
       }
     });
 

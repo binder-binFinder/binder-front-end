@@ -23,7 +23,7 @@
 
 ## 1. 개발 환경
 
-- Front : Next, SASS, React Query, Axios, React hook form, Axios, Jotai
+- Front : Next, SASS, React Query, Axios, React hook form, Jotai
 - 버전 및 이슈관리 : Github, Github Issues, Github Project
 - 협업 툴 : 뤼이도, Notion, Figma, 카카오톡
 - 서비스 배포 환경 : Vercel
