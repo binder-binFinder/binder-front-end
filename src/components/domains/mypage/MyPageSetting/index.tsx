@@ -72,6 +72,13 @@ export default function MyPageSetting() {
         handleTheme={handleTheme}
       />
       {loginStates && isAdmin === "ROLE_ADMIN" && <AdminSetting />}
+      <div style={{ textAlign: "center" }}>
+        &copy; 2024 Binder. All rights reserved. <br />
+        Designed and developed by the Binder Team.
+        <br />
+        Contact :
+        <a href="mailto:rladbstn1212@gmail.com"> rladbstn1212@gmail.com</a>
+      </div>
 
       {theme && <DropTheme closeModal={handleTheme} pageFilter={themeMode} />}
       {drop && (
