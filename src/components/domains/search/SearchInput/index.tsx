@@ -111,7 +111,7 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
   useEffect(() => {
     setSearchData(prevSearchPick);
   }, [prevSearchPick]);
-
+  console.log(addresses);
   return (
     <article>
       <form className={cn("inputWrap")} onSubmit={handleSubmit(onSubmit)}>
@@ -145,7 +145,7 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
 
       <ul
         className={
-          addresses.length > 0 ? cn("searchList") : cn("searchListNone")
+          addresses.length == 0 ? cn("searchListNone") : cn("searchList")
         }
       >
         {addresses.map((address: any, index: number) => (
