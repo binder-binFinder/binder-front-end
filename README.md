@@ -3,7 +3,7 @@
 <img src="https://github.com/user-attachments/assets/cbadfc22-afb1-4189-b841-030721807813" alt="Group 34158" width="300"/>
 
 
-- 배포 URL : https://www.bin-finder.net/
+- 배포 URL : [https://www.bin-finder.net/](https://binder-front-end-324s-projects.vercel.app/)
 
 <br>
 
