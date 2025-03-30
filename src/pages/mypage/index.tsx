@@ -26,12 +26,12 @@ export default function MyPage() {
   }, [setLoginState, setIsAdmin, memberData]);
 
   return !!memberData ? (
-    <section>
+    <section data-cy="login">
       <MyPageProfile memberData={memberData} />
       <MyPageToggle />
     </section>
   ) : (
-    <section>
+    <section data-cy="noLogin">
       <MyPageNologin />
       <MyPageToggle />
     </section>

@@ -43,12 +43,14 @@ export default function DropTheme({ closeModal, pageFilter }: AdminFilter) {
         <div
           className={choice === "라이트 모드" ? cn("btnOn") : cn("btn")}
           onClick={() => handleChoice("라이트 모드")}
+          data-cy="light"
         >
           라이트 모드
         </div>
         <div
           className={choice === "다크 모드" ? cn("btnOn") : cn("btn")}
           onClick={() => handleChoice("다크 모드")}
+          data-cy="dark"
         >
           다크 모드
         </div>

@@ -13,7 +13,11 @@ interface SettingItemProps {
 
 export default function SettingItem({ name, handleFn, img }: SettingItemProps) {
   return (
-    <div className={cn("settingItem")} onClick={handleFn}>
+    <div
+      className={cn("settingItem")}
+      onClick={handleFn}
+      data-cy={name === "화면 테마" ? "theme" : undefined}
+    >
       <div className={cn("settingTitle")}>
         <div className={cn("settingLogout")}>
           <Image src={img} alt="로그아웃" fill sizes="15px" />

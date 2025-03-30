@@ -86,7 +86,7 @@ export default function Gnb() {
             <Image src={more} alt={"쓰레기통 작성"} fill sizes="52px" />
           </Link>
         )}
-        <div className={page === "/" ? cn("gnbOn") : cn("gnb")}>
+        <div data-cy="gnb1" className={page === "/" ? cn("gnbOn") : cn("gnb")}>
           <div className={cn("onBar")}></div>{" "}
           <Link href={"/"} className={cn("gnbMenuImg")}>
             <Image src={page === "/" ? homeOn : home} alt="홈" fill />
@@ -95,6 +95,7 @@ export default function Gnb() {
         </div>
 
         <div
+          data-cy="gnb2"
           className={page.startsWith("/search") ? cn("gnbOn") : cn("gnb")}
           onClick={handleSearchClick}
         >
@@ -109,7 +110,10 @@ export default function Gnb() {
           <span>검색</span>
         </div>
 
-        <div className={page.startsWith("/mypage") ? cn("gnbOn") : cn("gnb")}>
+        <div
+          data-cy="gnb3"
+          className={page.startsWith("/mypage") ? cn("gnbOn") : cn("gnb")}
+        >
           <div className={cn("onBar")}></div>
           <Link href={"/mypage"} className={cn("gnbMenuImg")}>
             <Image
