@@ -126,6 +126,7 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
             value={searchInput}
             onChange={(e) => setSearchData(e.target.value)}
             // ref={ref}
+            data-cy="searchInput"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -147,6 +148,7 @@ export default function SearchInput({ prevSearchPick }: SearchInputProps) {
         className={
           addresses.length == 0 ? cn("searchListNone") : cn("searchList")
         }
+        data-cy="dropSearch"
       >
         {addresses.map((address: any, index: number) => (
           <li
