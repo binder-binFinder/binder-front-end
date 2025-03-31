@@ -12,40 +12,73 @@ describe("마이페이지 쿠키 인증", () => {
     cy.get("@toggle1").click();
   });
 
-  it("로그인 상태에 따른 출력", () => {
-    // 로그인 성공 테스트
-    cy.intercept("GET", "https://api.bin-finder.net/members/me", {
-      statusCode: 200,
-      body: { message: "로그인 성공" },
-    }).as("getUserInfoSuccess");
+  describe("로그인 상태에 따른 출력 테스트", () => {
+    it("로그인 상태 출력", () => {
+      // Given: 마이페이지 접속
 
-    cy.visit("/mypage");
+      cy.visit("/mypage");
+      // When: 로그인 상태 확인
+      // 로그인 성공 테스트
+      cy.intercept("GET", "https://api.bin-finder.net/members/me", {
+        statusCode: 200,
+        body: { message: "로그인 성공" },
+      }).as("getUserInfoSuccess");
 
-    cy.wait("@getUserInfoSuccess").then(() => {
-      cy.get("[data-cy=login]").should("be.visible");
-      cy.get("[data-cy=noLogin]").should("not.exist");
+      // Then: 로그인 상태로 화면 출력
+      cy.wait("@getUserInfoSuccess").then(() => {
+        cy.get("[data-cy=login]").should("be.visible");
+        cy.get("[data-cy=noLogin]").should("not.exist");
+      });
     });
 
-    // 로그인 실패 테스트를 위해 다시 설정
+    it("로그아웃 상태 출력", () => {
+      // Given: 마이페이지 접속
+      cy.visit("/mypage");
+
+      // When: 로그아웃 상태 확인
+      cy.intercept("GET", "https://api.bin-finder.net/members/me", {
+        statusCode: 401,
+        body: { message: "로그인 실패" },
+      }).as("getUserInfoFailure");
+
+      // Then: 로그아웃 상태로 화면 출력
+      cy.wait("@getUserInfoFailure").then(() => {
+        cy.get("[data-cy=noLogin]").should("be.visible");
+        cy.get("[data-cy=login]").should("not.exist");
+      });
+    });
+  });
+
+  it("로그아웃 상태에서 소셜 로그인 출력과 이동 테스트", () => {
+    // Given: 로그아웃 상태로 마이페이지 접속
+    cy.visit("/mypage");
+
     cy.intercept("GET", "https://api.bin-finder.net/members/me", {
       statusCode: 401,
       body: { message: "로그인 실패" },
     }).as("getUserInfoFailure");
 
-    cy.reload();
-
+    // When: 로그아웃 상태에 따른 출력과 이동
     cy.wait("@getUserInfoFailure").then(() => {
-      cy.get("[data-cy=noLogin]").should("be.visible");
-      cy.get("[data-cy=login]").should("not.exist");
+      cy.get("[data-cy=toggle2]").should("be.visible").as("toggle2");
+
+      cy.get("@toggle2").click();
+
+      cy.get("[data-cy=social]").should("be.visible").as("social");
+      cy.get("@social").click();
     });
+
+    // Then: 출력 후 /signin 페이지로 이동
+    cy.url().should("eq", "http://localhost:3000/signin");
   });
 
   it("공유하기 모달 테스트", () => {
     let domainValue = "";
-    // Given: 마이 페이지 접속 (로그인,비로그인 둘다 가능)
+
+    // ✅ Given: 사용자가 마이 페이지에 접속한다.
     cy.visit("/mypage");
 
-    // When: 마이페이지 접속 후 설정 -> 공유하기 눌러 모달 출력 후 url이 제대로 적혀있는지와 복사 실행
+    // ✅ When: 사용자가 설정 메뉴를 열고, 공유하기 버튼을 클릭하여 모달을 연다.
     cy.get("[data-cy=toggle2]").click();
     cy.get("[data-cy=share]").click();
     cy.get("[data-cy=shareModal]").should("be.visible").as("shareModal");
@@ -53,14 +86,17 @@ describe("마이페이지 쿠키 인증", () => {
     cy.url().then((currentUrl) => {
       const domainOnly = new URL(currentUrl).origin;
       domainValue = domainOnly;
+
+      // ✅ Then: 공유하기 모달의 URL 입력 값이 올바른 URL인지 확인한다.
       cy.get("[data-cy=shareUrl]").should("have.value", domainOnly);
     });
 
+    // ✅ When: 사용자가 복사 버튼을 클릭한다.
     cy.get("[data-cy=shareBtn]").click();
 
-    // Then: url이 잘 적혀있으며 복사가 정상적으로 동작
+    // ✅ Then: 클립보드에 URL이 올바르게 복사되었는지 확인한다.
     cy.window().then((win) => {
-      cy.wrap(win.navigator.clipboard.readText()).then((clipboardText) => {
+      return win.navigator.clipboard.readText().then((clipboardText) => {
         expect(clipboardText).to.equal(domainValue);
       });
     });

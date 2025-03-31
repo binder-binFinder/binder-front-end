@@ -21,7 +21,9 @@ export default function SettingItem({ name, handleFn, img }: SettingItemProps) {
           ? "theme"
           : name === "공유하기"
             ? "share"
-            : undefined
+            : name === "소셜 로그인"
+              ? "social"
+              : undefined
       }
     >
       <div className={cn("settingTitle")}>
