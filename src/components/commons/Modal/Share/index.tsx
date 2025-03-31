@@ -69,7 +69,7 @@ export default function Share({ modalClose, setShare }: IModalProps) {
   };
   return (
     <Portal>
-      <div className={cn("shareBack")}>
+      <div className={cn("shareBack")} data-cy="shareModal">
         <div className={cn("shareWrap")}>
           <div className={cn("shareTitle")}>Binder 공유하기</div>
           <div className={cn("shareClose")} onClick={modalClose}>
@@ -91,8 +91,14 @@ export default function Share({ modalClose, setShare }: IModalProps) {
           </div>
 
           <div className={cn("shareOrigin")}>
-            <input type="text" value={window.location.origin} />
-            <div onClick={copyURL}>URL복사</div>
+            <input
+              type="text"
+              value={window.location.origin}
+              data-cy="shareUrl"
+            />
+            <div onClick={copyURL} data-cy="shareBtn">
+              URL복사
+            </div>
           </div>
         </div>
       </div>

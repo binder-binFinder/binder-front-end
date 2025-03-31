@@ -16,11 +16,17 @@ export default function SettingItem({ name, handleFn, img }: SettingItemProps) {
     <div
       className={cn("settingItem")}
       onClick={handleFn}
-      data-cy={name === "화면 테마" ? "theme" : undefined}
+      data-cy={
+        name === "화면 테마"
+          ? "theme"
+          : name === "공유하기"
+            ? "share"
+            : undefined
+      }
     >
       <div className={cn("settingTitle")}>
         <div className={cn("settingLogout")}>
-          <Image src={img} alt="로그아웃" fill sizes="15px" />
+          <Image src={img} alt="세팅 아이템 이미지" fill sizes="15px" />
         </div>
         <div className={cn("settingText")}>{name}</div>
       </div>

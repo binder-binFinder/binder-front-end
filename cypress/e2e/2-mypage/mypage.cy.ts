@@ -40,6 +40,32 @@ describe("마이페이지 쿠키 인증", () => {
     });
   });
 
+  it("공유하기 모달 테스트", () => {
+    let domainValue = "";
+    // Given: 마이 페이지 접속 (로그인,비로그인 둘다 가능)
+    cy.visit("/mypage");
+
+    // When: 마이페이지 접속 후 설정 -> 공유하기 눌러 모달 출력 후 url이 제대로 적혀있는지와 복사 실행
+    cy.get("[data-cy=toggle2]").click();
+    cy.get("[data-cy=share]").click();
+    cy.get("[data-cy=shareModal]").should("be.visible").as("shareModal");
+
+    cy.url().then((currentUrl) => {
+      const domainOnly = new URL(currentUrl).origin;
+      domainValue = domainOnly;
+      cy.get("[data-cy=shareUrl]").should("have.value", domainOnly);
+    });
+
+    cy.get("[data-cy=shareBtn]").click();
+
+    // Then: url이 잘 적혀있으며 복사가 정상적으로 동작
+    cy.window().then((win) => {
+      cy.wrap(win.navigator.clipboard.readText()).then((clipboardText) => {
+        expect(clipboardText).to.equal(domainValue);
+      });
+    });
+  });
+
   describe("마이페이지 테마 변경 기능", () => {
     it("다크 모드로 변경 후 유지되는지 확인", () => {
       // Given: 기본 테마가 라이트 모드로 설정되어 있다.
