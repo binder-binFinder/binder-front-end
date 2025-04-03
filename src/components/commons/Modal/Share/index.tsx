@@ -19,7 +19,7 @@ interface IModalProps {
 export default function Share({ modalClose, setShare }: IModalProps) {
   const [theme] = useAtom(themeColor);
   const copyURL = () => {
-    const currentUrl = "https://www.bin-finder.net/";
+    const currentUrl = "https://binder-front-end-324s-projects.vercel.app/";
     navigator.clipboard
       .writeText(currentUrl)
       .then(() => {
