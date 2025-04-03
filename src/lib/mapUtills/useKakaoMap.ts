@@ -29,7 +29,7 @@ export const useKakaoMap = (
         mapRef.current = result.map;
         myMarkerRef.current = result.myLocationMarker;
 
-        window.kakao.maps.event.addListener(
+        window.kakao.maps.event?.addListener(
           mapRef.current,
           "center_changed",
           debouncedHandleCenterChanged
