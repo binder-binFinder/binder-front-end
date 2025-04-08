@@ -17,5 +17,6 @@ export const useBinData = (binType: any, centerCoordinate: any) => {
     queryFn: () => fetchBinsWithId(binType),
     enabled: !!binType && !!centerCoordinate.x && !!centerCoordinate.y,
     gcTime: 3000,
+    
   });
 };
