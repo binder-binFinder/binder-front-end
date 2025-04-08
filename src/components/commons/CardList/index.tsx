@@ -28,13 +28,19 @@ export interface CardProps {
 
 export default function CardList() {
   const router = useRouter();
-  const { data: cardLists, isLoading } = useQuery({
+  const { data: cardLists, isLoading ,isError} = useQuery({
     queryKey: ["cardList"],
     queryFn: getMembersTimeline,
   });
   const handleClickCard = (id: string) => {
     router.push(router.route + "/detail/" + id);
   };
+  if(isError) {
+    return <div className={cn("card-nologin")}>
+    <Image src={nologin} alt="전원 이미지" width={79} height={79} />
+    현재 서버에 데이터가 없습니다. 
+  </div>
+  }
   return (
     <ul className={cn("card-list")}>
       {cardLists === null ? (
