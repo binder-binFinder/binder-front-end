@@ -97,7 +97,7 @@ export default function KakaoMap({
   const {
     data: binData,
     refetch: refetchBinData,
-    isError,
+    isError : isbinDataLoadError,
     isLoading,
   } = useBinData(binType, centerCoordinate);
 
@@ -183,7 +183,10 @@ export default function KakaoMap({
       toggleAroundBinOpen();
       const { data: fetchedBinData } = await refetchBinData();
       setbins(fetchedBinData);
-      setIsCardHidden(false);
+      console.log('fffff',fetchedBinData)
+      if(!fetchedBinData) {
+//목데이터 좌표랑 주소 받아서 여기에 뿌려주기 fixerror   
+} setIsCardHidden(false);
       if (fetchedBinData.length === 0) {
         toggleToastOpen();
       } else if (fetchedBinData.length > 0) {
@@ -195,8 +198,9 @@ export default function KakaoMap({
           handleClickMarker
         );
       }
-    } catch (error) {
-      console.error("주변 쓰레기통 데이터를 불러오는 데 실패했습니다:", error);
+    } catch (error) { 
+      setIsCardHidden(false);
+      console.error("주변 쓰레기통 데이터를 불러오는 데 실패했습니다", error);
     }
   };
 
@@ -366,11 +370,11 @@ export default function KakaoMap({
         toggleMyLocation={toggleMyLocation}
         toggleMyLocationToggle={toggleMyLocationToggle}
         hasData={
-          !isError && (bins?.length > 0 || (isSearch && choice.id !== 0))
+          !isbinDataLoadError && (bins?.length > 0 || (isSearch && choice.id !== 0))
         }
         isCardHidden={isCardHidden}
       />
-      {!isCardHidden && (bins[0]?.id || (isSearch && choice.id !== 0)) && (
+      {!isCardHidden && !isbinDataLoadError && (bins[0]?.id || (isSearch && choice.id !== 0)) && (
         <RecommendCard
           setIsCardHidden={setIsCardHidden}
           isCardHidden={isCardHidden}
