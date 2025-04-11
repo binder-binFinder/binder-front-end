@@ -29,6 +29,8 @@ import { useDebounceCallback } from "usehooks-ts";
 import AroundBinSearchBtns from "../AroundBinSearchBtns";
 import BinTypeBtnList from "../BinTypeBtnList";
 import RecommendCard from "../RecommendCard";
+import getRandomLocation from "@/lib/mockLibs/getRandomLocation";
+import { BinDetail } from "@/lib/atoms/binAtom";
 
 export default function KakaoMap({
   isAddBin,
@@ -52,8 +54,6 @@ export default function KakaoMap({
   const [showToast, toggleToastOpen, toggletoastClose] = useToggle(false);
   const [
     toggleMyLocation,
-    toggleMyLocationOpen,
-    toggleMyLocationClose,
     toggleMyLocationToggle,
   ] = useToggle(false);
   const [toggleAroundBin, toggleAroundBinOpen, toggleAroundBinClose] =
@@ -185,6 +185,14 @@ export default function KakaoMap({
       setbins(fetchedBinData);
       console.log('fffff',fetchedBinData)
       if(!fetchedBinData) {
+        // fetch('data/MOCK_DATA.json')
+        // .then(res => res.json())
+        // .then(data=> data.map((bin)=>{        
+        //   const randomBinLocation =getRandomLocation(locationData[0]);
+        //   bin.latitude = randomBinLocation.latitude;
+        //   bin.longitude = randomBinLocation.longitude;
+        // //   return bin
+        // })).then(binData=> console.log('dfdfdf',binData))
 //목데이터 좌표랑 주소 받아서 여기에 뿌려주기 fixerror   
 } setIsCardHidden(false);
       if (fetchedBinData.length === 0) {
