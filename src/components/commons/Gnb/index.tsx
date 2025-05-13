@@ -42,7 +42,7 @@ export default function Gnb() {
     gcTime: 1000,
 
     retry: (failureCount, error: any) => {
-      if (error.response?.status === 401 || false) {
+      if (error.response?.status === 401 || error.response?.message === "Network Error") {
         setLoginState(false);
         return false; // 401 에러면 재시도 중지
       }
