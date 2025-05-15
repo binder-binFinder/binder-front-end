@@ -11,7 +11,11 @@ instance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  (error) => {   
+    if(error.code === 'ERR_NETWORK') {
+      console.log('interceptors' , error);
+      return false //  서버 연결끊겨서 생성된 에러 처리 
+    } 
     if (error.response && error.response.status === 401) {
       // window.location.href = "/signin";
     }

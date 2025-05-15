@@ -3,7 +3,7 @@
 <img src="https://github.com/user-attachments/assets/cbadfc22-afb1-4189-b841-030721807813" alt="Group 34158" width="300"/>
 
 
-- 배포 URL : https://www.bin-finder.net/
+- 배포 URL : [https://www.bin-finder.net/](https://binder-front-end-324s-projects.vercel.app/)
 
 <br>
 
@@ -23,7 +23,7 @@
 
 ## 1. 개발 환경
 
-- Front : Next, SASS, React Query, Axios, React hook form, Axios, Jotai
+- Front : Next, SASS, React Query, Axios, React hook form, Jotai
 - 버전 및 이슈관리 : Github, Github Issues, Github Project
 - 협업 툴 : 뤼이도, Notion, Figma, 카카오톡
 - 서비스 배포 환경 : Vercel

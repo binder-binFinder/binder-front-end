@@ -17,21 +17,22 @@ export default function MyPage() {
   const [, setIsAdmin] = useAtom(adminUser);
 
   useEffect(() => {
-    if (memberData !== null) {
+    if (memberData === null || memberData === undefined) {
+      setLoginState(false);
+    } else {
       setLoginState(true);
       setIsAdmin(memberData?.role);
-    } else {
-      setLoginState(false);
+    
     }
   }, [setLoginState, setIsAdmin, memberData]);
 
   return !!memberData ? (
-    <section>
+    <section data-cy="login">
       <MyPageProfile memberData={memberData} />
       <MyPageToggle />
     </section>
   ) : (
-    <section>
+    <section data-cy="noLogin">
       <MyPageNologin />
       <MyPageToggle />
     </section>

@@ -80,6 +80,7 @@ export default function DropWrap({
         onClick={btnFunction}
         disabled={!submitState}
         className={submitState ? cn("dropBtnOn") : cn("dropBtn")}
+        data-cy="choice"
       >
         {btn}
       </button>

@@ -1,13 +1,13 @@
-import close from "@/../public/images/dropClose.svg";
 import closeDark from "@/../public/images/dropClose-dark.svg";
+import close from "@/../public/images/dropClose.svg";
 import kakao from "@/../public/images/kakao.svg";
+import { themeColor } from "@/lib/atoms/atom";
 import classNames from "classnames/bind";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useEffect } from "react";
 import Portal from "../Portal";
 import styles from "./Share.module.scss";
-import { useAtom } from "jotai";
-import { themeColor } from "@/lib/atoms/atom";
 
 const cn = classNames.bind(styles);
 
@@ -19,7 +19,7 @@ interface IModalProps {
 export default function Share({ modalClose, setShare }: IModalProps) {
   const [theme] = useAtom(themeColor);
   const copyURL = () => {
-    const currentUrl = "https://www.bin-finder.net/";
+    const currentUrl = "https://binder-front-end-324s-projects.vercel.app/";
     navigator.clipboard
       .writeText(currentUrl)
       .then(() => {
@@ -69,7 +69,7 @@ export default function Share({ modalClose, setShare }: IModalProps) {
   };
   return (
     <Portal>
-      <div className={cn("shareBack")}>
+      <div className={cn("shareBack")} data-cy="shareModal">
         <div className={cn("shareWrap")}>
           <div className={cn("shareTitle")}>Binder 공유하기</div>
           <div className={cn("shareClose")} onClick={modalClose}>
@@ -91,8 +91,14 @@ export default function Share({ modalClose, setShare }: IModalProps) {
           </div>
 
           <div className={cn("shareOrigin")}>
-            <input type="text" value={window.location.origin} />
-            <div onClick={copyURL}>URL복사</div>
+            <input
+              type="text"
+              value={window.location.origin}
+              data-cy="shareUrl"
+            />
+            <div onClick={copyURL} data-cy="shareBtn">
+              URL복사
+            </div>
           </div>
         </div>
       </div>

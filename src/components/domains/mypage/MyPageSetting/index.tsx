@@ -12,6 +12,7 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AdminSetting from "../AdminSetting";
+import CopyRight from "../CopyRight";
 import styles from "./MyPageToggle.module.scss";
 import SettingWrap from "./SettingWrap";
 
@@ -72,7 +73,7 @@ export default function MyPageSetting() {
         handleTheme={handleTheme}
       />
       {loginStates && isAdmin === "ROLE_ADMIN" && <AdminSetting />}
-
+      <CopyRight />
       {theme && <DropTheme closeModal={handleTheme} pageFilter={themeMode} />}
       {drop && (
         <DropCancel handleDrop={handleDrop} setDeleteModal={setDeleteModal} />

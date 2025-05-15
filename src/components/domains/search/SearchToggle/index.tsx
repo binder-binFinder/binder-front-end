@@ -69,7 +69,7 @@ export default function SearchToggle({ target }: any) {
   // 중복 제거 및 상태 업데이트
   useEffect(() => {
     if (isSuccess && bookmarkData?.pages) {
-      const newBookmark = bookmarkData.pages.flat();
+      const newBookmark = bookmarkData.pages.flat() 
 
       setSearch((prev: any) => {
         // prev가 null이거나 undefined일 경우 빈 배열로 대체
@@ -77,10 +77,9 @@ export default function SearchToggle({ target }: any) {
           ...(Array.isArray(prev) ? prev : []),
           ...newBookmark,
         ];
-
-        // 중복 제거
+     
         const uniqueNotis = combinedNotis.filter(
-          (v, i, a) => a.findIndex((t) => t.bookmarkId === v.bookmarkId) === i
+          (v, i, a) => a.findIndex((t) => t?.bookmarkId === v?.bookmarkId) === i
         );
 
         return uniqueNotis;

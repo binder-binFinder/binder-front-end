@@ -17,7 +17,11 @@ describe("로그인 화면", () => {
     cy.visit("https://api.bin-finder.net/oauth2/authorization/google");
 
     cy.getCookie("accessToken").should("exist");
-    cy.getCookie("accessToken").should("have.property", "value", "accessToken1111");
+    cy.getCookie("accessToken").should(
+      "have.property",
+      "value",
+      "accessToken1111"
+    );
 
     // then - 로그인에 성공 후 [???] 페이지로 이동한다.
   });
