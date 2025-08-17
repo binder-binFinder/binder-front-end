@@ -23,6 +23,7 @@ function SearchBtn() {
       href={"/search"}
       className={cn("btn-search-link")}
       onClick={handleSearchClick}
+      data-cy="searchBtn"
     >
       <button>
         <Image

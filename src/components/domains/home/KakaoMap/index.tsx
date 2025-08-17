@@ -29,6 +29,7 @@ import { useDebounceCallback } from "usehooks-ts";
 import AroundBinSearchBtns from "../AroundBinSearchBtns";
 import BinTypeBtnList from "../BinTypeBtnList";
 import RecommendCard from "../RecommendCard";
+import getRandomLocation from "@/lib/mockLibs/getRandomLocation";
 
 export default function KakaoMap({
   isAddBin,
@@ -42,7 +43,7 @@ export default function KakaoMap({
   const [, setNewAddAddress] = useAtom(newAddAddress);
   const [AddCoordinate, setNewAddCoordinate] = useAtom(newAddCoordinate);
   const [choice] = useAtom(searchChoice);
-  const [bins, setbins] = useState<any>("");
+  const [bins, setbins] = useState<any>([]);
   const [isCardHidden, setIsCardHidden] = useState(false);
   const [binType, setBinType] = useState<
     null | BinItemType["id"] | "isBookmarked"
@@ -52,8 +53,6 @@ export default function KakaoMap({
   const [showToast, toggleToastOpen, toggletoastClose] = useToggle(false);
   const [
     toggleMyLocation,
-    toggleMyLocationOpen,
-    toggleMyLocationClose,
     toggleMyLocationToggle,
   ] = useToggle(false);
   const [toggleAroundBin, toggleAroundBinOpen, toggleAroundBinClose] =
@@ -97,7 +96,7 @@ export default function KakaoMap({
   const {
     data: binData,
     refetch: refetchBinData,
-    isError,
+    isError : isbinDataLoadError,
     isLoading,
   } = useBinData(binType, centerCoordinate);
 
@@ -183,75 +182,82 @@ export default function KakaoMap({
       toggleAroundBinOpen();
       const { data: fetchedBinData } = await refetchBinData();
       setbins(fetchedBinData);
-      setIsCardHidden(false);
-      if (fetchedBinData.length === 0) {
-        toggleToastOpen();
-      } else if (fetchedBinData.length > 0) {
+  
+      if (!fetchedBinData || fetchedBinData.length === 0) {
+        if (!fetchedBinData) {
+          // fallback: mock data
+          const response = await fetch('data/mockBinsData.json');
+          const mockData = await response.json();
+  
+          const binDataWithLocation = mockData.map((bin: any) => {
+            const randomLocation = getRandomLocation(locationData[0]);
+           
+            return {
+              ...bin,
+              latitude: randomLocation.latitude,
+              longitude: randomLocation.longitude,
+              ...(binType !== null && binType !== 'isBookmarked' && { type: binType }),
+            };
+          })
+           setbins(binDataWithLocation)
+          panToCoordinate(mapRef.current, binDataWithLocation[0]);
+          resetAndAddMarkers(mapRef.current, binkMarkerRef, binDataWithLocation, handleClickMarker);
+        } else {
+          toggleToastOpen();
+        }
+      } else {
         panToCoordinate(mapRef.current, fetchedBinData[0]);
-        resetAndAddMarkers(
-          mapRef.current,
-          binkMarkerRef,
-          fetchedBinData,
-          handleClickMarker
-        );
+        resetAndAddMarkers(mapRef.current, binkMarkerRef, fetchedBinData, handleClickMarker);
       }
     } catch (error) {
-      console.error("주변 쓰레기통 데이터를 불러오는 데 실패했습니다:", error);
+      setIsCardHidden(false);
+      console.error("주변 쓰레기통 데이터를 불러오는 데 실패했습니다", error);
     }
   };
-
+  
   useEffect(() => {
     const fetchBinData = async () => {
-      if (binType == undefined) {
-        return;
-      }
-
+      if (!binType) return;
+  
       try {
         const { data: fetchedBinData } = await refetchBinData();
         setbins(fetchedBinData);
-        console.log(binType);
+  
         if (fetchedBinData?.length === 0) {
           toggleToastOpen();
           if (mapRef.current) {
-            resetAndAddMarkers(
-              mapRef.current,
-              binkMarkerRef,
-              [],
-              handleClickMarker
-            );
+            resetAndAddMarkers(mapRef.current, binkMarkerRef, [], handleClickMarker);
           }
+          return;
         }
-
+  
         if (binType === "isBookmarked") {
-          console.log("bins", bins);
-          return setbins(
-            (prev: any) => prev?.filter((bin: any) => bin.isBookmarked) || []
-          );
+          return setbins((prev: any) => prev?.filter((bin: any) => bin.isBookmarked) || []);
         }
-
-        if (fetchedBinData && mapRef.current && bins.length !== 0) {
-          const filteredData = fetchedBinData.filter(
-            (item: any) => item.type === binType
-          );
-
+  
+        const filteredData = fetchedBinData.filter((item: any) => item.type === binType);
+        if (filteredData.length > 0 && mapRef.current) {
           panToCoordinate(mapRef.current, filteredData[0]);
-          return resetAndAddMarkers(
-            mapRef.current,
-            binkMarkerRef,
-            filteredData,
-            handleClickMarker
-          );
+          resetAndAddMarkers(mapRef.current, binkMarkerRef, filteredData, handleClickMarker);
         }
       } catch (error) {
-        console.error(
-          "주변 쓰레기통 데이터를 불러오는 데 실패했습니다:",
-          error
-        );
+        const response = await fetch('data/mockBinsData.json');
+        const mockData = await response.json();
+
+        const binDataWithLocation = mockData.map((bin: any) => {
+          const randomLocation = getRandomLocation(locationData[0]);
+          return { ...bin, latitude: randomLocation.latitude, longitude: randomLocation.longitude ,type:binType};
+        })
+         setbins(binDataWithLocation)
+        panToCoordinate(mapRef.current, binDataWithLocation[0]);
+        resetAndAddMarkers(mapRef.current, binkMarkerRef, binDataWithLocation, handleClickMarker);
+        console.error("주변 쓰레기통 데이터를 불러오는 데 실패했습니다:", error);
       }
     };
-
+  
     fetchBinData();
   }, [binType, isSearch]);
+  
 
   const handleClickGetmyLocation = async () => {
     try {
@@ -366,11 +372,11 @@ export default function KakaoMap({
         toggleMyLocation={toggleMyLocation}
         toggleMyLocationToggle={toggleMyLocationToggle}
         hasData={
-          !isError && (bins?.length > 0 || (isSearch && choice.id !== 0))
+          !isbinDataLoadError && (bins?.length > 0 || (isSearch && choice.id !== 0))
         }
         isCardHidden={isCardHidden}
       />
-      {!isCardHidden && (bins[0]?.id || (isSearch && choice.id !== 0)) && (
+      {!isCardHidden && !isbinDataLoadError && (bins[0]?.id || (isSearch && choice.id !== 0)) && (
         <RecommendCard
           setIsCardHidden={setIsCardHidden}
           isCardHidden={isCardHidden}
