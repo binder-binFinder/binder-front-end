@@ -184,7 +184,9 @@ export default function DropBinInfo({
             </button>
           )}
           <div className={cn("title-text")}>
-            <h6 className={cn("title")}>{binDetailData?.title}</h6>
+            <h6 className={cn("title")}>
+              {binDetailData?.title || "이 정보는 임의의 정보입니다."}
+            </h6>
             <p className={cn("address")}>
               <Image
                 src={"/images/icon-location-green-pin.svg"}
