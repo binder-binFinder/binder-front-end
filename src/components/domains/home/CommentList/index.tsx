@@ -35,9 +35,9 @@ export default function CommentList({ binId, isFill }: Props) {
       ),
     initialPageParam: { lastCommentId: 0, lastLikeCount: 0 },
     getNextPageParam: (lastPage) => {
-      if (lastPage.commentDetails.length === 0) return undefined;
-      const lastComment =
-        lastPage.commentDetails[lastPage.commentDetails.length - 1];
+      const comments = lastPage?.commentDetails ?? [];
+      if (comments.length === 0) return;
+      const lastComment = comments[comments.length - 1];
       return {
         lastCommentId: lastComment.commentId,
         lastLikeCount: lastComment.likeCount,
@@ -57,7 +57,9 @@ export default function CommentList({ binId, isFill }: Props) {
     ? Math.max(
         0,
         ...commentsListData.pages.flatMap((page) =>
-          page.commentDetails.map((comment: any) => comment.likeCount)
+          Array.isArray(page?.commentDetails)
+            ? page.commentDetails.map((comment: any) => comment.likeCount)
+            : []
         )
       )
     : 0;
@@ -110,21 +112,29 @@ export default function CommentList({ binId, isFill }: Props) {
         </div>
       </div>
       <ul className={cn("comments-list")}>
-        {commentsListData?.pages.map((page) =>
-          page.commentDetails.map((comment: any) => (
-            <Comment
-              key={comment.commentId}
-              commentData={comment}
-              refetchComments={refetchComments}
-              isBest={
-                comment.likeCount === bestLikeCount && comment.likeCount !== 0
-              }
-              onClickFixState={handleClickFixState}
-            />
-          ))
-        )}
-        {commentsListData?.pages[0].commentDetails.length === 0 && (
-          <p className={cn("none-text")}>댓글이 없습니다.</p>
+        {(!commentsListData ||
+          commentsListData.pages.length === 0 ||
+          commentsListData.pages.every(
+            (page) =>
+              !Array.isArray(page?.commentDetails) ||
+              page.commentDetails.length === 0
+          )) && <p className={cn("none-text")}>댓글이 없습니다.</p>}
+
+        {commentsListData?.pages.map((page, pageIndex) =>
+          Array.isArray(page?.commentDetails)
+            ? page.commentDetails.map((comment: any) => (
+                <Comment
+                  key={comment.commentId ?? `${pageIndex}-${Math.random()}`}
+                  commentData={comment}
+                  refetchComments={refetchComments}
+                  isBest={
+                    comment.likeCount === bestLikeCount &&
+                    comment.likeCount !== 0
+                  }
+                  onClickFixState={handleClickFixState}
+                />
+              ))
+            : null
         )}
       </ul>
       <div ref={loadMoreRef} className={cn("loading-trigger")}>
